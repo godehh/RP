@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Login &amp; Register | RP Organics</title>
+  
+  <link rel="icon" type="image/png" href="assets/images/rp-organics-logo.png" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/header-footer.css" />
+  <link rel="stylesheet" href="assets/css/product-card.css" />
+  <link rel="stylesheet" href="assets/css/cart-drawer.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+  <style>
+    .auth-wrapper {
+      max-width: 480px;
+      margin: 40px auto 80px;
+      background: #ffffff;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: 36px;
+      box-shadow: var(--shadow-sm);
+    }
+    .auth-tabs {
+      display: flex;
+      border-bottom: 2px solid var(--color-border);
+      margin-bottom: 28px;
+    }
+    .auth-tab-btn {
+      flex: 1;
+      text-align: center;
+      padding: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: all var(--transition-fast);
+    }
+    .auth-tab-btn.active {
+      color: var(--color-primary);
+      border-bottom-color: var(--color-primary);
+    }
+    .auth-form {
+      display: none;
+    }
+    .auth-form.active {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-field label {
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .form-field input {
+      padding: 10px 14px;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-size: 0.92rem;
+      outline: none;
+    }
+    .form-field input:focus {
+      border-color: var(--color-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+    <!-- Top Announcement Bar -->
+  <aside class="announcement-bar" aria-label="Store Announcement">
+    <div class="container">
+      <div class="announcement-left">
+        <span class="announcement-promo">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          Free Shipping on all orders above ₹999 across India!
+        </span>
+      </div>
+      <div class="announcement-right">
+        <span class="announcement-item">
+          <a href="tel:9150300641">📞 9150300641</a>
+        </span>
+        <span class="announcement-item">
+          <a href="mailto:benseethalrani@gmail.com">benseethalrani@gmail.com</a>
+        </span>
+        <span class="announcement-item"><a href="account.html#orders">Track Order</a></span>
+        <span class="announcement-item"><a href="login.html">Login / Register</a></span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/rp-organics-logo.png" alt="RP Organics logo" class="brand-logo-img" />
+          <div class="brand-logo-text"><span class="brand-title">RP Organics</span><span class="brand-tagline">Pure &amp; Natural</span></div>
+      </a>
+      <a href="shop.html" class="btn btn-outline btn-sm">Explore Store &rarr;</a>
+    </div>
+  </header>
+
+  <main class="container section-sm">
+    <div class="breadcrumbs" style="max-width: 480px; margin: 0 auto 16px;">
+      <a href="index.html">Home</a>
+      <span class="separator">/</span>
+      <span class="current">My Account</span>
+    </div>
+
+    <div class="auth-wrapper">
+      <div class="auth-tabs">
+        <div class="auth-tab-btn active" onclick="switchAuthTab('login', this)">Login</div>
+        <div class="auth-tab-btn" onclick="switchAuthTab('register', this)">Create Account</div>
+      </div>
+
+      <!-- Login Form -->
+      <form id="form-login" class="auth-form active" onsubmit="handleLoginSubmit(event)">
+        <div class="form-field">
+          <label>Email Address</label>
+          <input type="email" id="login-email" required placeholder="name@example.com" value="user@rporganics.com" />
+        </div>
+        <div class="form-field">
+          <div style="display: flex; justify-content: space-between;">
+            <label>Password</label>
+            <a href="javascript:void(0)" onclick="Store.showToast('Password reset link sent to your email.', 'info')" style="font-size: 0.78rem; color: var(--color-primary);">Forgot Password?</a>
+          </div>
+          <input type="password" id="login-password" required placeholder="••••••••" value="organic123" />
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-full" style="margin-top: 8px;">Login to Account</button>
+        
+        <div style="text-align: center; margin: 12px 0;">
+          <span style="font-size: 0.8rem; color: var(--color-text-light);">or</span>
+        </div>
+
+        <button type="button" class="btn btn-outline btn-full" onclick="quickDemoLogin()">
+          ⚡ Quick 1-Click Demo Login
+        </button>
+      </form>
+
+      <!-- Register Form -->
+      <form id="form-register" class="auth-form" onsubmit="handleRegisterSubmit(event)">
+        <div class="form-field">
+          <label>Full Name</label>
+          <input type="text" id="reg-name" required placeholder="e.g. Pooja Hegde" />
+        </div>
+        <div class="form-field">
+          <label>Email Address</label>
+          <input type="email" id="reg-email" required placeholder="pooja@example.com" />
+        </div>
+        <div class="form-field">
+          <label>Mobile Number (For Delivery SMS)</label>
+          <input type="tel" id="reg-phone" required placeholder="9150300641" />
+        </div>
+        <div class="form-field">
+          <label>Create Password</label>
+          <input type="password" id="reg-password" required placeholder="At least 6 characters" />
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-full" style="margin-top: 8px;">Create Account</button>
+      </form>
+    </div>
+  </main>
+
+    <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="brand-logo" style="margin-bottom: 8px;">
+            <img src="assets/images/rp-organics-logo.png" alt="RP Organics logo" class="footer-logo-img" />
+          </div>
+          <p>Pure, traditional South Indian herbal podis, protein health mix, and unpolished millet powders. 100% natural goodness crafted for your family's daily vitality.</p>
+
+          <!-- Mandatory Footer Details -->
+                    <!-- Mandatory Footer Details with Official FSSAI Logo -->
+          <div class="footer-fssai-box">
+            <strong style="display: block; font-size: 1rem; color: #ffffff;">RP Organics</strong>
+            <p style="margin: 3px 0; color: #d1d9d3; font-size: 0.85rem;"><strong>Owner:</strong> Rani Pavunrasu</p>
+            <p style="margin: 3px 0; color: #86efac; font-size: 0.85rem;"><strong>All products are FSSAI registered.</strong></p>
+            <div style="background: #ffffff; border-radius: 8px; padding: 8px 12px; display: inline-flex; align-items: center; gap: 12px; margin: 8px 0; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+              <img src="assets/images/fssai-logo.png" alt="FSSAI registered logo" width="56" height="56" style="width: 56px; height: 56px; object-fit: contain;" />
+              <div style="text-align: left;">
+                <span style="display: block; font-size: 0.78rem; font-weight: 800; color: #15803d; letter-spacing: 0.5px;">FSSAI REGISTERED</span>
+                <span style="display: block; font-size: 0.88rem; font-weight: 800; color: #111827;">Lic No: 22426431000125</span>
+              </div>
+            </div>
+            <p style="margin: 3px 0; color: #d1d9d3; font-size: 0.85rem;"><strong>Contact:</strong> <a href="tel:9150300641" style="color: #ffffff; text-decoration: underline;">9150300641</a></p>
+            <p style="margin: 3px 0; color: #d1d9d3; font-size: 0.85rem;"><strong>Email:</strong> <a href="mailto:benseethalrani@gmail.com" style="color: #ffffff; text-decoration: underline;">benseethalrani@gmail.com</a></p>
+          </div>
+<div class="footer-social-links">
+            <a href="https://instagram.com" class="footer-social-btn" aria-label="Instagram">IG</a>
+            <a href="https://wa.me/919150300641" class="footer-social-btn" aria-label="WhatsApp">WA</a>
+            <a href="https://facebook.com" class="footer-social-btn" aria-label="Facebook">FB</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop All</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Customer Care</h4>
+          <ul class="footer-links">
+            <li><a href="account.html#orders">Track Order</a></li>
+            <li><a href="shipping-returns.html">Shipping &amp; Returns</a></li>
+            <li><a href="faqs.html">FAQs</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <p style="font-size: 0.88rem; color: #a3b0a6;"><a href="mailto:benseethalrani@gmail.com" style="color: #ffffff;">benseethalrani@gmail.com</a></p>
+          <p style="font-size: 0.88rem; color: #a3b0a6;"><a href="tel:9150300641" style="color: #ffffff;">9150300641</a></p>
+          <p style="font-size: 0.8rem; color: #a3b0a6; margin-top: 8px;">FSSAI Lic No: 22426431000125</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 RP Organics. All rights reserved.</div>
+        <div class="footer-payment-badges">
+          <span class="payment-pill">UPI</span>
+          <span class="payment-pill">Google Pay</span>
+          <span class="payment-pill">PhonePe</span>
+          <span class="payment-pill">Debit/Credit Card</span>
+          <span class="payment-pill">Cash on Delivery</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/products-data.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/components.js"></script>
+  <script>
+    function switchAuthTab(type, btn) {
+      document.querySelectorAll('.auth-tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      document.getElementById('form-login').classList.toggle('active', type === 'login');
+      document.getElementById('form-register').classList.toggle('active', type === 'register');
+    }
+
+    function handleLoginSubmit(e) {
+      e.preventDefault();
+      localStorage.setItem('rp_user', JSON.stringify({ name: 'Rahul Sharma', email: 'user@rporganics.com' }));
+      Store.showToast('Welcome back, Rahul! Redirecting...', 'success');
+      setTimeout(() => window.location.href = 'account.html', 800);
+    }
+
+    function quickDemoLogin() {
+      localStorage.setItem('rp_user', JSON.stringify({ name: 'Pooja Hegde', email: 'pooja@example.com' }));
+      Store.showToast('Signed in as Demo User!', 'success');
+      setTimeout(() => window.location.href = 'account.html', 800);
+    }
+
+    function handleRegisterSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('reg-name').value;
+      const email = document.getElementById('reg-email').value;
+      localStorage.setItem('rp_user', JSON.stringify({ name, email }));
+      Store.showToast('Account created successfully! Welcome to RP Organics.', 'success');
+      setTimeout(() => window.location.href = 'account.html', 800);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+{% comment %}
+  Shopify Section: Footer
+{% endcomment %}
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="brand-logo">
+          <div class="brand-logo-icon">🌿</div>
+          <div class="brand-logo-text">
+            <span class="brand-title">{{ shop.name }}</span>
+            <span class="brand-tagline">Organics</span>
+          </div>
+        </div>
+        <p>{{ section.settings.bio }}</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>{{ section.settings.menu_title }}</h4>
+        <ul class="footer-links">
+          {% for link in linklists[section.settings.menu].links %}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="footer-col footer-newsletter">
+        <h4>{{ section.settings.contact_title }}</h4>
+        <p><strong>Email:</strong> {{ section.settings.contact_email }}</p>
+        <p><strong>Phone:</strong> {{ section.settings.contact_phone }}</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All Rights Reserved.</div>
+      <div class="footer-payment-badges">
+        <span class="payment-pill">UPI</span>
+        <span class="payment-pill">Cards</span>
+        <span class="payment-pill">NetBanking</span>
+        <span class="payment-pill">COD</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "bio",
+      "label": "Brand Description",
+      "default": "Pure from the soil, honest to the soul. Direct organic partnerships with certified sustainable farms."
+    },
+    {
+      "type": "text",
+      "id": "menu_title",
+      "label": "Quick Links Heading",
+      "default": "Explore"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Footer Menu",
+      "default": "footer"
+    },
+    {
+      "type": "text",
+      "id": "contact_title",
+      "label": "Contact Heading",
+      "default": "Customer Care"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Email",
+      "default": "care@rporganics.com"
+    },
+    {
+      "type": "text",
+      "id": "contact_phone",
+      "label": "Phone",
+      "default": "9150300641"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,80 @@
+{% comment %}
+  Shopify Section: Hero Carousel
+{% endcomment %}
+
+<section class="hero-slider-wrap">
+  <div class="hero-slider">
+    {% for block in section.blocks %}
+      <div class="hero-slide" style="background-image: url('{{ block.settings.slide_image | image_url: width: 1920 }}');">
+        <div class="container">
+          <div class="hero-slide-content">
+            <span class="hero-slide-badge">{{ block.settings.badge_text }}</span>
+            <h1 class="hero-slide-title">{{ block.settings.headline }}</h1>
+            <p class="hero-slide-desc">{{ block.settings.subheadline }}</p>
+            <div class="hero-cta-group">
+              <a href="{{ block.settings.button_link }}" class="btn btn-primary btn-lg">{{ block.settings.button_label }} &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Slider",
+  "max_blocks": 5,
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "slide_image",
+          "label": "Slide Background Image"
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Badge Pill Text",
+          "default": "100% Certified Organic Harvest"
+        },
+        {
+          "type": "text",
+          "id": "headline",
+          "label": "Headline",
+          "default": "Single-Origin Stone-Ground Spices"
+        },
+        {
+          "type": "textarea",
+          "id": "subheadline",
+          "label": "Subheadline",
+          "default": "Grown in the pristine hills of Meghalaya & Kerala. Potent curcumin and zero synthetic colors."
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "Shop Collection"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Slider",
+      "blocks": [
+        { "type": "slide" },
+        { "type": "slide" }
+      ]
+    }
+  ]
+}
+{% endschema %}

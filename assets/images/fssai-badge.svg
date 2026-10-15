@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+  <defs>
+    <linearGradient id="fssaiBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a5c2e;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#2d8a4e;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="400" height="120" rx="12" fill="url(#fssaiBg)"/>
+  <!-- White inner border -->
+  <rect x="4" y="4" width="392" height="112" rx="10" fill="none" stroke="#ffffff" stroke-width="2" stroke-opacity="0.3"/>
+  
+  <!-- Shield icon -->
+  <g transform="translate(24, 18)">
+    <!-- Shield shape -->
+    <path d="M42 4L12 16v20c0 18.67 12.8 36.13 30 40 17.2-3.87 30-21.33 30-40V16L42 4z" fill="#ffffff" opacity="0.95"/>
+    <!-- Check mark -->
+    <path d="M30 38l8 8 16-16" stroke="#1a5c2e" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Inner shield detail -->
+    <path d="M42 10L18 20v16c0 15.2 10.24 29.3 24 32.5 13.76-3.2 24-17.3 24-32.5V20L42 10z" fill="none" stroke="#1a5c2e" stroke-width="1.5" opacity="0.3"/>
+  </g>
+  
+  <!-- FSSAI text -->
+  <text x="112" y="46" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="32" fill="#ffffff" letter-spacing="3">FSSAI</text>
+  
+  <!-- REGISTERED text -->
+  <text x="112" y="66" font-family="Arial, Helvetica, sans-serif" font-weight="600" font-size="13" fill="#86efac" letter-spacing="4">REGISTERED</text>
+  
+  <!-- Divider line -->
+  <line x1="112" y1="76" x2="380" y2="76" stroke="#ffffff" stroke-width="0.5" opacity="0.3"/>
+  
+  <!-- Food Safety and Standards Authority of India -->
+  <text x="112" y="92" font-family="Arial, Helvetica, sans-serif" font-weight="400" font-size="10" fill="#d1fae5" letter-spacing="0.5">Food Safety and Standards Authority of India</text>
+  
+  <!-- License number -->
+  <text x="112" y="108" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="13" fill="#fef08a" letter-spacing="0.5">Lic No: 22426431000125</text>
+</svg>

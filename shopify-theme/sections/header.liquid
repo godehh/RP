@@ -1,0 +1,68 @@
+{% comment %}
+  Shopify Section: Header & Announcement Bar
+{% endcomment %}
+
+{% if section.settings.show_announcement %}
+<aside class="announcement-bar">
+  <div class="container">
+    <div class="announcement-left">
+      <span class="announcement-promo">{{ section.settings.announcement_text }}</span>
+    </div>
+    <div class="announcement-right">
+      <span class="announcement-item"><a href="tel:{{ section.settings.phone }}">{{ section.settings.phone }}</a></span>
+      <span class="announcement-item"><a href="{{ routes.account_url }}">Account</a></span>
+    </div>
+  </div>
+</aside>
+{% endif %}
+
+<header class="main-header">
+  <div class="container header-inner">
+    <a href="{{ routes.root_url }}" class="brand-logo">
+      <div class="brand-logo-icon">🌿</div>
+      <div class="brand-logo-text">
+        <span class="brand-title">{{ shop.name }}</span>
+        <span class="brand-tagline">Organics</span>
+      </div>
+    </a>
+
+    <div class="header-search">
+      <form action="{{ routes.search_url }}" method="get" class="search-input-wrap">
+        <input type="text" name="q" class="search-input" placeholder="Search organic products..." />
+        <button type="submit" class="search-submit-btn">🔍</button>
+      </form>
+    </div>
+
+    <div class="header-actions">
+      <a href="{{ routes.cart_url }}" class="header-action-btn trigger-cart-drawer">
+        <span class="header-action-title">Cart ({{ cart.item_count }})</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header & Announcement",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show Announcement Bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement Text",
+      "default": "Free shipping on orders above ₹999 across India!"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone Number",
+      "default": "9150300641"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop Organic Food &amp; Wellness Products | RP Organics</title>
+  <meta name="description" content="Browse our complete collection of 100% certified organic spices, sprouted health mixes, ancient millets, cold-pressed oils, and Vedic ghee." />
+  
+  <link rel="icon" type="image/png" href="assets/images/rp-organics-logo.png" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/header-footer.css" />
+  <link rel="stylesheet" href="assets/css/product-card.css" />
+  <link rel="stylesheet" href="assets/css/cart-drawer.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+</head>
+<body>
+
+  <!-- 1. Circular Preloader Spinner -->
+  <div id="rp-preloader" class="rp-preloader" aria-label="Loading RP Organics">
+    <div class="rp-spinner" role="status" aria-label="Loading RP Organics"></div>
+  </div>
+  <script>
+    (function() {
+      function dismissPreloader() {
+        var p = document.getElementById('rp-preloader');
+        if (p && !p.classList.contains('fade-out')) {
+          p.classList.add('fade-out');
+          setTimeout(function() {
+            if (p && p.parentNode) p.parentNode.removeChild(p);
+          }, 420);
+        }
+      }
+      window.addEventListener('load', dismissPreloader);
+      document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(dismissPreloader, 600);
+      });
+      setTimeout(dismissPreloader, 1500);
+    })();
+  </script>
+
+  <!-- Top Announcement Bar -->
+  <aside class="announcement-bar" aria-label="Store Announcement">
+    <div class="container">
+      <div class="announcement-left">
+        <span class="announcement-promo">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          Free Shipping on all orders above ₹999 across India!
+        </span>
+      </div>
+      <div class="announcement-right">
+        <span class="announcement-item"><a href="tel:919150300641">9150300641</a></span>
+        <span class="announcement-item"><a href="account.html#orders">Track Order</a></span>
+        <span class="announcement-item"><a href="login.html">Login / Register</a></span>
+        <div class="announcement-item">
+          <select class="currency-select" aria-label="Select Currency">
+            <option value="INR">₹ INR</option>
+            <option value="USD">$ USD</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Header -->
+  <header class="main-header" role="banner">
+    <div class="container">
+      <div class="header-inner">
+        <a href="index.html" class="brand-logo" aria-label="RP Organics Home">
+          <img src="assets/images/rp-organics-logo.png" alt="RP Organics logo" class="brand-logo-img" />
+          <div class="brand-logo-text"><span class="brand-title">RP Organics</span><span class="brand-tagline">Pure &amp; Natural</span></div>
+        </a>
+
+        <div class="header-search">
+          <form action="search.html" method="GET" class="search-input-wrap" role="search">
+            <input type="text" name="q" class="search-input" placeholder="Search organic spices, millets, cold-pressed oils..." autocomplete="off" />
+            <button type="submit" class="search-submit-btn" aria-label="Search">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </button>
+          </form>
+          <div class="search-results-dropdown"></div>
+        </div>
+
+        <div class="header-actions">
+          <a href="login.html" class="header-action-btn" aria-label="Account">
+            <div class="header-action-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
+            <div class="header-action-label">
+              <span class="header-action-sub">Welcome</span>
+              <span class="header-action-title">Account</span>
+            </div>
+          </a>
+
+          <a href="wishlist.html" class="header-action-btn" aria-label="Wishlist">
+            <div class="header-action-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+              <span class="badge-count wishlist-count-badge" style="display: none;">0</span>
+            </div>
+            <div class="header-action-label">
+              <span class="header-action-sub">Saved</span>
+              <span class="header-action-title">Wishlist</span>
+            </div>
+          </a>
+
+          <a href="cart.html" class="header-action-btn trigger-cart-drawer" aria-label="Cart">
+            <div class="header-action-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-2z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+              <span class="badge-count cart-count-badge" style="display: none;">0</span>
+            </div>
+            <div class="header-action-label">
+              <span class="header-action-sub">My Cart</span>
+              <span class="header-action-title">Checkout</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="main-nav-bar" aria-label="Primary Navigation">
+      <div class="container main-nav-inner">
+        <ul class="nav-links">
+          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="shop.html" class="nav-link active">Shop All</a></li>
+          <li class="nav-item">
+            <a href="shop.html" class="nav-link">
+              Categories
+              <svg class="chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </a>
+            <div class="mega-menu">
+              <div class="mega-categories-grid">
+                <a href="shop.html?category=spices" class="mega-category-card">
+                  <img src="assets/images/products/poondu-podi-1.jpg" alt="RP Organics Herbal Podis" />
+                  <div>
+                    <h4>Spices &amp; Herbal Podis</h4>
+                    <p>Poondu, Sundakkai, Pirandai &amp; Vallarai Podi (From ₹60)</p>
+                  </div>
+                </a>
+                <a href="product.html?id=pro-01" class="mega-category-card">
+                  <img src="assets/images/products/protein-health-mix-1.jpg" alt="RP Organics Protein Health Mix" />
+                  <div>
+                    <h4>Protein Health Mix</h4>
+                    <p>12g Veg Protein per 50g • 38+ Wholesome Items (₹170)</p>
+                  </div>
+                </a>
+                <a href="product.html?id=mil-powder-01" class="mega-category-card">
+                  <img src="assets/images/products/millet-mix-1.jpg" alt="RP Organics Millet Mix" />
+                  <div>
+                    <h4>100% Millet Mix</h4>
+                    <p>Instant Rice-Free Dosa &amp; Idly Mix • No Fermentation (₹140)</p>
+                  </div>
+                </a>
+              </div>
+              <div class="mega-spotlight-card">
+                <div>
+                  <span class="badge badge-bestseller">⚡ 12g Veg Protein / 50g</span>
+                  <h4>Protein Health Mix</h4>
+                  <p>38+ wholesome ingredients. Pure veg protein with natural calcium &amp; minerals. FSSAI certified.</p>
+                </div>
+                <a href="product.html?id=pro-01" class="btn btn-primary btn-sm">Shop Health Mix &rarr;</a>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
+          <li class="nav-item"><a href="blog.html" class="nav-link">Blog &amp; Recipes</a></li>
+          <li class="nav-item"><a href="contact.html" class="nav-link">Contact Us</a></li>
+        </ul>
+        <div class="fssai-global-badge">
+          <span>FSSAI REGISTERED</span>
+          <span class="lic">Lic: 22426431000125</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Mobile Header Bar -->
+    <div class="mobile-header-bar">
+      <button class="hamburger-btn" aria-label="Open Navigation Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <a href="index.html" class="brand-logo" aria-label="RP Organics Home">
+        <img src="assets/images/rp-organics-logo.png" alt="RP Organics logo" class="mobile-brand-logo-img" />
+      </a>
+      <div class="mobile-header-actions">
+        <a href="search.html" style="padding: 6px; color: var(--color-text-main);" aria-label="Search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></a>
+        <a href="cart.html" class="trigger-cart-drawer" style="padding: 6px; color: var(--color-text-main);" aria-label="Cart"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-2z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span class="badge-count cart-count-badge" style="display: none;">0</span></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Overlay & Drawer -->
+  <div class="mobile-drawer-overlay"></div>
+  <aside class="mobile-nav-drawer" aria-label="Mobile Navigation Drawer">
+    <div class="mobile-drawer-header">
+      <img src="assets/images/rp-organics-logo.png" alt="RP Organics logo" class="mobile-brand-logo-img" />
+      <button class="mobile-drawer-close" aria-label="Close menu">&times;</button>
+    </div>
+    <div class="mobile-drawer-body">
+      <div class="mobile-nav-links">
+        <a href="index.html" class="mobile-nav-link">Home</a>
+        <a href="shop.html" class="mobile-nav-link">Shop All Products</a>
+        <a href="about.html" class="mobile-nav-link">About Us</a>
+        <a href="blog.html" class="mobile-nav-link">Blog &amp; Recipes</a>
+        <a href="contact.html" class="mobile-nav-link">Contact Us</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN SHOP CONTENT -->
+  <main class="container section-sm">
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs">
+      <a href="index.html">Home</a>
+      <span class="separator">/</span>
+      <a href="shop.html">Shop</a>
+      <span class="separator">/</span>
+      <span class="current" id="shop-breadcrumb-category">All Products</span>
+    </div>
+
+    <!-- Collection Header -->
+    <div style="margin-bottom: 28px;">
+      <h1 id="shop-page-title" style="font-size: 2.2rem; margin-bottom: 8px;">All Organic Products</h1>
+      <p id="shop-page-desc" style="color: var(--color-text-muted); font-size: 1rem; max-width: 760px;">
+        Traditional South Indian herbal podis, 100% millet instant mixes, and nutrient-packed Protein Health Mix (12g veg protein per 50g). Pure, homemade, and 100% FSSAI registered.
+      </p>
+    </div>
+
+    <!-- FSSAI Trust Banner -->
+    <div style="background: #ffffff; border: 1.5px solid #22c55e; border-radius: 12px; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <img src="assets/images/fssai-logo.png" alt="FSSAI registered logo" width="54" height="54" style="width: 54px; height: 54px; object-fit: contain; flex-shrink: 0;" />
+        <div>
+          <strong style="color: #15803d; font-size: 0.98rem; display: block;">All products are FSSAI registered</strong>
+          <span style="font-size: 0.88rem; color: #14532d; font-weight: 800;">FSSAI Lic No: 22426431000125</span>
+        </div>
+      </div>
+      <div style="font-size: 0.84rem; color: #374151; font-weight: 500;">
+        Owner: <strong>Rani Pavunrasu</strong> | Direct Helpline: <a href="tel:9150300641" style="color: #15803d; font-weight: 700;">9150300641</a>
+      </div>
+    </div>
+
+    <!-- Active Filter Chips -->
+    <div class="active-filters-row" id="active-filters-chips" style="display: none;"></div>
+
+    <!-- Shop Layout (Sidebar Filters + Products Grid) -->
+    <div class="shop-layout">
+      <!-- Sidebar Filters -->
+      <aside class="shop-sidebar" aria-label="Product Filters">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid var(--color-border); padding-bottom: 12px;">
+          <h3 style="font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+            Filters
+          </h3>
+        </div>
+
+        <!-- 1. Category Filter -->
+        <div class="filter-group">
+          <div class="filter-title">Category</div>
+          <div class="filter-options" id="filter-categories-list"></div>
+        </div>
+
+        <!-- 2. Price Range -->
+        <div class="filter-group">
+          <div class="filter-title">Price Range</div>
+          <div class="price-slider-wrap">
+            <div class="price-inputs">
+              <input type="number" id="price-min" placeholder="Min ₹" value="0" min="0" step="50" />
+              <span style="color: var(--color-text-light);">-</span>
+              <input type="number" id="price-max" placeholder="Max ₹" value="3500" min="0" step="50" />
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Product Type -->
+        <div class="filter-group">
+          <div class="filter-title">Product Type</div>
+          <div class="filter-options">
+            <label class="filter-checkbox-label">
+              <input type="checkbox" name="ptype" value="Powder" />
+              <span>Powder / Flour</span>
+            </label>
+            <label class="filter-checkbox-label">
+              <input type="checkbox" name="ptype" value="Whole" />
+              <span>Whole Grain / Spice</span>
+            </label>
+            <label class="filter-checkbox-label">
+              <input type="checkbox" name="ptype" value="Cold-Pressed" />
+              <span>Cold-Pressed Oil / Ghee</span>
+            </label>
+            <label class="filter-checkbox-label">
+              <input type="checkbox" name="ptype" value="Mix" />
+              <span>Sprouted Health Mix</span>
+            </label>
+            <label class="filter-checkbox-label">
+              <input type="checkbox" name="ptype" value="Raw" />
+              <span>Raw Nuts &amp; Honey</span>
+            </label>
+            <label class="filter-checkbox-label">
+              <input type="checkbox" name="ptype" value="Combo" />
+              <span>Curated Combo</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 4. Dietary & Wellness Need -->
+        <div class="filter-group">
+          <div class="filter-title">Dietary Needs</div>
+          <div class="filter-options">
+            <label class="filter-checkbox-label">
+              <input type="checkbox" name="dietary" value="Gluten-Free" />
+              <span>Gluten-Free</span>
+            </label>
+            <label class="filter-checkbox-label">
+              <input type="checkbox" name="dietary" value="Vegan" />
+              <span>100% Vegan</span>
+            </label>
+            <label class="filter-checkbox-label">
+              <input type="checkbox" name="dietary" value="High Protein" />
+              <span>High Plant Protein</span>
+            </label>
+            <label class="filter-checkbox-label">
+              <input type="checkbox" name="dietary" value="100% Organic" />
+              <span>Certified Organic</span>
+            </label>
+            <label class="filter-checkbox-label">
+              <input type="checkbox" name="dietary" value="Diabetic-Friendly" />
+              <span>Diabetic &amp; Low GI</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 5. Availability -->
+        <div class="filter-group">
+          <div class="filter-title">Availability</div>
+          <label class="filter-checkbox-label">
+            <input type="checkbox" id="filter-in-stock" />
+            <span>In Stock Only</span>
+          </label>
+        </div>
+      </aside>
+
+      <!-- Main Products Content Area -->
+      <section aria-label="Product Listings">
+        <!-- Shop Top Bar: Count, Sort Dropdown & View Toggles -->
+        <div class="shop-top-bar">
+          <div class="shop-results-count" id="shop-results-count">Loading products...</div>
+
+          <div class="shop-top-controls">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <label for="shop-sort-select" style="font-size: 0.85rem; font-weight: 600; color: var(--color-text-muted);">Sort:</label>
+              <select id="shop-sort-select" class="sort-select">
+                <option value="featured">Featured</option>
+                <option value="newest">New Arrivals</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="rating">Top Rated</option>
+                <option value="name-asc">Alphabetical: A-Z</option>
+                <option value="name-desc">Alphabetical: Z-A</option>
+              </select>
+            </div>
+
+            <div class="view-toggle">
+              <button id="view-grid-btn" class="view-toggle-btn active" title="Grid View" aria-label="Grid View">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+              </button>
+              <button id="view-list-btn" class="view-toggle-btn" title="List View" aria-label="List View">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Products Grid Container -->
+        <div id="shop-products-grid" class="products-grid"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+                <div class="footer-brand">
+          <div class="brand-logo" style="margin-bottom: 8px;">
+            <img src="assets/images/rp-organics-logo.png" alt="RP Organics logo" class="footer-logo-img" />
+          </div>
+          <p>Pure, traditional South Indian herbal podis, protein health mix, and unpolished millet powders. 100% natural goodness crafted for your family's daily vitality.</p>
+
+          <!-- Mandatory Footer Details -->
+                    <!-- Mandatory Footer Details with Official FSSAI Logo -->
+          <div class="footer-fssai-box">
+            <strong style="display: block; font-size: 1rem; color: #ffffff;">RP Organics</strong>
+            <p style="margin: 3px 0; color: #d1d9d3; font-size: 0.85rem;"><strong>Owner:</strong> Rani Pavunrasu</p>
+            <p style="margin: 3px 0; color: #86efac; font-size: 0.85rem;"><strong>All products are FSSAI registered.</strong></p>
+            <div style="background: #ffffff; border-radius: 8px; padding: 8px 12px; display: inline-flex; align-items: center; gap: 12px; margin: 8px 0; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+              <img src="assets/images/fssai-logo.png" alt="FSSAI registered logo" width="56" height="56" style="width: 56px; height: 56px; object-fit: contain;" />
+              <div style="text-align: left;">
+                <span style="display: block; font-size: 0.78rem; font-weight: 800; color: #15803d; letter-spacing: 0.5px;">FSSAI REGISTERED</span>
+                <span style="display: block; font-size: 0.88rem; font-weight: 800; color: #111827;">Lic No: 22426431000125</span>
+              </div>
+            </div>
+            <p style="margin: 3px 0; color: #d1d9d3; font-size: 0.85rem;"><strong>Contact:</strong> <a href="tel:9150300641" style="color: #ffffff; text-decoration: underline;">9150300641</a></p>
+            <p style="margin: 3px 0; color: #d1d9d3; font-size: 0.85rem;"><strong>Email:</strong> <a href="mailto:benseethalrani@gmail.com" style="color: #ffffff; text-decoration: underline;">benseethalrani@gmail.com</a></p>
+          </div>
+<div class="footer-social-links">
+            <a href="https://instagram.com" class="footer-social-btn" aria-label="Instagram">IG</a>
+            <a href="https://wa.me/919150300641" class="footer-social-btn" aria-label="WhatsApp">WA</a>
+            <a href="https://facebook.com" class="footer-social-btn" aria-label="Facebook">FB</a>
+          </div>
+        </div>
+
+<div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop All</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Customer Care</h4>
+          <ul class="footer-links">
+            <li><a href="account.html#orders">Track Order</a></li>
+            <li><a href="shipping-returns.html">Shipping &amp; Returns</a></li>
+            <li><a href="faqs.html">FAQs</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <p style="font-size: 0.88rem; color: #a3b0a6;"><a href="mailto:benseethalrani@gmail.com" style="color: #ffffff;">benseethalrani@gmail.com</a></p>
+          <p style="font-size: 0.88rem; color: #a3b0a6;"><a href="tel:9150300641" style="color: #ffffff;">9150300641</a></p>
+          <p style="font-size: 0.8rem; color: #a3b0a6; margin-top: 8px;">FSSAI Lic No: 22426431000125</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 RP Organics. All rights reserved.</div>
+        <div class="footer-payment-badges">
+          <span class="payment-pill">UPI</span>
+          <span class="payment-pill">Cards</span>
+          <span class="payment-pill">Cash on Delivery</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Bottom Sticky Navigation Bar -->
+  <nav class="mobile-bottom-bar" aria-label="Mobile Bottom Navigation">
+    <a href="index.html" class="bottom-bar-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+      <span>Home</span>
+    </a>
+    <a href="shop.html" class="bottom-bar-item active">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+      <span>Shop</span>
+    </a>
+    <a href="search.html" class="bottom-bar-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <span>Search</span>
+    </a>
+    <a href="wishlist.html" class="bottom-bar-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+      <span class="badge-count wishlist-count-badge" style="display: none;">0</span>
+      <span>Wishlist</span>
+    </a>
+    <a href="cart.html" class="bottom-bar-item trigger-cart-drawer">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-2z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+      <span class="badge-count cart-count-badge" style="display: none;">0</span>
+      <span>Cart</span>
+    </a>
+  </nav>
+
+  <script src="assets/js/products-data.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/components.js"></script>
+  <script src="assets/js/shop.js"></script>
+</body>
+</html>

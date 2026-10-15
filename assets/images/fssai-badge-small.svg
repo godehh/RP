@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <rect width="200" height="60" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+  <!-- Shield icon -->
+  <g transform="translate(8, 8)">
+    <path d="M22 2L6 8.5v10.5c0 9.8 6.8 19 16 21 9.2-2 16-11.2 16-21V8.5L22 2z" fill="#16a34a"/>
+    <path d="M16 22l4 4 8-8" stroke="#ffffff" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <!-- Text -->
+  <text x="56" y="24" font-family="Arial,Helvetica,sans-serif" font-weight="800" font-size="16" fill="#15803d" letter-spacing="1.5">FSSAI</text>
+  <text x="56" y="40" font-family="Arial,Helvetica,sans-serif" font-weight="600" font-size="8.5" fill="#166534" letter-spacing="1">REGISTERED</text>
+  <text x="56" y="52" font-family="Arial,Helvetica,sans-serif" font-weight="600" font-size="8" fill="#15803d">Lic: 22426431000125</text>
+</svg>

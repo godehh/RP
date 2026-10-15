@@ -1,0 +1,386 @@
+/* ==========================================================================
+   RP Organics - Ajax Slide-Out Cart Drawer & Upsells
+   ========================================================================== */
+
+.cart-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(18, 36, 22, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 12000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-normal);
+}
+
+.cart-drawer-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cart-drawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 440px;
+  max-width: 92vw;
+  background-color: #ffffff;
+  z-index: 12001;
+  transform: translateX(100%);
+  transition: transform var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-drawer);
+}
+
+.cart-drawer.active {
+  transform: translateX(0);
+}
+
+/* Drawer Header */
+.cart-drawer-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+}
+
+.cart-drawer-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cart-drawer-title-wrap h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.cart-count-pill {
+  background-color: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.cart-drawer-close {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-surface-subtle);
+  color: var(--color-text-main);
+  transition: all var(--transition-fast);
+}
+
+.cart-drawer-close:hover {
+  background-color: var(--color-border);
+}
+
+/* Free Shipping Meter */
+.free-shipping-bar {
+  background-color: var(--color-surface-subtle);
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.shipping-bar-text {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-text-main);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.shipping-bar-text strong {
+  color: var(--color-primary);
+}
+
+.shipping-progress-track {
+  width: 100%;
+  height: 6px;
+  background-color: var(--color-border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.shipping-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), #48bb78);
+  border-radius: var(--radius-full);
+  transition: width 0.4s ease;
+}
+
+/* Drawer Body & Cart Items */
+.cart-drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 24px;
+}
+
+.cart-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cart-item {
+  display: flex;
+  gap: 14px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.cart-item-img {
+  width: 76px;
+  height: 76px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  background-color: var(--color-surface-subtle);
+  flex-shrink: 0;
+}
+
+.cart-item-details {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-item-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  line-height: 1.3;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cart-item-variant {
+  font-size: 0.78rem;
+  color: var(--color-text-light);
+  margin-bottom: 8px;
+}
+
+.cart-item-pricing {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.cart-item-price {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+.cart-item-qty {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: #ffffff;
+}
+
+.cart-qty-btn {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.cart-qty-btn:hover {
+  background-color: var(--color-surface-subtle);
+  color: var(--color-text-main);
+}
+
+.cart-qty-val {
+  width: 28px;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.cart-item-remove {
+  color: var(--color-text-light);
+  font-size: 0.8rem;
+  margin-left: 8px;
+  transition: color var(--transition-fast);
+}
+
+.cart-item-remove:hover {
+  color: var(--color-sale);
+}
+
+/* Empty Cart State */
+.cart-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 16px;
+}
+
+.cart-empty-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary-soft);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.cart-empty-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.cart-empty-desc {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin-bottom: 24px;
+  max-width: 280px;
+}
+
+/* Drawer Upsell Section */
+.drawer-upsell-section {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--color-border);
+}
+
+.drawer-upsell-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  margin-bottom: 12px;
+}
+
+.drawer-upsell-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-light);
+  background-color: var(--color-surface);
+  margin-bottom: 10px;
+}
+
+.drawer-upsell-card img {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+}
+
+.drawer-upsell-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.drawer-upsell-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.drawer-upsell-price {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.btn-upsell-add {
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 1px solid var(--color-primary);
+  transition: all var(--transition-fast);
+}
+
+.btn-upsell-add:hover {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+/* Drawer Footer */
+.cart-drawer-footer {
+  padding: 20px 24px;
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+}
+
+.drawer-subtotal-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.drawer-subtotal-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.drawer-subtotal-amount {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+.drawer-tax-note {
+  font-size: 0.78rem;
+  color: var(--color-text-light);
+  margin-bottom: 18px;
+}
+
+.drawer-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.drawer-guarantee-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 14px;
+  font-size: 0.74rem;
+  color: var(--color-text-light);
+}
+
+.drawer-guarantee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}

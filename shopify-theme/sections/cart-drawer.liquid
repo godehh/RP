@@ -1,0 +1,58 @@
+{% comment %}
+  Shopify Section: Slide-out Cart Drawer
+{% endcomment %}
+
+<div id="vr-cart-drawer-overlay" class="cart-drawer-overlay"></div>
+<div id="vr-cart-drawer" class="cart-drawer">
+  <div class="cart-drawer-header">
+    <div class="cart-drawer-title-wrap">
+      <h3>Your Cart</h3>
+      <span class="cart-count-pill">{{ cart.item_count }} items</span>
+    </div>
+    <button class="cart-drawer-close" aria-label="Close cart">&times;</button>
+  </div>
+
+  <div class="free-shipping-bar">
+    <div class="shipping-bar-text">
+      {% assign threshold = 99900 %}
+      {% if cart.total_price >= threshold %}
+        <span style="color: var(--color-success);">🎉 You've unlocked FREE Delivery!</span>
+      {% else %}
+        {% assign diff = threshold | minus: cart.total_price %}
+        Add <strong>{{ diff | money }}</strong> more to get <strong>FREE Delivery</strong>!
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="cart-drawer-body">
+    <div class="cart-items-list">
+      {% for item in cart.items %}
+        <div class="cart-item" data-line="{{ forloop.index }}">
+          <img src="{{ item.image | image_url: width: 150 }}" alt="{{ item.title | escape }}" class="cart-item-img" />
+          <div class="cart-item-details">
+            <a href="{{ item.url }}" class="cart-item-title">{{ item.product.title }}</a>
+            <span class="cart-item-variant">{{ item.variant.title }}</span>
+            <div class="cart-item-pricing">
+              <span class="cart-item-price">{{ item.final_line_price | money }}</span>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="cart-drawer-footer">
+    <div class="drawer-subtotal-row">
+      <span class="drawer-subtotal-label">Subtotal</span>
+      <span class="drawer-subtotal-amount">{{ cart.total_price | money }}</span>
+    </div>
+    <a href="/checkout" class="btn btn-primary btn-full">Proceed to Checkout &rarr;</a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Cart Drawer",
+  "settings": []
+}
+{% endschema %}

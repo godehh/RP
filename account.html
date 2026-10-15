@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Dashboard &amp; Order Tracker | RP Organics</title>
+  
+  <link rel="icon" type="image/png" href="assets/images/rp-organics-logo.png" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/header-footer.css" />
+  <link rel="stylesheet" href="assets/css/product-card.css" />
+  <link rel="stylesheet" href="assets/css/cart-drawer.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+  <style>
+    .account-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 36px;
+      margin-top: 24px;
+    }
+    .account-sidebar-card {
+      background: #ffffff;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+    .account-user-badge {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--color-border-light);
+    }
+    .account-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--color-primary-soft);
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+    .account-nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .account-nav-btn {
+      text-align: left;
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      transition: all var(--transition-fast);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .account-nav-btn.active, .account-nav-btn:hover {
+      background: var(--color-primary-soft);
+      color: var(--color-primary);
+    }
+    .order-card {
+      background: #ffffff;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .order-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 16px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--color-border-light);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .order-tracker-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin: 20px 0;
+      position: relative;
+    }
+    .tracker-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      font-size: 0.78rem;
+    }
+    .tracker-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--color-border);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .tracker-step.completed .tracker-circle {
+      background: var(--color-primary);
+    }
+    .tracker-step.active .tracker-circle {
+      background: var(--color-accent-gold);
+    }
+    @media (max-width: 860px) {
+      .account-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+    <!-- Top Announcement Bar -->
+  <aside class="announcement-bar" aria-label="Store Announcement">
+    <div class="container">
+      <div class="announcement-left">
+        <span class="announcement-promo">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          Free Shipping on all orders above ₹999 across India!
+        </span>
+      </div>
+      <div class="announcement-right">
+        <span class="announcement-item">
+          <a href="tel:9150300641">📞 9150300641</a>
+        </span>
+        <span class="announcement-item">
+          <a href="mailto:benseethalrani@gmail.com">benseethalrani@gmail.com</a>
+        </span>
+        <span class="announcement-item"><a href="account.html#orders">Track Order</a></span>
+        <span class="announcement-item"><a href="login.html">Login / Register</a></span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/rp-organics-logo.png" alt="RP Organics logo" class="brand-logo-img" />
+          <div class="brand-logo-text"><span class="brand-title">RP Organics</span><span class="brand-tagline">Pure &amp; Natural</span></div>
+      </a>
+      <div class="header-actions">
+        <a href="wishlist.html" class="header-action-btn"><div class="header-action-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg><span class="badge-count wishlist-count-badge" style="display: none;">0</span></div></a>
+        <a href="cart.html" class="header-action-btn trigger-cart-drawer"><div class="header-action-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-2z"></path></svg><span class="badge-count cart-count-badge" style="display: none;">0</span></div></a>
+      </div>
+    </div>
+    <nav class="main-nav-bar">
+      <div class="container main-nav-inner">
+        <ul class="nav-links">
+          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="shop.html" class="nav-link">Shop All</a></li>
+          <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
+          <li class="nav-item"><a href="blog.html" class="nav-link">Blog &amp; Recipes</a></li>
+          <li class="nav-item"><a href="contact.html" class="nav-link">Contact Us</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container section-sm">
+    <div class="breadcrumbs">
+      <a href="index.html">Home</a>
+      <span class="separator">/</span>
+      <span class="current">My Dashboard</span>
+    </div>
+
+    <div class="account-layout">
+      <!-- Left Sidebar -->
+      <aside class="account-sidebar-card">
+        <div class="account-user-badge">
+          <div class="account-avatar" id="user-initials">RS</div>
+          <div>
+            <h4 id="user-display-name" style="font-size: 1.05rem;">Rahul Sharma</h4>
+            <span style="font-size: 0.78rem; color: var(--color-primary); font-weight: 600;">🌿 RP Organics Green Member</span>
+          </div>
+        </div>
+
+        <nav class="account-nav-list">
+          <button class="account-nav-btn active" onclick="switchAccountTab('orders', this)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+            My Orders &amp; Tracking
+          </button>
+          <button class="account-nav-btn" onclick="switchAccountTab('addresses', this)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            Saved Addresses
+          </button>
+          <button class="account-nav-btn" onclick="window.location.href='wishlist.html'">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            Saved Wishlist
+          </button>
+          <button class="account-nav-btn" onclick="handleLogout()" style="color: var(--color-sale); margin-top: 20px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            Sign Out
+          </button>
+        </nav>
+      </aside>
+
+      <!-- Right Content -->
+      <section>
+        <!-- Tab 1: Orders -->
+        <div id="tab-orders">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 style="font-size: 1.6rem;">Recent Order Tracker</h2>
+            <span class="badge badge-organic">Live Sync</span>
+          </div>
+
+          <!-- Order 1: In Transit -->
+          <div class="order-card">
+            <div class="order-card-header">
+              <div>
+                <strong style="font-size: 1rem; color: var(--color-primary-dark);">Order #VR-94821</strong>
+                <div style="font-size: 0.8rem; color: var(--color-text-light);">Placed on Today, Oct 14, 2026 • 2 items (₹1,248)</div>
+              </div>
+              <span class="badge badge-bestseller">In Express Transit</span>
+            </div>
+
+            <!-- Tracker Timeline -->
+            <div class="order-tracker-steps">
+              <div class="tracker-step completed">
+                <div class="tracker-circle">✓</div>
+                <span>Order Placed</span>
+              </div>
+              <div class="tracker-step completed">
+                <div class="tracker-circle">✓</div>
+                <span>Milled &amp; Packed</span>
+              </div>
+              <div class="tracker-step active">
+                <div class="tracker-circle">🚚</div>
+                <span>Out for Delivery</span>
+              </div>
+              <div class="tracker-step">
+                <div class="tracker-circle">4</div>
+                <span>Delivered</span>
+              </div>
+            </div>
+
+            <div style="background: var(--color-surface-subtle); padding: 14px; border-radius: var(--radius-md); font-size: 0.85rem; margin-top: 14px;">
+              <strong>Estimated Arrival:</strong> Tomorrow by 5:00 PM via Bluedart Air (AWB: <strong>BLU84920491</strong>)
+            </div>
+          </div>
+
+          <!-- Order 2: Delivered -->
+          <div class="order-card">
+            <div class="order-card-header">
+              <div>
+                <strong style="font-size: 1rem;">Order #VR-81923</strong>
+                <div style="font-size: 0.8rem; color: var(--color-text-light);">Delivered on September 24, 2026 • 4 items (₹2,199)</div>
+              </div>
+              <span class="badge badge-organic">Delivered</span>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--color-text-muted);">Protein Health Mix (500g), Traditional Poondu Podi (250g), 100% Millet Mix (500g).</p>
+            <div style="margin-top: 12px;">
+              <button class="btn btn-outline btn-sm" onclick="Store.showToast('Invoice downloaded for #VR-81923', 'success')">Download Tax Invoice</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Saved Addresses -->
+        <div id="tab-addresses" style="display: none;">
+          <h2 style="font-size: 1.6rem; margin-bottom: 20px;">Saved Delivery Addresses</h2>
+          <div style="background: #ffffff; border: 1.5px solid var(--color-primary); border-radius: var(--radius-lg); padding: 24px; max-width: 460px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+              <strong style="font-size: 1rem;">Rahul Sharma (Default)</strong>
+              <span class="badge badge-organic">Primary</span>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.6;">
+              Flat 402, Green Meadows Residency,<br />
+              12th Main, Indiranagar, Bengaluru, KA 560038<br />
+              Phone: 9150300641
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+    <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="brand-logo" style="margin-bottom: 8px;">
+            <img src="assets/images/rp-organics-logo.png" alt="RP Organics logo" class="footer-logo-img" />
+          </div>
+          <p>Pure, traditional South Indian herbal podis, protein health mix, and unpolished millet powders. 100% natural goodness crafted for your family's daily vitality.</p>
+
+          <!-- Mandatory Footer Details -->
+                    <!-- Mandatory Footer Details with Official FSSAI Logo -->
+          <div class="footer-fssai-box">
+            <strong style="display: block; font-size: 1rem; color: #ffffff;">RP Organics</strong>
+            <p style="margin: 3px 0; color: #d1d9d3; font-size: 0.85rem;"><strong>Owner:</strong> Rani Pavunrasu</p>
+            <p style="margin: 3px 0; color: #86efac; font-size: 0.85rem;"><strong>All products are FSSAI registered.</strong></p>
+            <div style="background: #ffffff; border-radius: 8px; padding: 8px 12px; display: inline-flex; align-items: center; gap: 12px; margin: 8px 0; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+              <img src="assets/images/fssai-logo.png" alt="FSSAI registered logo" width="56" height="56" style="width: 56px; height: 56px; object-fit: contain;" />
+              <div style="text-align: left;">
+                <span style="display: block; font-size: 0.78rem; font-weight: 800; color: #15803d; letter-spacing: 0.5px;">FSSAI REGISTERED</span>
+                <span style="display: block; font-size: 0.88rem; font-weight: 800; color: #111827;">Lic No: 22426431000125</span>
+              </div>
+            </div>
+            <p style="margin: 3px 0; color: #d1d9d3; font-size: 0.85rem;"><strong>Contact:</strong> <a href="tel:9150300641" style="color: #ffffff; text-decoration: underline;">9150300641</a></p>
+            <p style="margin: 3px 0; color: #d1d9d3; font-size: 0.85rem;"><strong>Email:</strong> <a href="mailto:benseethalrani@gmail.com" style="color: #ffffff; text-decoration: underline;">benseethalrani@gmail.com</a></p>
+          </div>
+<div class="footer-social-links">
+            <a href="https://instagram.com" class="footer-social-btn" aria-label="Instagram">IG</a>
+            <a href="https://wa.me/919150300641" class="footer-social-btn" aria-label="WhatsApp">WA</a>
+            <a href="https://facebook.com" class="footer-social-btn" aria-label="Facebook">FB</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop All</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Customer Care</h4>
+          <ul class="footer-links">
+            <li><a href="account.html#orders">Track Order</a></li>
+            <li><a href="shipping-returns.html">Shipping &amp; Returns</a></li>
+            <li><a href="faqs.html">FAQs</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <p style="font-size: 0.88rem; color: #a3b0a6;"><a href="mailto:benseethalrani@gmail.com" style="color: #ffffff;">benseethalrani@gmail.com</a></p>
+          <p style="font-size: 0.88rem; color: #a3b0a6;"><a href="tel:9150300641" style="color: #ffffff;">9150300641</a></p>
+          <p style="font-size: 0.8rem; color: #a3b0a6; margin-top: 8px;">FSSAI Lic No: 22426431000125</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 RP Organics. All rights reserved.</div>
+        <div class="footer-payment-badges">
+          <span class="payment-pill">UPI</span>
+          <span class="payment-pill">Google Pay</span>
+          <span class="payment-pill">PhonePe</span>
+          <span class="payment-pill">Debit/Credit Card</span>
+          <span class="payment-pill">Cash on Delivery</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/products-data.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/components.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const stored = localStorage.getItem('rp_user');
+      if (stored) {
+        try {
+          const user = JSON.parse(stored);
+          document.getElementById('user-display-name').textContent = user.name;
+          document.getElementById('user-initials').textContent = user.name.split(' ').map(n=>n[0]).join('').substring(0, 2).toUpperCase();
+        } catch(e){}
+      }
+    });
+
+    function switchAccountTab(tab, btn) {
+      document.querySelectorAll('.account-nav-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      document.getElementById('tab-orders').style.display = tab === 'orders' ? 'block' : 'none';
+      document.getElementById('tab-addresses').style.display = tab === 'addresses' ? 'block' : 'none';
+    }
+
+    function handleLogout() {
+      localStorage.removeItem('rp_user');
+      Store.showToast('Signed out successfully.', 'info');
+      setTimeout(() => window.location.href = 'index.html', 500);
+    }
+  </script>
+</body>
+</html>

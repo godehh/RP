@@ -1,0 +1,666 @@
+/* ==========================================================================
+   RP Organics - Product Card Component & Quick View Modal
+   Brand: RP Organics | Owner: Rani Pavunrasu | FSSAI Lic No: 22426431000125
+   ========================================================================== */
+
+/* Products Grid Layout */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.products-grid.list-view {
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+/* Product Card */
+.product-card {
+  background-color: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all var(--transition-normal);
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: #86efac;
+}
+
+/* Product Card Media & Image Swap */
+.product-card-media {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background-color: var(--color-surface-subtle);
+  overflow: hidden;
+}
+
+.product-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease, opacity 0.4s ease;
+}
+
+.product-img-primary {
+  opacity: 1;
+}
+
+.product-img-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.product-card:hover .product-img-primary {
+  opacity: 0;
+}
+
+.product-card:hover .product-img-hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* Badges Container */
+.product-badges {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 2;
+}
+
+.discount-badge {
+  background-color: var(--color-sale);
+  color: #ffffff;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 2px 6px rgba(185, 28, 28, 0.25);
+}
+
+/* Card Floating Action Buttons (Wishlist & Quick View) */
+.product-card-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 2;
+  opacity: 0;
+  transform: translateX(10px);
+  transition: all var(--transition-fast);
+}
+
+.product-card:hover .product-card-actions,
+.product-card:focus-within .product-card-actions {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.card-action-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background-color: #ffffff;
+  color: var(--color-text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-fast);
+  touch-action: manipulation;
+}
+
+.card-action-btn:hover {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+.card-action-btn.wishlist-btn.active {
+  color: #e11d48;
+}
+
+.card-action-btn.wishlist-btn.active svg {
+  fill: #e11d48;
+}
+
+/* Product Card Content */
+.product-card-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.product-card-category {
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-light);
+}
+
+.product-card-title {
+  font-size: 0.96rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--color-text-main);
+  margin: 4px 0 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 2.7em;
+}
+
+.product-card-title a:hover {
+  color: var(--color-primary);
+}
+
+/* Ratings */
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  font-size: 0.8rem;
+}
+
+.stars-row {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  color: #f59e0b;
+}
+
+.rating-count {
+  color: var(--color-text-light);
+  font-size: 0.78rem;
+}
+
+/* Variant Preview Pills (Safe Wrapping on narrow screens) */
+.product-variant-preview {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.variant-pill {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface-subtle);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+}
+
+.variant-pill.active {
+  background-color: var(--color-primary-soft);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* Price & Add to Cart Area */
+.product-card-footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--color-border-light);
+}
+
+.product-price-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-price {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+.product-compare-price {
+  font-size: 0.82rem;
+  color: var(--color-text-light);
+  text-decoration: line-through;
+}
+
+.btn-add-cart {
+  background-color: var(--color-primary-soft);
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary);
+  padding: 8px 14px;
+  min-height: 44px;
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all var(--transition-fast);
+  touch-action: manipulation;
+}
+
+.btn-add-cart:hover {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(21, 128, 61, 0.2);
+}
+
+/* Quick View Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 30, 18, 0.65);
+  backdrop-filter: blur(5px);
+  z-index: 11000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-normal);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.quickview-modal {
+  background-color: #ffffff;
+  border-radius: var(--radius-xl);
+  width: 100%;
+  max-width: 860px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+  transform: scale(0.95);
+  transition: transform var(--transition-normal);
+  -webkit-overflow-scrolling: touch;
+}
+
+.modal-overlay.active .quickview-modal {
+  transform: scale(1);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-surface-subtle);
+  color: var(--color-text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  transition: all var(--transition-fast);
+}
+
+.modal-close-btn:hover {
+  background-color: var(--color-sale);
+  color: #ffffff;
+}
+
+.quickview-body {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 28px;
+  padding: 28px;
+}
+
+.quickview-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.quickview-main-image {
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background-color: var(--color-surface-subtle);
+}
+
+.quickview-main-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.quickview-thumbnails {
+  display: flex;
+  gap: 8px;
+}
+
+.quickview-thumb {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.quickview-thumb.active {
+  border-color: var(--color-primary);
+}
+
+.quickview-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.quickview-title {
+  font-size: 1.35rem;
+  margin-bottom: 6px;
+}
+
+.quickview-price-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 10px 0;
+  flex-wrap: wrap;
+}
+
+.quickview-price {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+.quickview-desc {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.variant-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.variant-btn {
+  padding: 10px 14px;
+  min-height: 44px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--color-border);
+  font-size: 0.88rem;
+  font-weight: 600;
+  background-color: #ffffff;
+  transition: all var(--transition-fast);
+  touch-action: manipulation;
+}
+
+.variant-btn.active {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.quickview-qty-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.qty-picker {
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.qty-btn {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-surface-subtle);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--color-text-main);
+}
+
+.qty-input {
+  width: 48px;
+  height: 44px;
+  text-align: center;
+  border: none;
+  font-weight: 700;
+  font-size: 1rem;
+  outline: none;
+}
+
+/* Responsive Product Cards for Android screens */
+@media (max-width: 1200px) {
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .product-card-content {
+    padding: 12px;
+  }
+  .product-card-title {
+    font-size: 0.86rem;
+  }
+  .product-price {
+    font-size: 0.98rem;
+  }
+  .btn-add-cart {
+    padding: 6px 10px;
+    font-size: 0.82rem;
+    min-height: 44px;
+  }
+  .product-card-actions {
+    opacity: 1; /* Always visible for touch screens */
+    transform: none;
+  }
+  .quickview-body {
+    grid-template-columns: 1fr;
+    padding: 20px 16px;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 360px) {
+  .products-grid {
+    grid-template-columns: 1fr; /* Single column on tiny Android screens (320px) to prevent cramped layouts */
+  }
+}
+
+
+/* ==========================================================================
+   RP Organics - Product Card Component (Groceryo Reference Implementation)
+   ========================================================================== */
+
+/* Product Card Container & Soft Shadow Lift */
+.product-card {
+  background-color: #ffffff;
+  border-radius: var(--radius-lg, 12px);
+  border: 1px solid var(--color-border, #e5e7eb);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+  height: 100%;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px -6px rgba(0, 0, 0, 0.1), 0 8px 12px -4px rgba(0, 0, 0, 0.05);
+  border-color: #86efac;
+}
+
+/* 1:1 Aspect Ratio Media Container */
+.product-card-media {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  background-color: #ffffff;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-media-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.product-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-color: #ffffff;
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: block;
+}
+
+.product-img-primary {
+  opacity: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.product-img-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Desktop Hover: Cross-fade to 2nd image or subtle zoom of 1.05 */
+@media (hover: hover) and (min-width: 769px) {
+  .product-card:hover .product-img-hover {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  .product-card:hover .product-img-primary {
+    opacity: 0;
+  }
+  .product-card:hover .product-media-link:not(:has(.product-img-hover)) .product-img-primary {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+/* Hover Action Buttons Row (Groceryo Reference Style) */
+.product-card-hover-actions {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translate(-50%, 14px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 5;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) and (min-width: 769px) {
+  .product-card:hover .product-card-hover-actions {
+    opacity: 1;
+    transform: translate(-50%, 0);
+    pointer-events: auto;
+  }
+}
+
+.product-card-hover-actions .card-action-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: #1e293b;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.product-card-hover-actions .card-action-btn:hover {
+  background-color: #15803d;
+  color: #ffffff;
+  border-color: #15803d;
+  transform: scale(1.1);
+}
+
+.product-card-hover-actions .card-action-btn.wishlist-btn.active {
+  color: #e11d48;
+}
+.product-card-hover-actions .card-action-btn.wishlist-btn.active svg {
+  fill: #e11d48;
+}
+
+/* Mobile & Touch Devices (No hover, keep Add to Cart visible, tap opens PDP) */
+@media (max-width: 768px), (hover: none) {
+  .product-card-hover-actions {
+    display: none !important;
+  }
+  .product-img-hover {
+    display: none !important;
+  }
+  .product-img-primary {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .product-card {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .product-card:hover {
+    transform: none !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+  }
+}

@@ -1,0 +1,41 @@
+{% comment %}
+  Shopify Snippet: Product Card
+{% endcomment %}
+
+<div class="product-card" data-product-id="{{ product.id }}">
+  <div class="product-card-media">
+    <div class="product-badges">
+      {% if product.compare_at_price > product.price %}
+        <span class="discount-badge">SALE</span>
+      {% endif %}
+    </div>
+
+    <a href="{{ product.url }}">
+      <img class="product-img-primary" src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title | escape }}" loading="lazy" />
+      {% if product.images[1] != blank %}
+        <img class="product-img-hover" src="{{ product.images[1] | image_url: width: 600 }}" alt="{{ product.title | escape }}" loading="lazy" />
+      {% endif %}
+    </a>
+  </div>
+
+  <div class="product-card-content">
+    <span class="product-card-category">{{ product.type }}</span>
+    <h3 class="product-card-title">
+      <a href="{{ product.url }}">{{ product.title }}</a>
+    </h3>
+
+    <div class="product-card-footer">
+      <div class="product-price-wrap">
+        <span class="product-price">{{ product.price | money }}</span>
+        {% if product.compare_at_price > product.price %}
+          <span class="product-compare-price">{{ product.compare_at_price | money }}</span>
+        {% endif %}
+      </div>
+
+      <form method="post" action="/cart/add">
+        <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+        <button type="submit" class="btn-add-cart">Add</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+[
+  {
+    "name": "Theme Settings",
+    "theme_name": "RP Organics Organic",
+    "theme_version": "1.0.0",
+    "theme_author": "RP Organics Digital",
+    "theme_documentation_url": "https://rporganics.com/docs"
+  },
+  {
+    "name": "Colors & Aesthetics",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary Organic Green",
+        "default": "#235328"
+      },
+      {
+        "type": "color",
+        "id": "color_secondary",
+        "label": "Earthy Terracotta",
+        "default": "#c05621"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Raw Honey Gold",
+        "default": "#d97706"
+      },
+      {
+        "type": "color",
+        "id": "color_bg",
+        "label": "Background",
+        "default": "#ffffff"
+      }
+    ]
+  },
+  {
+    "name": "Shipping & Thresholds",
+    "settings": [
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "Free Shipping Minimum (in INR)",
+        "default": 999
+      }
+    ]
+  }
+]

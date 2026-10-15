@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shopping Cart | RP Organics</title>
+  <meta name="description" content="Review your organic cart items, apply discount coupons, and proceed to secure checkout." />
+  
+  <link rel="icon" type="image/png" href="assets/images/rp-organics-logo.png" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/header-footer.css" />
+  <link rel="stylesheet" href="assets/css/product-card.css" />
+  <link rel="stylesheet" href="assets/css/cart-drawer.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+  <style>
+    .cart-page-layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 36px;
+      margin-top: 24px;
+    }
+    .cart-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #ffffff;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .cart-table th {
+      background-color: var(--color-surface-subtle);
+      padding: 14px 18px;
+      text-align: left;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .cart-table td {
+      padding: 18px;
+      border-bottom: 1px solid var(--color-border-light);
+      vertical-align: middle;
+    }
+    .cart-table tr:last-child td {
+      border-bottom: none;
+    }
+    .order-summary-card {
+      background: #ffffff;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      position: sticky;
+      top: 100px;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 0.92rem;
+      color: var(--color-text-muted);
+    }
+    .summary-row.total-row {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+      border-top: 2px dashed var(--color-border);
+      padding-top: 14px;
+      margin-top: 14px;
+    }
+    @media (max-width: 900px) {
+      .cart-page-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <aside class="announcement-bar" aria-label="Store Announcement">
+    <div class="container">
+      <div class="announcement-left">
+        <span class="announcement-promo">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          Free Shipping on all orders above ₹999 across India!
+        </span>
+      </div>
+      <div class="announcement-right">
+        <span class="announcement-item"><a href="tel:919150300641">9150300641</a></span>
+        <span class="announcement-item"><a href="account.html#orders">Track Order</a></span>
+        <span class="announcement-item"><a href="login.html">Login / Register</a></span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Header -->
+  <header class="main-header" role="banner">
+    <div class="container">
+      <div class="header-inner">
+        <a href="index.html" class="brand-logo" aria-label="RP Organics Home">
+          <img src="assets/images/rp-organics-logo.png" alt="RP Organics logo" class="brand-logo-img" />
+          <div class="brand-logo-text"><span class="brand-title">RP Organics</span><span class="brand-tagline">Pure &amp; Natural</span></div>
+        </a>
+
+        <div class="header-search">
+          <form action="search.html" method="GET" class="search-input-wrap">
+            <input type="text" name="q" class="search-input" placeholder="Search organic spices, millets, cold-pressed oils..." />
+            <button type="submit" class="search-submit-btn" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+          </form>
+          <div class="search-results-dropdown"></div>
+        </div>
+
+        <div class="header-actions">
+          <a href="login.html" class="header-action-btn"><div class="header-action-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div><div class="header-action-label"><span class="header-action-sub">Welcome</span><span class="header-action-title">Account</span></div></a>
+          <a href="wishlist.html" class="header-action-btn"><div class="header-action-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg><span class="badge-count wishlist-count-badge" style="display: none;">0</span></div><div class="header-action-label"><span class="header-action-sub">Saved</span><span class="header-action-title">Wishlist</span></div></a>
+          <a href="cart.html" class="header-action-btn trigger-cart-drawer"><div class="header-action-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-2z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span class="badge-count cart-count-badge" style="display: none;">0</span></div><div class="header-action-label"><span class="header-action-sub">My Cart</span><span class="header-action-title">Checkout</span></div></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="main-nav-bar">
+      <div class="container main-nav-inner">
+        <ul class="nav-links">
+          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="shop.html" class="nav-link">Shop All</a></li>
+          <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
+          <li class="nav-item"><a href="blog.html" class="nav-link">Blog &amp; Recipes</a></li>
+          <li class="nav-item"><a href="contact.html" class="nav-link">Contact Us</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MAIN CART CONTENT -->
+  <main class="container section-sm">
+    <div class="breadcrumbs">
+      <a href="index.html">Home</a>
+      <span class="separator">/</span>
+      <span class="current">Shopping Cart</span>
+    </div>
+
+    <h1 style="font-size: 2.2rem; margin-bottom: 8px;">Your Shopping Basket</h1>
+
+    <div id="cart-content-wrapper">
+      <!-- Populated dynamically via JS -->
+    </div>
+  </main>
+
+  <!-- Checkout Modal Simulation -->
+  <div id="checkout-modal-overlay" class="modal-overlay">
+    <div class="quickview-modal" style="max-width: 600px; padding: 32px;">
+      <button class="modal-close-btn" onclick="document.getElementById('checkout-modal-overlay').classList.remove('active')">&times;</button>
+      <h3 style="font-size: 1.5rem; margin-bottom: 6px;">Express Checkout</h3>
+      <p style="font-size: 0.88rem; color: var(--color-text-muted); margin-bottom: 20px;">Complete your organic grocery order with 100% encrypted security.</p>
+      
+      <form id="checkout-form" onsubmit="handleCheckoutSubmit(event)">
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div>
+            <label style="font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; display: block;">Full Name</label>
+            <input type="text" required placeholder="e.g. Rahul Sharma" style="width: 100%; padding: 10px 14px; border: 1px solid var(--color-border); border-radius: var(--radius-sm);" />
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div>
+              <label style="font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; display: block;">Phone Number</label>
+              <input type="tel" required placeholder="9150300641" style="width: 100%; padding: 10px 14px; border: 1px solid var(--color-border); border-radius: var(--radius-sm);" />
+            </div>
+            <div>
+              <label style="font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; display: block;">Email Address</label>
+              <input type="email" required placeholder="rahul@example.com" style="width: 100%; padding: 10px 14px; border: 1px solid var(--color-border); border-radius: var(--radius-sm);" />
+            </div>
+          </div>
+          <div>
+            <label style="font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; display: block;">Delivery Address</label>
+            <textarea required rows="2" placeholder="House/Flat No, Apartment, Street name" style="width: 100%; padding: 10px 14px; border: 1px solid var(--color-border); border-radius: var(--radius-sm);"></textarea>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div>
+              <label style="font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; display: block;">City &amp; State</label>
+              <input type="text" required placeholder="Bengaluru, KA" style="width: 100%; padding: 10px 14px; border: 1px solid var(--color-border); border-radius: var(--radius-sm);" />
+            </div>
+            <div>
+              <label style="font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; display: block;">Postal Pincode</label>
+              <input type="text" required placeholder="560001" style="width: 100%; padding: 10px 14px; border: 1px solid var(--color-border); border-radius: var(--radius-sm);" />
+            </div>
+          </div>
+          <div>
+            <label style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: block;">Payment Method</label>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; padding: 10px; border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
+                <input type="radio" name="payment" value="upi" checked />
+                <span>UPI / Google Pay / PhonePe (Fast &amp; Zero Fee)</span>
+              </label>
+              <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; padding: 10px; border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
+                <input type="radio" name="payment" value="card" />
+                <span>Credit / Debit Card (Visa, MasterCard, RuPay)</span>
+              </label>
+              <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; padding: 10px; border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
+                <input type="radio" name="payment" value="cod" />
+                <span>Cash on Delivery (COD)</span>
+              </label>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg" style="margin-top: 10px;">Place Order Now</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- FSSAI Checkout Trust Section -->
+  <div class="container" style="margin: 24px auto;">
+    <div style="max-width: 540px; background: #ffffff; border: 1.5px solid #22c55e; border-radius: 12px; padding: 16px 22px; display: flex; align-items: center; gap: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+      <img src="assets/images/fssai-logo.png" alt="FSSAI registered logo" width="56" height="56" style="width: 56px; height: 56px; object-fit: contain; flex-shrink: 0;" />
+      <div>
+        <span style="display: block; font-size: 0.78rem; font-weight: 800; color: #15803d; letter-spacing: 0.5px;">100% QUALITY &amp; SAFETY ASSURED</span>
+        <strong style="color: #14532d; font-size: 0.95rem; display: block;">All products are FSSAI registered</strong>
+        <span style="font-size: 0.88rem; color: #15803d; font-weight: 800;">FSSAI Lic No: 22426431000125</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="brand-logo" style="margin-bottom: 8px;">
+            <img src="assets/images/rp-organics-logo.png" alt="RP Organics logo" class="footer-logo-img" />
+          </div>
+          <p>Pure, traditional South Indian herbal podis, protein health mix, and unpolished millet powders.</p>
+                    <!-- Mandatory Footer Details with Official FSSAI Logo -->
+          <div class="footer-fssai-box">
+            <strong style="display: block; font-size: 1rem; color: #ffffff;">RP Organics</strong>
+            <p style="margin: 3px 0; color: #d1d9d3; font-size: 0.85rem;"><strong>Owner:</strong> Rani Pavunrasu</p>
+            <p style="margin: 3px 0; color: #86efac; font-size: 0.85rem;"><strong>All products are FSSAI registered.</strong></p>
+            <div style="background: #ffffff; border-radius: 8px; padding: 8px 12px; display: inline-flex; align-items: center; gap: 12px; margin: 8px 0; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+              <img src="assets/images/fssai-logo.png" alt="FSSAI registered logo" width="56" height="56" style="width: 56px; height: 56px; object-fit: contain;" />
+              <div style="text-align: left;">
+                <span style="display: block; font-size: 0.78rem; font-weight: 800; color: #15803d; letter-spacing: 0.5px;">FSSAI REGISTERED</span>
+                <span style="display: block; font-size: 0.88rem; font-weight: 800; color: #111827;">Lic No: 22426431000125</span>
+              </div>
+            </div>
+            <p style="margin: 3px 0; color: #d1d9d3; font-size: 0.85rem;"><strong>Contact:</strong> <a href="tel:9150300641" style="color: #ffffff; text-decoration: underline;">9150300641</a></p>
+            <p style="margin: 3px 0; color: #d1d9d3; font-size: 0.85rem;"><strong>Email:</strong> <a href="mailto:benseethalrani@gmail.com" style="color: #ffffff; text-decoration: underline;">benseethalrani@gmail.com</a></p>
+          </div>
+</div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop All</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Customer Care</h4>
+          <ul class="footer-links">
+            <li><a href="account.html#orders">Track Order</a></li>
+            <li><a href="shipping-returns.html">Shipping &amp; Returns</a></li>
+            <li><a href="faqs.html">FAQs</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 RP Organics. All rights reserved.</div>
+        <div class="footer-payment-badges">
+          <span class="payment-pill">UPI</span>
+          <span class="payment-pill">Google Pay</span>
+          <span class="payment-pill">PhonePe</span>
+          <span class="payment-pill">Debit/Credit Card</span>
+          <span class="payment-pill">Cash on Delivery</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <script src="assets/js/products-data.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/components.js"></script>
+  <script>
+    let appliedDiscount = 0;
+    let appliedCoupon = '';
+
+    function renderCartPage() {
+      const wrapper = document.getElementById('cart-content-wrapper');
+      if (!wrapper) return;
+
+      const cart = Store.state.cart;
+      if (cart.length === 0) {
+        wrapper.innerHTML = `
+          <div style="text-align: center; padding: 80px 20px; background: #ffffff; border-radius: var(--radius-xl); border: 1px solid var(--color-border);">
+            <div style="width: 80px; height: 80px; border-radius: 50%; background-color: var(--color-primary-soft); color: var(--color-primary); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-2z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+            </div>
+            <h2>Your Cart is Currently Empty</h2>
+            <p style="color: var(--color-text-muted); margin: 12px 0 24px; max-width: 400px; margin-left: auto; margin-right: auto;">
+              Explore our freshly ground organic spices, nutrient-rich millets, and cold-pressed cooking oils.
+            </p>
+            <a href="shop.html" class="btn btn-primary btn-lg">Start Shopping &rarr;</a>
+          </div>
+        `;
+        return;
+      }
+
+      const subtotal = Store.getCartSubtotal();
+      const freeShipping = Store.getFreeShippingProgress();
+      const shippingCost = freeShipping.isFree ? 0 : 99;
+      const discountAmount = appliedDiscount > 0 ? (subtotal * appliedDiscount) : 0;
+      const grandTotal = Math.max(0, subtotal - discountAmount + shippingCost);
+
+      wrapper.innerHTML = `
+        <!-- Free Shipping Meter -->
+        <div style="background-color: var(--color-primary-soft); padding: 16px 20px; border-radius: var(--radius-md); margin-bottom: 24px; border: 1px solid #c9e5cd;">
+          <div style="font-weight: 700; font-size: 0.92rem; color: var(--color-primary-dark); margin-bottom: 8px;">
+            ${freeShipping.isFree ? '🎉 You qualify for FREE Express Shipping!' : `Add ${Store.formatPrice(freeShipping.needed)} more for FREE Delivery!`}
+          </div>
+          <div style="height: 8px; background-color: #ffffff; border-radius: 4px; overflow: hidden;">
+            <div style="height: 100%; width: ${freeShipping.percent}%; background-color: var(--color-primary); transition: width 0.4s ease;"></div>
+          </div>
+        </div>
+
+        <div class="cart-page-layout">
+          <!-- Left: Cart Items Table -->
+          <div>
+            <table class="cart-table">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Pack Size</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Total</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${cart.map(item => `
+                  <tr>
+                    <td>
+                      <div style="display: flex; align-items: center; gap: 14px;">
+                        <img src="${item.image}" alt="${item.title}" style="width: 60px; height: 60px; border-radius: var(--radius-sm); object-fit: cover;" />
+                        <div>
+                          <a href="product.html?id=${item.productId}" onclick="try{sessionStorage.setItem('rp_current_product_id', '${item.productId}');}catch(e){}" style="font-weight: 700; font-size: 0.95rem; color: var(--color-text-main);">${item.title}</a>
+                          <div style="font-size: 0.78rem; color: var(--color-text-light);">${item.category}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td style="font-size: 0.88rem; font-weight: 600;">${item.variant}</td>
+                    <td style="font-size: 0.95rem; font-weight: 700; color: var(--color-primary);">${Store.formatPrice(item.price)}</td>
+                    <td>
+                      <div class="qty-picker">
+                        <button class="qty-btn" onclick="Store.updateQuantity('${item.key}', ${item.quantity - 1})">-</button>
+                        <input class="qty-input" value="${item.quantity}" readonly />
+                        <button class="qty-btn" onclick="Store.updateQuantity('${item.key}', ${item.quantity + 1})">+</button>
+                      </div>
+                    </td>
+                    <td style="font-size: 1rem; font-weight: 800; color: var(--color-primary);">${Store.formatPrice(item.price * item.quantity)}</td>
+                    <td>
+                      <button onclick="Store.removeFromCart('${item.key}')" style="color: var(--color-sale); font-size: 0.85rem;" title="Remove">✕</button>
+                    </td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+              <a href="shop.html" class="btn btn-outline">&larr; Continue Shopping</a>
+              <button class="btn btn-outline" onclick="Store.clearCart();">Clear Cart</button>
+            </div>
+          </div>
+
+          <!-- Right: Order Summary Card -->
+          <div>
+            <div class="order-summary-card">
+              <h3 style="font-size: 1.25rem; margin-bottom: 20px;">Order Summary</h3>
+              
+              <div class="summary-row">
+                <span>Subtotal (${Store.getCartCount()} items)</span>
+                <span>${Store.formatPrice(subtotal)}</span>
+              </div>
+
+              ${appliedDiscount > 0 ? `
+                <div class="summary-row" style="color: var(--color-success); font-weight: 600;">
+                  <span>Coupon (${appliedCoupon})</span>
+                  <span>- ${Store.formatPrice(discountAmount)}</span>
+                </div>
+              ` : ''}
+
+              <div class="summary-row">
+                <span>Estimated Shipping</span>
+                <span>${shippingCost === 0 ? '<strong style="color: var(--color-success);">FREE</strong>' : Store.formatPrice(shippingCost)}</span>
+              </div>
+
+              <div class="summary-row">
+                <span>GST / Taxes</span>
+                <span style="color: var(--color-text-light);">Included in price</span>
+              </div>
+
+              <div class="summary-row total-row">
+                <span>Total Amount</span>
+                <span>${Store.formatPrice(grandTotal)}</span>
+              </div>
+
+              <!-- Coupon Code Input -->
+              <div style="margin: 20px 0;">
+                <label style="font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; display: block;">Have a Promotional Coupon?</label>
+                <div style="display: flex; gap: 8px;">
+                  <input type="text" id="coupon-input" placeholder="e.g. ORGANIC10" style="flex: 1; padding: 8px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); text-transform: uppercase;" />
+                  <button class="btn btn-outline btn-sm" onclick="applyCouponCode()">Apply</button>
+                </div>
+                <div id="coupon-message" style="font-size: 0.78rem; margin-top: 4px;"></div>
+              </div>
+
+              <button class="btn btn-primary btn-lg btn-full" onclick="document.getElementById('checkout-modal-overlay').classList.add('active')">
+                Proceed to Checkout &rarr;
+              </button>
+
+              <div style="margin-top: 20px; font-size: 0.78rem; color: var(--color-text-light); text-align: center; display: flex; flex-direction: column; gap: 4px;">
+                <span>🔒 256-Bit SSL Encrypted Checkout</span>
+                <span>📦 Fast dispatch within 24 hours across India</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function applyCouponCode() {
+      const input = document.getElementById('coupon-input');
+      const msg = document.getElementById('coupon-message');
+      if (!input || !msg) return;
+
+      const code = input.value.trim().toUpperCase();
+      if (code === 'ORGANIC10') {
+        appliedDiscount = 0.10;
+        appliedCoupon = 'ORGANIC10 (10% Off)';
+        msg.innerHTML = '<span style="color: var(--color-success); font-weight: 600;">✓ 10% Organic discount applied!</span>';
+        renderCartPage();
+      } else if (code === 'RPOFF20') {
+        appliedDiscount = 0.20;
+        appliedCoupon = 'RPOFF20 (20% Off)';
+        msg.innerHTML = '<span style="color: var(--color-success); font-weight: 600;">✓ 20% Special Harvest discount applied!</span>';
+        renderCartPage();
+      } else {
+        msg.innerHTML = '<span style="color: var(--color-sale);">Invalid code. Try "ORGANIC10" or "RPOFF20".</span>';
+      }
+    }
+
+    function handleCheckoutSubmit(e) {
+      e.preventDefault();
+      Store.clearCart();
+      document.getElementById('checkout-modal-overlay').classList.remove('active');
+      alert('🎉 Order Placed Successfully!\n\nOrder ID: #VR-94821\nA confirmation SMS and email have been dispatched with live delivery tracking.');
+      window.location.href = 'account.html#orders';
+    }
+
+    window.addEventListener('vr:cart-updated', renderCartPage);
+    document.addEventListener('DOMContentLoaded', renderCartPage);
+  </script>
+</body>
+</html>

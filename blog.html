@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Organic Nutrition &amp; Recipe Journal | RP Organics</title>
+  <meta name="description" content="Read wholesome millet recipes, cold-pressed oil guides, and evidence-based Ayurvedic nutrition advice." />
+  
+  <link rel="icon" type="image/png" href="assets/images/rp-organics-logo.png" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/header-footer.css" />
+  <link rel="stylesheet" href="assets/css/product-card.css" />
+  <link rel="stylesheet" href="assets/css/cart-drawer.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+  <style>
+    .featured-blog-card {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 32px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      margin-bottom: 48px;
+    }
+    .featured-blog-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .featured-blog-content {
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .blog-cat-nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .blog-cat-btn {
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      background: #ffffff;
+      border: 1.5px solid var(--color-border);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .blog-cat-btn.active, .blog-cat-btn:hover {
+      background: var(--color-primary);
+      color: #ffffff;
+      border-color: var(--color-primary);
+    }
+    @media (max-width: 860px) {
+      .featured-blog-card {
+        grid-template-columns: 1fr;
+      }
+      .featured-blog-content {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+    <!-- Top Announcement Bar -->
+  <aside class="announcement-bar" aria-label="Store Announcement">
+    <div class="container">
+      <div class="announcement-left">
+        <span class="announcement-promo">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          Free Shipping on all orders above ₹999 across India!
+        </span>
+      </div>
+      <div class="announcement-right">
+        <span class="announcement-item">
+          <a href="tel:9150300641">📞 9150300641</a>
+        </span>
+        <span class="announcement-item">
+          <a href="mailto:benseethalrani@gmail.com">benseethalrani@gmail.com</a>
+        </span>
+        <span class="announcement-item"><a href="account.html#orders">Track Order</a></span>
+        <span class="announcement-item"><a href="login.html">Login / Register</a></span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/rp-organics-logo.png" alt="RP Organics logo" class="brand-logo-img" />
+          <div class="brand-logo-text"><span class="brand-title">RP Organics</span><span class="brand-tagline">Pure &amp; Natural</span></div>
+      </a>
+      <div class="header-search">
+        <form action="search.html" method="GET" class="search-input-wrap">
+          <input type="text" name="q" class="search-input" placeholder="Search organic recipes, guides, millets..." />
+          <button type="submit" class="search-submit-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+        </form>
+      </div>
+      <div class="header-actions">
+        <a href="wishlist.html" class="header-action-btn"><div class="header-action-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg><span class="badge-count wishlist-count-badge" style="display: none;">0</span></div></a>
+        <a href="cart.html" class="header-action-btn trigger-cart-drawer"><div class="header-action-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-2z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span class="badge-count cart-count-badge" style="display: none;">0</span></div></a>
+      </div>
+    </div>
+    <nav class="main-nav-bar">
+      <div class="container main-nav-inner">
+        <ul class="nav-links">
+          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="shop.html" class="nav-link">Shop All</a></li>
+          <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
+          <li class="nav-item"><a href="blog.html" class="nav-link active">Blog &amp; Recipes</a></li>
+          <li class="nav-item"><a href="contact.html" class="nav-link">Contact Us</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container section-sm">
+    <div class="breadcrumbs">
+      <a href="index.html">Home</a>
+      <span class="separator">/</span>
+      <span class="current">Blog &amp; Nutrition Journal</span>
+    </div>
+
+    <div style="margin-bottom: 24px;">
+      <h1 style="font-size: 2.2rem; margin-bottom: 8px;">The Organic Living Journal</h1>
+      <p style="color: var(--color-text-muted); font-size: 1rem;">Evidence-backed nutrition guides, millet recipes, and traditional Ayurvedic kitchen wisdom.</p>
+    </div>
+
+    <!-- Category Filter Tabs -->
+    <div class="blog-cat-nav">
+      <button class="blog-cat-btn active" onclick="filterBlog('all', this)">All Articles</button>
+      <button class="blog-cat-btn" onclick="filterBlog('Healthy Recipes', this)">Healthy Recipes</button>
+      <button class="blog-cat-btn" onclick="filterBlog('Nutrition Science', this)">Nutrition Science</button>
+      <button class="blog-cat-btn" onclick="filterBlog('Spices & Wellness', this)">Spices &amp; Wellness</button>
+    </div>
+
+    <!-- Featured Post -->
+    <div class="featured-blog-card">
+      <div class="featured-blog-media">
+        <img src="https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=1000&q=80" alt="Millet Breakfast Bowls" />
+      </div>
+      <div class="featured-blog-content">
+        <span class="sub-badge" style="align-self: flex-start; margin-bottom: 12px;">Featured Recipe Guide</span>
+        <h2 style="font-size: 1.8rem; margin-bottom: 12px; line-height: 1.25;">5 Quick Ancient Millet Breakfast Recipes to Supercharge Your Morning</h2>
+        <p style="color: var(--color-text-muted); line-height: 1.6; margin-bottom: 20px;">
+          Ditch processed breakfast cereals! Learn how simple Foxtail Millet Pongal and Sprouted Ragi malt pancakes stabilize blood sugar and fuel your day without insulin crashes.
+        </p>
+        <div style="display: flex; align-items: center; gap: 14px; font-size: 0.85rem; color: var(--color-text-light); margin-bottom: 24px;">
+          <span>By Dr. Ananya Sharma</span>
+          <span>•</span>
+          <span>October 10, 2026</span>
+          <span>•</span>
+          <span>5 min read</span>
+        </div>
+        <a href="blog-post.html?id=blog-01" class="btn btn-primary" style="align-self: flex-start;">Read Complete Recipe &rarr;</a>
+      </div>
+    </div>
+
+    <!-- Articles Grid -->
+    <div class="blog-preview-grid" id="blog-grid-container">
+      <!-- Populated dynamically via JS -->
+    </div>
+  </main>
+
+    <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="brand-logo" style="margin-bottom: 8px;">
+            <img src="assets/images/rp-organics-logo.png" alt="RP Organics logo" class="footer-logo-img" />
+          </div>
+          <p>Pure, traditional South Indian herbal podis, protein health mix, and unpolished millet powders. 100% natural goodness crafted for your family's daily vitality.</p>
+
+          <!-- Mandatory Footer Details -->
+                    <!-- Mandatory Footer Details with Official FSSAI Logo -->
+          <div class="footer-fssai-box">
+            <strong style="display: block; font-size: 1rem; color: #ffffff;">RP Organics</strong>
+            <p style="margin: 3px 0; color: #d1d9d3; font-size: 0.85rem;"><strong>Owner:</strong> Rani Pavunrasu</p>
+            <p style="margin: 3px 0; color: #86efac; font-size: 0.85rem;"><strong>All products are FSSAI registered.</strong></p>
+            <div style="background: #ffffff; border-radius: 8px; padding: 8px 12px; display: inline-flex; align-items: center; gap: 12px; margin: 8px 0; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+              <img src="assets/images/fssai-logo.png" alt="FSSAI registered logo" width="56" height="56" style="width: 56px; height: 56px; object-fit: contain;" />
+              <div style="text-align: left;">
+                <span style="display: block; font-size: 0.78rem; font-weight: 800; color: #15803d; letter-spacing: 0.5px;">FSSAI REGISTERED</span>
+                <span style="display: block; font-size: 0.88rem; font-weight: 800; color: #111827;">Lic No: 22426431000125</span>
+              </div>
+            </div>
+            <p style="margin: 3px 0; color: #d1d9d3; font-size: 0.85rem;"><strong>Contact:</strong> <a href="tel:9150300641" style="color: #ffffff; text-decoration: underline;">9150300641</a></p>
+            <p style="margin: 3px 0; color: #d1d9d3; font-size: 0.85rem;"><strong>Email:</strong> <a href="mailto:benseethalrani@gmail.com" style="color: #ffffff; text-decoration: underline;">benseethalrani@gmail.com</a></p>
+          </div>
+<div class="footer-social-links">
+            <a href="https://instagram.com" class="footer-social-btn" aria-label="Instagram">IG</a>
+            <a href="https://wa.me/919150300641" class="footer-social-btn" aria-label="WhatsApp">WA</a>
+            <a href="https://facebook.com" class="footer-social-btn" aria-label="Facebook">FB</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop All</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Customer Care</h4>
+          <ul class="footer-links">
+            <li><a href="account.html#orders">Track Order</a></li>
+            <li><a href="shipping-returns.html">Shipping &amp; Returns</a></li>
+            <li><a href="faqs.html">FAQs</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <p style="font-size: 0.88rem; color: #a3b0a6;"><a href="mailto:benseethalrani@gmail.com" style="color: #ffffff;">benseethalrani@gmail.com</a></p>
+          <p style="font-size: 0.88rem; color: #a3b0a6;"><a href="tel:9150300641" style="color: #ffffff;">9150300641</a></p>
+          <p style="font-size: 0.8rem; color: #a3b0a6; margin-top: 8px;">FSSAI Lic No: 22426431000125</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 RP Organics. All rights reserved.</div>
+        <div class="footer-payment-badges">
+          <span class="payment-pill">UPI</span>
+          <span class="payment-pill">Google Pay</span>
+          <span class="payment-pill">PhonePe</span>
+          <span class="payment-pill">Debit/Credit Card</span>
+          <span class="payment-pill">Cash on Delivery</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/products-data.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/components.js"></script>
+  <script>
+    function renderBlogArticles(category = 'all') {
+      const container = document.getElementById('blog-grid-container');
+      if (!container || typeof BLOG_POSTS === 'undefined') return;
+
+      const filtered = category === 'all' 
+        ? BLOG_POSTS 
+        : BLOG_POSTS.filter(b => b.category === category);
+
+      container.innerHTML = filtered.map(post => `
+        <div class="blog-card">
+          <div class="blog-card-media">
+            <img src="${post.image}" alt="${post.title}" loading="lazy" />
+            <span class="blog-card-badge">${post.category}</span>
+          </div>
+          <div class="blog-card-content">
+            <div class="blog-card-meta">
+              <span>${post.date}</span>
+              <span>•</span>
+              <span>${post.readTime}</span>
+            </div>
+            <h4 class="blog-card-title">
+              <a href="blog-post.html?id=${post.id}">${post.title}</a>
+            </h4>
+            <p class="blog-card-excerpt">${post.excerpt}</p>
+            <a href="blog-post.html?id=${post.id}" class="blog-card-link">
+              Read Recipe &amp; Article &rarr;
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterBlog(cat, btn) {
+      document.querySelectorAll('.blog-cat-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderBlogArticles(cat);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => renderBlogArticles('all'));
+  </script>
+</body>
+</html>

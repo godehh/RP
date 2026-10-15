@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Article &amp; Recipe Guide | RP Organics</title>
+  
+  <link rel="icon" type="image/png" href="assets/images/rp-organics-logo.png" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/header-footer.css" />
+  <link rel="stylesheet" href="assets/css/product-card.css" />
+  <link rel="stylesheet" href="assets/css/cart-drawer.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+  <style>
+    .article-container {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    .article-hero-img {
+      width: 100%;
+      height: 440px;
+      object-fit: cover;
+      border-radius: var(--radius-xl);
+      margin: 28px 0 36px;
+    }
+    .article-prose {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #2d3748;
+    }
+    .article-prose h2 {
+      font-size: 1.6rem;
+      margin: 36px 0 16px;
+      color: var(--color-text-main);
+    }
+    .article-prose p {
+      margin-bottom: 20px;
+    }
+    .recipe-ingredients-card {
+      background-color: var(--color-surface-subtle);
+      border-left: 4px solid var(--color-primary);
+      border-radius: var(--radius-md);
+      padding: 24px 28px;
+      margin: 32px 0;
+    }
+    .recipe-steps-list {
+      padding-left: 20px;
+      margin-bottom: 28px;
+    }
+    .recipe-steps-list li {
+      margin-bottom: 12px;
+      list-style-type: decimal;
+    }
+    .share-strip {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 20px 0;
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+      margin: 40px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+    <!-- Top Announcement Bar -->
+  <aside class="announcement-bar" aria-label="Store Announcement">
+    <div class="container">
+      <div class="announcement-left">
+        <span class="announcement-promo">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          Free Shipping on all orders above ₹999 across India!
+        </span>
+      </div>
+      <div class="announcement-right">
+        <span class="announcement-item">
+          <a href="tel:9150300641">📞 9150300641</a>
+        </span>
+        <span class="announcement-item">
+          <a href="mailto:benseethalrani@gmail.com">benseethalrani@gmail.com</a>
+        </span>
+        <span class="announcement-item"><a href="account.html#orders">Track Order</a></span>
+        <span class="announcement-item"><a href="login.html">Login / Register</a></span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/rp-organics-logo.png" alt="RP Organics logo" class="brand-logo-img" />
+          <div class="brand-logo-text"><span class="brand-title">RP Organics</span><span class="brand-tagline">Pure &amp; Natural</span></div>
+      </a>
+      <div class="header-actions">
+        <a href="wishlist.html" class="header-action-btn"><div class="header-action-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg><span class="badge-count wishlist-count-badge" style="display: none;">0</span></div></a>
+        <a href="cart.html" class="header-action-btn trigger-cart-drawer"><div class="header-action-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-2z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span class="badge-count cart-count-badge" style="display: none;">0</span></div></a>
+      </div>
+    </div>
+    <nav class="main-nav-bar">
+      <div class="container main-nav-inner">
+        <ul class="nav-links">
+          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="shop.html" class="nav-link">Shop All</a></li>
+          <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
+          <li class="nav-item"><a href="blog.html" class="nav-link active">Blog &amp; Recipes</a></li>
+          <li class="nav-item"><a href="contact.html" class="nav-link">Contact Us</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container section-sm">
+    <div class="article-container">
+      <div class="breadcrumbs">
+        <a href="index.html">Home</a>
+        <span class="separator">/</span>
+        <a href="blog.html">Blog</a>
+        <span class="separator">/</span>
+        <span class="current" id="article-crumb">Article</span>
+      </div>
+
+      <div id="article-body-wrapper">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </main>
+
+    <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="brand-logo" style="margin-bottom: 8px;">
+            <img src="assets/images/rp-organics-logo.png" alt="RP Organics logo" class="footer-logo-img" />
+          </div>
+          <p>Pure, traditional South Indian herbal podis, protein health mix, and unpolished millet powders. 100% natural goodness crafted for your family's daily vitality.</p>
+
+          <!-- Mandatory Footer Details -->
+                    <!-- Mandatory Footer Details with Official FSSAI Logo -->
+          <div class="footer-fssai-box">
+            <strong style="display: block; font-size: 1rem; color: #ffffff;">RP Organics</strong>
+            <p style="margin: 3px 0; color: #d1d9d3; font-size: 0.85rem;"><strong>Owner:</strong> Rani Pavunrasu</p>
+            <p style="margin: 3px 0; color: #86efac; font-size: 0.85rem;"><strong>All products are FSSAI registered.</strong></p>
+            <div style="background: #ffffff; border-radius: 8px; padding: 8px 12px; display: inline-flex; align-items: center; gap: 12px; margin: 8px 0; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+              <img src="assets/images/fssai-logo.png" alt="FSSAI registered logo" width="56" height="56" style="width: 56px; height: 56px; object-fit: contain;" />
+              <div style="text-align: left;">
+                <span style="display: block; font-size: 0.78rem; font-weight: 800; color: #15803d; letter-spacing: 0.5px;">FSSAI REGISTERED</span>
+                <span style="display: block; font-size: 0.88rem; font-weight: 800; color: #111827;">Lic No: 22426431000125</span>
+              </div>
+            </div>
+            <p style="margin: 3px 0; color: #d1d9d3; font-size: 0.85rem;"><strong>Contact:</strong> <a href="tel:9150300641" style="color: #ffffff; text-decoration: underline;">9150300641</a></p>
+            <p style="margin: 3px 0; color: #d1d9d3; font-size: 0.85rem;"><strong>Email:</strong> <a href="mailto:benseethalrani@gmail.com" style="color: #ffffff; text-decoration: underline;">benseethalrani@gmail.com</a></p>
+          </div>
+<div class="footer-social-links">
+            <a href="https://instagram.com" class="footer-social-btn" aria-label="Instagram">IG</a>
+            <a href="https://wa.me/919150300641" class="footer-social-btn" aria-label="WhatsApp">WA</a>
+            <a href="https://facebook.com" class="footer-social-btn" aria-label="Facebook">FB</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop All</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Customer Care</h4>
+          <ul class="footer-links">
+            <li><a href="account.html#orders">Track Order</a></li>
+            <li><a href="shipping-returns.html">Shipping &amp; Returns</a></li>
+            <li><a href="faqs.html">FAQs</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <p style="font-size: 0.88rem; color: #a3b0a6;"><a href="mailto:benseethalrani@gmail.com" style="color: #ffffff;">benseethalrani@gmail.com</a></p>
+          <p style="font-size: 0.88rem; color: #a3b0a6;"><a href="tel:9150300641" style="color: #ffffff;">9150300641</a></p>
+          <p style="font-size: 0.8rem; color: #a3b0a6; margin-top: 8px;">FSSAI Lic No: 22426431000125</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 RP Organics. All rights reserved.</div>
+        <div class="footer-payment-badges">
+          <span class="payment-pill">UPI</span>
+          <span class="payment-pill">Google Pay</span>
+          <span class="payment-pill">PhonePe</span>
+          <span class="payment-pill">Debit/Credit Card</span>
+          <span class="payment-pill">Cash on Delivery</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/products-data.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/components.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const postId = urlParams.get('id') || 'blog-01';
+      const post = BLOG_POSTS.find(p => p.id === postId) || BLOG_POSTS[0];
+
+      document.getElementById('article-crumb').textContent = post.title;
+
+      const wrapper = document.getElementById('article-body-wrapper');
+      wrapper.innerHTML = `
+        <span class="sub-badge" style="margin-bottom: 14px;">${post.category}</span>
+        <h1 style="font-size: 2.5rem; line-height: 1.25; margin-bottom: 16px;">${post.title}</h1>
+        
+        <div style="display: flex; align-items: center; gap: 16px; font-size: 0.88rem; color: var(--color-text-light); margin-bottom: 24px;">
+          <span>Written by <strong>${post.author}</strong></span>
+          <span>•</span>
+          <span>Published ${post.date}</span>
+          <span>•</span>
+          <span>${post.readTime}</span>
+        </div>
+
+        <img src="${post.image}" alt="${post.title}" class="article-hero-img" />
+
+        <div class="article-prose">
+          <p style="font-size: 1.15rem; font-weight: 500; color: var(--color-text-main);">
+            ${post.excerpt}
+          </p>
+
+          <h2>Why Ancient Millets Are Superior to Refined Grains</h2>
+          <p>
+            Unlike modern dwarf hybrid wheat and polished white rice, ancient millets like Foxtail (Setaria italica), Kodo, and Finger Millet (Ragi) retain their nutrient-rich outer husk and aleurone layers intact. They naturally boast a glycemic index under 55, ensuring slow glucose release and sustained stamina throughout busy mornings.
+          </p>
+
+          <div class="recipe-ingredients-card">
+            <h3 style="font-size: 1.2rem; color: var(--color-primary-dark); margin-bottom: 12px;">🥣 Recipe: Golden Foxtail Millet &amp; Sprouted Moong Khichdi</h3>
+            <ul style="display: flex; flex-direction: column; gap: 8px; font-size: 0.95rem;">
+              <li>• 1 Cup <a href="product.html?id=mil-powder-01" style="color: var(--color-primary); text-decoration: underline;">RP Organics 100% Millet Mix</a> (Instant Dosa &amp; Idly)</li>
+              <li>• 1/2 Cup Organic Split Yellow Moong Dal</li>
+              <li>• 2 Tbsp <a href="product.html?id=pro-01" style="color: var(--color-primary); text-decoration: underline;">RP Organics Protein Health Mix</a> (12g Veg Protein)</li>
+              <li>• 1 Tsp <a href="product.html?id=spc-poondu" style="color: var(--color-primary); text-decoration: underline;">RP Organics Traditional Poondu Podi</a></li>
+              <li>• 1/2 Tsp <a href="product.html?id=spc-sundakkai" style="color: var(--color-primary); text-decoration: underline;">RP Organics Sundakkai Herbal Podi</a></li>
+              <li>• 1 Tsp Cumin Seeds, fresh curry leaves &amp; grated ginger</li>
+              <li>• 3.5 Cups Clean Drinking Water &amp; Rock Salt to taste</li>
+            </ul>
+          </div>
+
+          <h2>Step-by-Step Preparation Method</h2>
+          <ol class="recipe-steps-list">
+            <li><strong>Rinse &amp; Soak:</strong> Wash foxtail millet and moong dal in clean water twice. Soak together for 20 minutes to awaken digestive enzymes.</li>
+            <li><strong>The Ayurvedic Tadka:</strong> In a clay pot or heavy-bottomed cooker, warm 2 tablespoons of A2 Gir Cow Ghee. Add cumin seeds, hing, sliced ginger, and fresh green chilies until fragrant.</li>
+            <li><strong>Activate the Curcumin:</strong> Add Lakadong Turmeric and freshly crushed Tellicherry Black Pepper. The healthy lipids in ghee and piperine in pepper maximize curcumin absorption by up to 2000%.</li>
+            <li><strong>Simmer to Perfection:</strong> Add the drained millet, moong dal, and 3.5 cups of water. Pressure cook for 3 whistles or slow-simmer in a clay pot for 18 minutes until silky and aromatic.</li>
+            <li><strong>Serve Warm:</strong> Drizzle with an extra teaspoon of golden A2 Ghee and serve with fresh organic curd.</li>
+          </ol>
+
+          <h2>Nutritionist's Health Verdict</h2>
+          <p>
+            This meal delivers complete protein (combining legumes and grain amino acids), high dietary soluble fiber for optimal microbiome fermentation, and zero inflammatory preservatives.
+          </p>
+        </div>
+
+        <div class="share-strip">
+          <strong style="font-size: 0.9rem;">Share this recipe:</strong>
+          <a href="https://api.whatsapp.com/send?text=${encodeURIComponent(post.title + ' ' + window.location.href)}" target="_blank" class="btn btn-outline btn-sm">WhatsApp</a>
+          <button class="btn btn-outline btn-sm" onclick="navigator.clipboard.writeText(window.location.href); Store.showToast('Article link copied to clipboard!', 'success');">Copy Link</button>
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>
