@@ -169,11 +169,12 @@
 
       wrapper.innerHTML = `
         <div class="products-grid">
-          ${wishlistedProducts.map(p => VedaComponents.renderProductCard(p)).join('')}
+          ${wishlistedProducts.map(p => (window.RPComponents || window.VedaComponents).renderProductCard(p)).join('')}
         </div>
       `;
     }
 
+    window.addEventListener('rp:wishlist-updated', renderWishlist);
     window.addEventListener('vr:wishlist-updated', renderWishlist);
     document.addEventListener('DOMContentLoaded', renderWishlist);
   </script>

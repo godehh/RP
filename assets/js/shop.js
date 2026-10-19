@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (resetBtn) resetBtn.addEventListener('click', resetAllFilters);
     } else {
       shopGrid.className = `products-grid ${filterState.viewMode === 'list' ? 'list-view' : ''}`;
-      shopGrid.innerHTML = results.map(prod => VedaComponents.renderProductCard(prod)).join('');
+      shopGrid.innerHTML = results.map(prod => (window.RPComponents || window.VedaComponents).renderProductCard(prod)).join('');
     }
   };
 

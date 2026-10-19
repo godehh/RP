@@ -4,7 +4,7 @@
  * Phone: 9150300641 | Email: benseethalrani@gmail.com
  */
 
-window.VedaComponents = {
+window.RPComponents = {
 
   /**
    * Render a responsive, interactive product card conforming to RP Organics requirements
@@ -77,7 +77,7 @@ window.VedaComponents = {
           <!-- Quick Action Icon Row over image on hover (Groceryo Reference Style) -->
           <div class="product-card-hover-actions" aria-label="Quick Actions">
             <button class="card-action-btn quickview-btn" 
-                    onclick="event.preventDefault(); event.stopPropagation(); VedaComponents.openQuickView('${product.id}')"
+                    onclick="event.preventDefault(); event.stopPropagation(); RPComponents.openQuickView('${product.id}')"
                     title="Quick View"
                     aria-label="Quick View">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -86,7 +86,7 @@ window.VedaComponents = {
               </svg>
             </button>
             <button class="card-action-btn wishlist-btn ${isWishlisted ? 'active' : ''}" 
-                    onclick="event.preventDefault(); event.stopPropagation(); VedaComponents.handleWishlistToggle('${product.id}', this)"
+                    onclick="event.preventDefault(); event.stopPropagation(); RPComponents.handleWishlistToggle('${product.id}', this)"
                     title="${isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}"
                     aria-label="Wishlist">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="${isWishlisted ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
@@ -250,10 +250,10 @@ window.VedaComponents = {
     const product = PRODUCTS.find(p => p.id === productId);
     if (!product) return;
 
-    let overlay = document.getElementById('vr-quickview-overlay');
+    let overlay = document.getElementById('rp-quickview-overlay') || document.getElementById('vr-quickview-overlay');
     if (!overlay) {
       overlay = document.createElement('div');
-      overlay.id = 'vr-quickview-overlay';
+      overlay.id = 'rp-quickview-overlay';
       overlay.className = 'modal-overlay';
       document.body.appendChild(overlay);
     }
@@ -268,7 +268,7 @@ window.VedaComponents = {
 
       overlay.innerHTML = `
         <div class="quickview-modal">
-          <button class="modal-close-btn" onclick="VedaComponents.closeQuickView()" aria-label="Close modal">
+          <button class="modal-close-btn" onclick="RPComponents.closeQuickView()" aria-label="Close modal">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
           </button>
           <div class="quickview-body">
@@ -278,7 +278,7 @@ window.VedaComponents = {
               </div>
               <div class="quickview-thumbnails">
                 ${(product.images || product.gallery || [product.primaryImage]).map((imgUrl, i) => `
-                  <div class="quickview-thumb ${i === 0 ? 'active' : ''}" onclick="VedaComponents.switchQuickViewImg('${imgUrl}', this)">
+                  <div class="quickview-thumb ${i === 0 ? 'active' : ''}" onclick="RPComponents.switchQuickViewImg('${imgUrl}', this)">
                     <img src="${imgUrl}" alt="Thumbnail ${i+1}" onerror="this.onerror=null; this.src='assets/images/product-placeholder.png';" />
                   </div>
                 `).join('')}
@@ -321,7 +321,7 @@ window.VedaComponents = {
                   <div class="variant-buttons">
                     ${product.variants.map((v, i) => `
                       <button class="variant-btn ${i === 0 ? 'active' : ''}" 
-                              onclick="VedaComponents.switchQuickViewVariant('${product.id}', '${v.name}', this)">
+                              onclick="RPComponents.switchQuickViewVariant('${product.id}', '${v.name}', this)">
                         ${v.name}
                       </button>
                     `).join('')}
@@ -331,12 +331,12 @@ window.VedaComponents = {
 
               <div class="quickview-qty-row">
                 <div class="qty-picker">
-                  <button class="qty-btn" onclick="VedaComponents.changeQuickViewQty(-1)" aria-label="Decrease quantity">-</button>
+                  <button class="qty-btn" onclick="RPComponents.changeQuickViewQty(-1)" aria-label="Decrease quantity">-</button>
                   <input type="number" id="qv-qty-input" class="qty-input" value="1" min="1" readonly aria-label="Selected quantity" />
-                  <button class="qty-btn" onclick="VedaComponents.changeQuickViewQty(1)" aria-label="Increase quantity">+</button>
+                  <button class="qty-btn" onclick="RPComponents.changeQuickViewQty(1)" aria-label="Increase quantity">+</button>
                 </div>
 
-                <button class="btn btn-primary" style="flex: 1;" onclick="VedaComponents.addQuickViewToCart('${product.id}')">
+                <button class="btn btn-primary" style="flex: 1;" onclick="RPComponents.addQuickViewToCart('${product.id}')">
                   Add to Cart
                 </button>
               </div>
@@ -358,12 +358,12 @@ window.VedaComponents = {
 
     // Close on backdrop tap for mobile
     overlay.onclick = (e) => {
-      if (e.target === overlay) VedaComponents.closeQuickView();
+      if (e.target === overlay) RPComponents.closeQuickView();
     };
   },
 
   closeQuickView() {
-    const overlay = document.getElementById('vr-quickview-overlay');
+    const overlay = document.getElementById('rp-quickview-overlay') || document.getElementById('vr-quickview-overlay');
     if (overlay) {
       overlay.classList.remove('active');
       document.body.style.overflow = '';
@@ -442,21 +442,25 @@ window.VedaComponents = {
     });
 
     // Sync header badges with store events
-    window.addEventListener('vr:cart-updated', (e) => {
+    const updateCartBadges = (e) => {
       const count = e.detail.count;
       document.querySelectorAll('.cart-count-badge').forEach(badge => {
         badge.textContent = count;
         badge.style.display = count > 0 ? 'flex' : 'none';
       });
-    });
+    };
+    window.addEventListener('rp:cart-updated', updateCartBadges);
+    window.addEventListener('vr:cart-updated', updateCartBadges);
 
-    window.addEventListener('vr:wishlist-updated', (e) => {
+    const updateWishlistBadges = (e) => {
       const count = e.detail.count;
       document.querySelectorAll('.wishlist-count-badge').forEach(badge => {
         badge.textContent = count;
         badge.style.display = count > 0 ? 'flex' : 'none';
       });
-    });
+    };
+    window.addEventListener('rp:wishlist-updated', updateWishlistBadges);
+    window.addEventListener('vr:wishlist-updated', updateWishlistBadges);
 
     // Mobile Hamburger Drawer
     const hamburgerBtn = document.querySelector('.hamburger-btn');
@@ -524,19 +528,19 @@ window.CartDrawer = {
   },
 
   createDrawerDOM() {
-    let overlay = document.getElementById('vr-cart-drawer-overlay');
+    let overlay = document.getElementById('rp-cart-drawer-overlay') || document.getElementById('vr-cart-drawer-overlay');
     if (!overlay) {
       overlay = document.createElement('div');
-      overlay.id = 'vr-cart-drawer-overlay';
+      overlay.id = 'rp-cart-drawer-overlay';
       overlay.className = 'cart-drawer-overlay';
       document.body.appendChild(overlay);
     }
     this.overlayEl = overlay;
 
-    let drawer = document.getElementById('vr-cart-drawer');
+    let drawer = document.getElementById('rp-cart-drawer') || document.getElementById('vr-cart-drawer');
     if (!drawer) {
       drawer = document.createElement('div');
-      drawer.id = 'vr-cart-drawer';
+      drawer.id = 'rp-cart-drawer';
       drawer.className = 'cart-drawer';
       document.body.appendChild(drawer);
     }
@@ -706,11 +710,13 @@ window.CartDrawer = {
   bindEvents() {
     this.overlayEl.addEventListener('click', () => this.close());
 
-    window.addEventListener('vr:cart-updated', () => {
+    const onCartUpdate = () => {
       if (this.drawerEl.classList.contains('active')) {
         this.render();
       }
-    });
+    };
+    window.addEventListener('rp:cart-updated', onCartUpdate);
+    window.addEventListener('vr:cart-updated', onCartUpdate);
 
     document.querySelectorAll('.trigger-cart-drawer').forEach(btn => {
       btn.addEventListener('click', (e) => {
@@ -721,9 +727,12 @@ window.CartDrawer = {
   }
 };
 
+// Global backward compatibility alias
+window.VedaComponents = window.RPComponents;
+
 document.addEventListener('DOMContentLoaded', () => {
-  VedaComponents.initCircularPreloader();
-  VedaComponents.initHeader();
-  VedaComponents.initSearch();
+  RPComponents.initCircularPreloader();
+  RPComponents.initHeader();
+  RPComponents.initSearch();
   CartDrawer.init();
 });

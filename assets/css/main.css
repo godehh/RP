@@ -327,6 +327,7 @@ h4 { font-size: 1.15rem; }
 }
 
 /* Toast Notifications */
+.rp-toast-container,
 .vr-toast-container {
   position: fixed;
   bottom: 24px;
@@ -338,6 +339,7 @@ h4 { font-size: 1.15rem; }
   pointer-events: none;
 }
 
+.rp-toast,
 .vr-toast {
   display: flex;
   align-items: center;
@@ -357,15 +359,20 @@ h4 { font-size: 1.15rem; }
   max-width: 380px;
 }
 
+.rp-toast.show,
 .vr-toast.show {
   opacity: 1;
   transform: translateY(0) scale(1);
 }
 
+.rp-toast-success,
 .vr-toast-success { border-left-color: var(--color-success); }
+.rp-toast-error,
 .vr-toast-error { border-left-color: var(--color-sale); }
+.rp-toast-info,
 .vr-toast-info { border-left-color: var(--color-accent-gold); }
 
+.rp-toast-icon,
 .vr-toast-icon {
   display: flex;
   align-items: center;
@@ -430,11 +437,13 @@ h4 { font-size: 1.15rem; }
     padding-left: 16px;
     padding-right: 16px;
   }
+  .rp-toast-container,
   .vr-toast-container {
     bottom: 84px; /* Sits safely above mobile bottom bar */
     left: 16px;
     right: 16px;
   }
+  .rp-toast,
   .vr-toast {
     max-width: 100%;
   }

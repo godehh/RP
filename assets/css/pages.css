@@ -71,10 +71,10 @@
 /* Two-Tone Background Panels */
 .hero-slide-panel {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
+  grid-template-columns: 1fr 1.15fr;
   align-items: center;
-  min-height: 520px;
-  padding: 48px 64px;
+  min-height: 640px;
+  padding: 48px 56px;
   gap: 40px;
   position: relative;
   overflow: hidden;
@@ -240,6 +240,36 @@
 .hero-img-floating-wrap {
   position: relative;
   display: inline-block;
+}
+
+.hero-bounce-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 680px;
+}
+
+@media (max-width: 1024px) {
+  .hero-slide-panel {
+    grid-template-columns: 1fr;
+    padding: 36px 24px;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-bounce-wrap {
+    transform: scale(0.85);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-bounce-wrap {
+    transform: scale(0.72);
+  }
 }
 
 .hero-featured-img {

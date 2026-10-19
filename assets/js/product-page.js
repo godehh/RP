@@ -19,7 +19,7 @@
   };
 
   // Global methods accessible from inline event handlers
-  window.VedaProductPage = {
+  window.RPProductPage = {
     switchImage(src, thumbEl) {
       const mainImg = document.getElementById('detail-main-img');
       if (!mainImg) return;
@@ -172,6 +172,7 @@
       Store.showToast('Thank you! Review form is open for RP Organics verified customers.', 'info');
     }
   };
+  window.VedaProductPage = window.RPProductPage;
 
   function initProductPage() {
     const productContainer = document.getElementById('product-detail-view');
@@ -351,7 +352,7 @@
             <div class="product-thumbnails-list" aria-label="Product Image Views">
               ${galleryImages.map((imgUrl, idx) => `
                 <div class="product-thumb-item ${idx === 0 ? 'active' : ''}" 
-                     onclick="VedaProductPage.switchImage('${imgUrl}', this)"
+                     onclick="RPProductPage.switchImage('${imgUrl}', this)"
                      title="View ${idx + 1}">
                   <img src="${imgUrl}" alt="${product.title} view ${idx + 1}" onerror="this.onerror=null; this.src='assets/images/product-placeholder.png';" />
                 </div>
@@ -430,7 +431,7 @@
                 <div class="variant-selector-pills">
                   ${product.variants.map((v, i) => `
                     <button class="variant-btn-large ${i === 0 ? 'active' : ''}" 
-                            onclick="VedaProductPage.selectVariant('${v.name}', this)">
+                            onclick="RPProductPage.selectVariant('${v.name}', this)">
                       <span>${v.name}</span> &bull; 
                       <span style="font-weight: 800;">${formatPrice(v.price)}</span>
                       ${v.discount ? `<small style="color: #b91c1c; font-weight: 800; margin-left: 2px;">(${v.discount})</small>` : ''}
@@ -443,12 +444,12 @@
             <!-- Quantity & Call To Action Row -->
             <div class="product-cta-row" style="margin-bottom: 24px;">
               <div class="qty-picker" style="height: 52px; border: 1.5px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; display: flex; align-items: center;">
-                <button class="qty-btn" onclick="VedaProductPage.changeQty(-1)" aria-label="Decrease quantity" style="width: 44px; height: 100%; border: none; background: #ffffff; font-size: 1.2rem; cursor: pointer; font-weight: 700;">-</button>
+                <button class="qty-btn" onclick="RPProductPage.changeQty(-1)" aria-label="Decrease quantity" style="width: 44px; height: 100%; border: none; background: #ffffff; font-size: 1.2rem; cursor: pointer; font-weight: 700;">-</button>
                 <input type="number" id="pdp-qty-input" class="qty-input" value="1" min="1" readonly aria-label="Quantity" style="width: 50px; text-align: center; border: none; font-size: 1rem; font-weight: 800; background: transparent;" />
-                <button class="qty-btn" onclick="VedaProductPage.changeQty(1)" aria-label="Increase quantity" style="width: 44px; height: 100%; border: none; background: #ffffff; font-size: 1.2rem; cursor: pointer; font-weight: 700;">+</button>
+                <button class="qty-btn" onclick="RPProductPage.changeQty(1)" aria-label="Increase quantity" style="width: 44px; height: 100%; border: none; background: #ffffff; font-size: 1.2rem; cursor: pointer; font-weight: 700;">+</button>
               </div>
 
-              <button id="btn-add-to-cart-main" class="btn btn-add-cart-pdp" style="flex: 1.2; height: 52px; font-size: 1rem; border-radius: var(--radius-md); display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;" onclick="VedaProductPage.addToCart()">
+              <button id="btn-add-to-cart-main" class="btn btn-add-cart-pdp" style="flex: 1.2; height: 52px; font-size: 1rem; border-radius: var(--radius-md); display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;" onclick="RPProductPage.addToCart()">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                   <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-2z"></path>
                   <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -457,13 +458,19 @@
                 <span>Add to Cart</span>
               </button>
 
-              <button class="btn btn-buy-now-pdp" style="flex: 1; height: 52px; font-size: 1rem; border-radius: var(--radius-md); cursor: pointer;" onclick="VedaProductPage.buyNow()">
-                Buy Now
+              <button class="btn btn-buy-now-pdp specular-button specular-button--md" 
+                      data-radius="12"
+                      data-line-color="#fed7aa"
+                      data-base-color="#7c2d12"
+                      data-follow-mouse="true"
+                      style="flex: 1; height: 52px; font-size: 1rem; border-radius: 12px; cursor: pointer; --sb-radius: 12px; --sb-tint: #c05621; --sb-tint-opacity: 0.95; --sb-text-color: #ffffff;"
+                      onclick="RPProductPage.buyNow()">
+                <span class="specular-button__label">Buy Now</span>
               </button>
 
               <button class="card-action-btn wishlist-btn ${isWishlisted ? 'active' : ''}" 
                       style="width: 52px; height: 52px; border-radius: var(--radius-md); border: 1.5px solid var(--color-border); background: #ffffff; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.04);"
-                      onclick="VedaComponents.handleWishlistToggle('${product.id}', this)"
+                      onclick="RPComponents.handleWishlistToggle('${product.id}', this)"
                       title="Add to Wishlist" aria-label="Wishlist">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="${isWishlisted ? '#e11d48' : 'none'}" stroke="${isWishlisted ? '#e11d48' : 'currentColor'}" stroke-width="2">
                   <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
@@ -479,7 +486,7 @@
               </div>
               <div class="pincode-input-row" style="display: flex; gap: 10px;">
                 <input type="tel" inputmode="numeric" id="pincode-input" placeholder="Enter 6-digit Pincode (e.g. 600001)" maxlength="6" style="flex: 1; padding: 10px 14px; border: 1.5px solid var(--color-border); border-radius: var(--radius-sm); font-size: 0.92rem;" />
-                <button class="btn btn-outline btn-sm" onclick="VedaProductPage.checkPincode()" style="font-weight: 700; padding: 0 18px;">Check</button>
+                <button class="btn btn-outline btn-sm" onclick="RPProductPage.checkPincode()" style="font-weight: 700; padding: 0 18px;">Check</button>
               </div>
               <div id="pincode-result" class="pincode-result-msg"></div>
             </div>
@@ -503,7 +510,7 @@
             <!-- Expandable Product Accordion Panels -->
             <div class="product-accordions">
               <div class="accordion-item open">
-                <button class="accordion-header" onclick="VedaProductPage.toggleAccordion(this)">
+                <button class="accordion-header" onclick="RPProductPage.toggleAccordion(this)">
                   <span>Detailed Description &amp; Health Benefits</span>
                   <span class="chevron">−</span>
                 </button>
@@ -516,7 +523,7 @@
               </div>
 
               <div class="accordion-item">
-                <button class="accordion-header" onclick="VedaProductPage.toggleAccordion(this)">
+                <button class="accordion-header" onclick="RPProductPage.toggleAccordion(this)">
                   <span>Ingredients &amp; Sourcing Purity</span>
                   <span class="chevron">+</span>
                 </button>
@@ -528,7 +535,7 @@
               </div>
 
               <div class="accordion-item">
-                <button class="accordion-header" onclick="VedaProductPage.toggleAccordion(this)">
+                <button class="accordion-header" onclick="RPProductPage.toggleAccordion(this)">
                   <span>Nutritional Facts &amp; Lab Standards</span>
                   <span class="chevron">+</span>
                 </button>
@@ -547,7 +554,7 @@
               </div>
 
               <div class="accordion-item">
-                <button class="accordion-header" onclick="VedaProductPage.toggleAccordion(this)">
+                <button class="accordion-header" onclick="RPProductPage.toggleAccordion(this)">
                   <span>How to Use / Preparation Directions</span>
                   <span class="chevron">+</span>
                 </button>
@@ -559,7 +566,7 @@
               </div>
 
               <div class="accordion-item">
-                <button class="accordion-header" onclick="VedaProductPage.toggleAccordion(this)">
+                <button class="accordion-header" onclick="RPProductPage.toggleAccordion(this)">
                   <span>Storage &amp; Shelf Life Information</span>
                   <span class="chevron">+</span>
                 </button>
@@ -571,7 +578,7 @@
               </div>
 
               <div class="accordion-item">
-                <button class="accordion-header" onclick="VedaProductPage.toggleAccordion(this)">
+                <button class="accordion-header" onclick="RPProductPage.toggleAccordion(this)">
                   <span>Shipping &amp; Delivery Policies</span>
                   <span class="chevron">+</span>
                 </button>
@@ -592,7 +599,7 @@
               <div style="font-weight: 800; color: var(--color-primary); font-size: 0.92rem;" id="sticky-price">${formatPrice(price)}</div>
             </div>
           </div>
-          <button class="btn btn-primary btn-sm" onclick="VedaProductPage.addToCart()">Add to Cart</button>
+          <button class="btn btn-primary btn-sm" onclick="RPProductPage.addToCart()">Add to Cart</button>
         </div>
 
         <!-- Related Products Section -->
@@ -618,7 +625,7 @@
               <div style="font-size: 3.8rem; font-weight: 800; color: var(--color-primary); line-height: 1;">${product.rating || '4.9'}</div>
               <div style="color: #f59e0b; font-size: 1.3rem; margin: 10px 0;">★★★★★</div>
               <div style="font-size: 0.88rem; color: var(--color-text-muted);">Based on ${product.reviewCount || 142} verified customer reviews</div>
-              <button class="btn btn-outline btn-sm" style="margin-top: 18px; font-weight: 700;" onclick="VedaProductPage.openWriteReviewModal()">Write a Review</button>
+              <button class="btn btn-outline btn-sm" style="margin-top: 18px; font-weight: 700;" onclick="RPProductPage.openWriteReviewModal()">Write a Review</button>
             </div>
 
             <div>
@@ -659,13 +666,19 @@
 
       // Render Related Products (excluding current)
       const relatedGrid = document.getElementById('related-products-grid');
-      if (relatedGrid && typeof VedaComponents !== 'undefined' && VedaComponents.renderProductCard) {
+      const comp = window.RPComponents || window.VedaComponents;
+      if (relatedGrid && comp && comp.renderProductCard) {
         const related = products.filter(p => p.id !== product.id).slice(0, 4);
-        relatedGrid.innerHTML = related.map(p => VedaComponents.renderProductCard(p)).join('');
+        relatedGrid.innerHTML = related.map(p => comp.renderProductCard(p)).join('');
       }
 
       // Initialize Desktop Zoom Magnifier
       initZoomMagnifier();
+
+      // Initialize SpecularButton on dynamically generated PDP buttons
+      if (window.SpecularButton && window.SpecularButton.autoInit) {
+        window.SpecularButton.autoInit();
+      }
     }
   }
 

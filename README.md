@@ -23,7 +23,7 @@ A modern, high-performance, mobile-first eCommerce website crafted for an authen
    - Dynamic free-delivery meter ("Add ₹X more to get FREE Delivery!").
    - Quantity adjustment, item removal, and subtotal calculation with `localStorage` persistence.
    - "Frequently Bought Together" upsell recommendations.
-   - Dedicated `cart.html` with coupon code engine (try `ORGANIC10` or `VEDA20`) and checkout simulator.
+   - Dedicated `cart.html` with coupon code engine (try `ORGANIC10` or `RP20`) and checkout simulator.
 4. **Interactive Product Detail Experience (`product.html`):**
    - Dynamic product loader via URL parameters (`?id=spc-01` or `?slug=...`).
    - Image gallery with hover magnifier zoom lens.
@@ -42,7 +42,7 @@ A modern, high-performance, mobile-first eCommerce website crafted for an authen
 ## 📁 Project Directory Structure
 
 ```
-vedaroots-organics/
+rp-organics/
 │
 ├── index.html                   # 12-Section Homepage
 ├── shop.html                    # Collection & Multi-Filter Shop Page
@@ -96,14 +96,14 @@ You can preview the website immediately using any local HTTP server:
 
 ### Option 1: Python HTTP Server (Built-in)
 ```bash
-cd vedaroots-organics
+cd rp-organics
 python -m http.server 3000
 ```
 Then visit `http://localhost:3000` in your browser.
 
 ### Option 2: Node.js `serve` or `npx`
 ```bash
-cd vedaroots-organics
+cd rp-organics
 npx serve .
 ```
 

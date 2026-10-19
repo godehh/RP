@@ -181,7 +181,7 @@
       if (!query.trim()) {
         title.textContent = 'Explore All Organic Products';
         sub.textContent = 'Browse our selection of unadulterated spices, grains, and health mixes.';
-        grid.innerHTML = PRODUCTS.map(p => VedaComponents.renderProductCard(p)).join('');
+        grid.innerHTML = PRODUCTS.map(p => (window.RPComponents || window.VedaComponents).renderProductCard(p)).join('');
         return;
       }
 
@@ -198,7 +198,7 @@
           </div>
         `;
       } else {
-        grid.innerHTML = results.map(p => VedaComponents.renderProductCard(p)).join('');
+        grid.innerHTML = results.map(p => (window.RPComponents || window.VedaComponents).renderProductCard(p)).join('');
       }
     });
   </script>

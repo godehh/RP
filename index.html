@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="assets/css/product-card.css" />
   <link rel="stylesheet" href="assets/css/cart-drawer.css" />
   <link rel="stylesheet" href="assets/css/pages.css" />
+  <link rel="stylesheet" href="assets/css/specular-button.css" />
+  <link rel="stylesheet" href="assets/css/bounce-cards.css" />
 </head>
 <body>
 
@@ -301,16 +303,47 @@
                 <span class="discount-pill">15% OFF</span>
                 <span style="font-size: 0.9rem; color: #15803d; font-weight: 700;">(250g pack)</span>
               </div>
-              <div>
-                <a href="product.html?id=pro-01" class="btn-hero-purple">
-                  Shop Now &rarr;
+              <div style="margin-top: 6px;">
+                <a href="product.html?id=pro-01" class="specular-button specular-button--lg"
+                   data-radius="14"
+                   data-line-color="#86efac"
+                   data-base-color="#14532d"
+                   data-intensity="1"
+                   data-glow="1"
+                   data-proximity="240"
+                   data-follow-mouse="true"
+                   style="--sb-radius: 14px; --sb-tint: #166534; --sb-tint-opacity: 0.96; --sb-text-color: #ffffff;">
+                  <span class="specular-button__label">Shop Now &rarr;</span>
                 </a>
               </div>
             </div>
             <div class="hero-slide-image-right">
-              <div class="hero-img-floating-wrap">
-                <img src="assets/images/products/protein-health-mix-1.jpg" alt="RP Organics Protein Health Mix" class="hero-featured-img" width="440" height="440" />
-                <span class="hero-badge-floating">✓ 62.5g Protein / 250g</span>
+              <div class="hero-bounce-wrap" style="position: relative; display: flex; flex-direction: column; align-items: center;">
+                <div
+                  class="bounce-cards"
+                  data-spread="95"
+                  data-rotation="9"
+                  data-arc="0"
+                  data-card-size="410"
+                  data-radius="32"
+                  data-bounciness="0.65"
+                  data-push-distance="190"
+                  data-hover-scale="1.08"
+                  data-animation-delay="0.1"
+                  data-animation-stagger="0.06"
+                  style="width: 640px; height: 480px; max-width: 100%; --bounce-cards-size: 410px; --bounce-cards-radius: 32px; --bounce-cards-border: 6px;"
+                >
+                  <div class="bounce-cards__card bounce-cards__card--clickable" title="Protein Health Mix (12g Veg Protein)" onclick="window.location.href='product.html?id=pro-01'">
+                    <img src="assets/images/products/protein-health-mix-1.jpg" alt="RP Organics Protein Health Mix" />
+                  </div>
+                  <div class="bounce-cards__card bounce-cards__card--clickable" title="38+ Wholesome Ingredients Detail" onclick="window.location.href='product.html?id=pro-01'">
+                    <img src="assets/images/products/protein-health-mix-2.jpg" alt="Health Mix Ingredients" />
+                  </div>
+                  <div class="bounce-cards__card bounce-cards__card--clickable" title="Traditional Formulation" onclick="window.location.href='product.html?id=pro-01'">
+                    <img src="assets/images/products/protein-health-mix-3.jpg" alt="Health Mix Pack View" />
+                  </div>
+                </div>
+                <span class="hero-badge-floating" style="margin-top: 24px; position: static; font-size: 0.95rem; padding: 8px 22px; font-weight: 800;">✓ 62.5g Protein / 250g</span>
               </div>
             </div>
           </div>
@@ -337,16 +370,47 @@
                 <span class="discount-pill">14% OFF</span>
                 <span style="font-size: 0.9rem; color: #15803d; font-weight: 700;">(100g pack)</span>
               </div>
-              <div>
-                <a href="product.html?id=spc-poondu" class="btn-hero-purple">
-                  Shop Now &rarr;
+              <div style="margin-top: 6px;">
+                <a href="product.html?id=spc-poondu" class="specular-button specular-button--lg"
+                   data-radius="14"
+                   data-line-color="#fed7aa"
+                   data-base-color="#7c2d12"
+                   data-intensity="1"
+                   data-glow="1"
+                   data-proximity="240"
+                   data-follow-mouse="true"
+                   style="--sb-radius: 14px; --sb-tint: #c05621; --sb-tint-opacity: 0.96; --sb-text-color: #ffffff;">
+                  <span class="specular-button__label">Shop Now &rarr;</span>
                 </a>
               </div>
             </div>
             <div class="hero-slide-image-right">
-              <div class="hero-img-floating-wrap">
-                <img src="assets/images/products/poondu-podi-1.jpg" alt="RP Organics Poondu Podi" class="hero-featured-img" width="440" height="440" />
-                <span class="hero-badge-floating">✓ Pure Natural Spices</span>
+              <div class="hero-bounce-wrap" style="position: relative; display: flex; flex-direction: column; align-items: center;">
+                <div
+                  class="bounce-cards"
+                  data-spread="95"
+                  data-rotation="9"
+                  data-arc="0"
+                  data-card-size="410"
+                  data-radius="32"
+                  data-bounciness="0.65"
+                  data-push-distance="190"
+                  data-hover-scale="1.08"
+                  data-animation-delay="0.1"
+                  data-animation-stagger="0.06"
+                  style="width: 640px; height: 480px; max-width: 100%; --bounce-cards-size: 410px; --bounce-cards-radius: 32px; --bounce-cards-border: 6px;"
+                >
+                  <div class="bounce-cards__card bounce-cards__card--clickable" title="Traditional Poondu Podi" onclick="window.location.href='product.html?id=spc-poondu'">
+                    <img src="assets/images/products/poondu-podi-1.jpg" alt="RP Organics Poondu Podi" />
+                  </div>
+                  <div class="bounce-cards__card bounce-cards__card--clickable" title="Pirandai Podi" onclick="window.location.href='product.html?id=spc-pirandai'">
+                    <img src="assets/images/products/pirandai-podi-1.jpg" alt="Pirandai Podi" />
+                  </div>
+                  <div class="bounce-cards__card bounce-cards__card--clickable" title="Sundakkai Podi" onclick="window.location.href='product.html?id=spc-sundakkai'">
+                    <img src="assets/images/products/sundakkai-podi-1.jpg" alt="Sundakkai Podi" />
+                  </div>
+                </div>
+                <span class="hero-badge-floating" style="margin-top: 24px; position: static; font-size: 0.95rem; padding: 8px 22px; font-weight: 800;">✓ Pure Natural Spices</span>
               </div>
             </div>
           </div>
@@ -373,16 +437,47 @@
                 <span class="discount-pill">15% OFF</span>
                 <span style="font-size: 0.9rem; color: #15803d; font-weight: 700;">(500g pack)</span>
               </div>
-              <div>
-                <a href="product.html?id=mil-powder-01" class="btn-hero-purple">
-                  Shop Now &rarr;
+              <div style="margin-top: 6px;">
+                <a href="product.html?id=mil-powder-01" class="specular-button specular-button--lg"
+                   data-radius="14"
+                   data-line-color="#fef08a"
+                   data-base-color="#78350f"
+                   data-intensity="1"
+                   data-glow="1"
+                   data-proximity="240"
+                   data-follow-mouse="true"
+                   style="--sb-radius: 14px; --sb-tint: #d97706; --sb-tint-opacity: 0.96; --sb-text-color: #ffffff;">
+                  <span class="specular-button__label">Shop Now &rarr;</span>
                 </a>
               </div>
             </div>
             <div class="hero-slide-image-right">
-              <div class="hero-img-floating-wrap">
-                <img src="assets/images/products/millet-mix-1.jpg" alt="RP Organics Millet Mix" class="hero-featured-img" width="440" height="440" />
-                <span class="hero-badge-floating">✓ 100% Millets • No Rice</span>
+              <div class="hero-bounce-wrap" style="position: relative; display: flex; flex-direction: column; align-items: center;">
+                <div
+                  class="bounce-cards"
+                  data-spread="95"
+                  data-rotation="9"
+                  data-arc="0"
+                  data-card-size="410"
+                  data-radius="32"
+                  data-bounciness="0.65"
+                  data-push-distance="190"
+                  data-hover-scale="1.08"
+                  data-animation-delay="0.1"
+                  data-animation-stagger="0.06"
+                  style="width: 640px; height: 480px; max-width: 100%; --bounce-cards-size: 410px; --bounce-cards-radius: 32px; --bounce-cards-border: 6px;"
+                >
+                  <div class="bounce-cards__card bounce-cards__card--clickable" title="100% Millet Mix" onclick="window.location.href='product.html?id=mil-powder-01'">
+                    <img src="assets/images/products/millet-mix-1.jpg" alt="RP Organics Millet Mix" />
+                  </div>
+                  <div class="bounce-cards__card bounce-cards__card--clickable" title="Crispy Dosa Prep" onclick="window.location.href='product.html?id=mil-powder-01'">
+                    <img src="assets/images/products/millet-mix-2.jpg" alt="Crispy Dosa Prep" />
+                  </div>
+                  <div class="bounce-cards__card bounce-cards__card--clickable" title="Nutritional Millets" onclick="window.location.href='product.html?id=mil-powder-01'">
+                    <img src="assets/images/products/millet-mix-3.jpg" alt="Nutritional Millets" />
+                  </div>
+                </div>
+                <span class="hero-badge-floating" style="margin-top: 24px; position: static; font-size: 0.95rem; padding: 8px 22px; font-weight: 800;">✓ 100% Millets • No Rice</span>
               </div>
             </div>
           </div>
@@ -452,8 +547,13 @@
                   <span class="banner-kicker">100% Natural Herbal Podis</span>
                   <h3 class="banner-slide-heading">Stone-Ground Tamil Podis for Daily Wellness</h3>
                   <p class="banner-slide-desc">Homemade authentic recipes from Tamil Nadu. Poondu Podi for immunity, Sundakkai for digestion, Pirandai for bone strength, and Vallarai for memory wellness.</p>
-                  <a href="shop.html?category=spices" class="btn-banner-shop-now">
-                    Shop Now &rarr;
+                  <a href="shop.html?category=spices" class="specular-button specular-button--md"
+                     data-radius="12"
+                     data-line-color="#86efac"
+                     data-base-color="#14532d"
+                     data-follow-mouse="true"
+                     style="--sb-radius: 12px; --sb-tint: #235328; --sb-tint-opacity: 0.95; --sb-text-color: #ffffff;">
+                    <span class="specular-button__label">Shop Now &rarr;</span>
                   </a>
                 </div>
                 <div class="banner-slide-strip-wrap">
@@ -492,8 +592,13 @@
                   <span class="banner-kicker">⚡ 12g Veg Protein per 50g Serving</span>
                   <h3 class="banner-slide-heading">Healthy Protein Mix — 38+ Wholesome Ingredients</h3>
                   <p class="banner-slide-desc">Power your family's morning with pure plant-based nutrition. Sprouted ragi, millets, pulses, almonds, cashews, and dry dates. 62.5g protein per 250g pack.</p>
-                  <a href="product.html?id=pro-01" class="btn-banner-shop-now">
-                    Shop Now &rarr;
+                  <a href="product.html?id=pro-01" class="specular-button specular-button--md"
+                     data-radius="12"
+                     data-line-color="#fed7aa"
+                     data-base-color="#7c2d12"
+                     data-follow-mouse="true"
+                     style="--sb-radius: 12px; --sb-tint: #c05621; --sb-tint-opacity: 0.95; --sb-text-color: #ffffff;">
+                    <span class="specular-button__label">Shop Now &rarr;</span>
                   </a>
                 </div>
                 <div class="banner-slide-strip-wrap">
@@ -525,8 +630,13 @@
                   <span class="banner-kicker">🌾 100% Millets • Zero Rice • No Fermentation</span>
                   <h3 class="banner-slide-heading">Wholesome Millet Dosa &amp; Idly Mix</h3>
                   <p class="banner-slide-desc">Make crispy golden dosas in minutes by just adding water. High fiber, diabetic friendly, completely free of white rice, refined flour, or preservatives.</p>
-                  <a href="product.html?id=mil-powder-01" class="btn-banner-shop-now">
-                    Shop Now &rarr;
+                  <a href="product.html?id=mil-powder-01" class="specular-button specular-button--md"
+                     data-radius="12"
+                     data-line-color="#fef08a"
+                     data-base-color="#78350f"
+                     data-follow-mouse="true"
+                     style="--sb-radius: 12px; --sb-tint: #d97706; --sb-tint-opacity: 0.95; --sb-text-color: #ffffff;">
+                    <span class="specular-button__label">Shop Now &rarr;</span>
                   </a>
                 </div>
                 <div class="banner-slide-strip-wrap">
@@ -864,5 +974,8 @@
   <script src="assets/js/store.js"></script>
   <script src="assets/js/components.js"></script>
   <script src="assets/js/main.js"></script>
+  <!-- React Bits Components (Vanilla JS + WebGL2 Runtime) -->
+  <script src="assets/js/specular-button.js"></script>
+  <script src="assets/js/bounce-cards.js"></script>
 </body>
 </html>

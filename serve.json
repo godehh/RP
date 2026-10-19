@@ -15,6 +15,7 @@
     { "source": "/search", "destination": "/search.html" },
     { "source": "/wishlist", "destination": "/wishlist.html" },
     { "source": "/blog", "destination": "/blog.html" },
-    { "source": "/blog-post", "destination": "/blog-post.html" }
+    { "source": "/blog-post", "destination": "/blog-post.html" },
+    { "source": "/components-showcase", "destination": "/components-showcase.html" }
   ]
 }

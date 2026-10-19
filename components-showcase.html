@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>React Bits Showcase: SpecularButton &amp; BounceCards | RP Organics</title>
+  <meta name="description" content="Interactive demo and integration showcase for React Bits SpecularButton and BounceCards components." />
+  <link rel="icon" type="image/png" href="assets/images/rp-organics-logo.png" />
+  
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/header-footer.css" />
+  <link rel="stylesheet" href="assets/css/specular-button.css" />
+  <link rel="stylesheet" href="assets/css/bounce-cards.css" />
+
+  <style>
+    .showcase-hero {
+      background: linear-gradient(135deg, #0d2818 0%, #173f24 50%, #06180e 100%);
+      color: #ffffff;
+      padding: 60px 20px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .showcase-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 30%, rgba(134, 239, 172, 0.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .showcase-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #86efac;
+      margin-bottom: 16px;
+      backdrop-filter: blur(8px);
+    }
+    .showcase-hero h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      line-height: 1.15;
+    }
+    .showcase-hero p {
+      max-width: 680px;
+      margin: 0 auto 30px;
+      color: #cbd5e1;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    .showcase-nav-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .showcase-nav-btn {
+      padding: 10px 22px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #f1f5f9;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .showcase-nav-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    .showcase-section {
+      padding: 70px 20px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .showcase-section:nth-child(even) {
+      background: #fafaf9;
+    }
+    .showcase-container {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+    .section-header h2 {
+      font-size: 2.1rem;
+      color: #1e293b;
+      margin-bottom: 8px;
+    }
+    .section-header p {
+      color: #64748b;
+      font-size: 1rem;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    /* Demo Arena */
+    .demo-arena {
+      background: #0f172a;
+      border-radius: 20px;
+      padding: 50px 30px;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 420px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #1e293b;
+    }
+    .demo-arena::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+      background-size: 24px 24px;
+      pointer-events: none;
+    }
+
+    /* Light Theme Arena */
+    .demo-arena-light {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+    }
+    .demo-arena-light::before {
+      background-image: radial-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+    }
+
+    /* Interactive Controls Panel */
+    .controls-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 30px;
+      background: #ffffff;
+      padding: 24px;
+      border-radius: 16px;
+      border: 1px solid #e2e8f0;
+    }
+    .control-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .control-item label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #475569;
+      display: flex;
+      justify-content: space-between;
+    }
+    .control-item input[type="range"] {
+      accent-color: #166534;
+      cursor: pointer;
+    }
+    .control-item input[type="color"] {
+      width: 100%;
+      height: 38px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      padding: 2px;
+      cursor: pointer;
+    }
+
+    /* Code Snippet Box */
+    .code-box {
+      margin-top: 30px;
+      background: #090d16;
+      border-radius: 14px;
+      border: 1px solid #1e293b;
+      overflow: hidden;
+    }
+    .code-box-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      background: #111827;
+      border-bottom: 1px solid #1f2937;
+      font-size: 0.85rem;
+      color: #9ca3af;
+      font-family: monospace;
+    }
+    .code-box pre {
+      padding: 18px;
+      color: #e2e8f0;
+      font-family: Consolas, Monaco, 'Courier New', monospace;
+      font-size: 0.88rem;
+      overflow-x: auto;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .pill-tag {
+      background: rgba(34, 197, 94, 0.15);
+      color: #15803d;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .card-click-status {
+      margin-top: 20px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.15);
+      color: #86efac;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <aside class="announcement-bar" aria-label="Store Announcement">
+    <div class="container">
+      <div class="announcement-left">
+        <span class="announcement-promo">
+          ✨ React Bits Components: <strong>&lt;SpecularButton /&gt;</strong> &amp; <strong>&lt;BounceCards /&gt;</strong> Integrated
+        </span>
+      </div>
+      <div class="announcement-right">
+        <a href="index.html" style="color: #ffffff; text-decoration: underline; font-weight: 600;">&larr; Back to Store</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Showcase Hero -->
+  <section class="showcase-hero">
+    <div class="container">
+      <span class="showcase-badge">Interactive UI Components</span>
+      <h1>React Bits Integration</h1>
+      <p>
+        High-performance, physics-driven components built with WebGL2 specular edge lighting and spring mechanics. Integrated for both React (<code>src/components/</code>) and native browser runtime.
+      </p>
+
+      <div class="showcase-nav-tabs">
+        <a href="#specular-button" class="showcase-nav-btn">✦ SpecularButton Demo</a>
+        <a href="#bounce-cards" class="showcase-nav-btn">✦ BounceCards Demo</a>
+        <a href="#combined" class="showcase-nav-btn">✦ Combined Hero Experience</a>
+        <a href="index.html" class="showcase-nav-btn" style="background: rgba(34, 197, 94, 0.25); border-color: #86efac;">🌿 View on Live Homepage</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 1: SpecularButton -->
+  <section id="specular-button" class="showcase-section">
+    <div class="showcase-container">
+      <div class="section-header">
+        <span class="pill-tag">WebGL2 Precision Rim Lighting</span>
+        <h2>1. &lt;SpecularButton /&gt;</h2>
+        <p>
+          Renders real-time specular light on the glass edge using a WebGL2 fragment shader. The light smoothly rotates towards cursor proximity and illuminates with tactile depth on hover &amp; click.
+        </p>
+      </div>
+
+      <!-- Demo Arena (Dark Canvas) -->
+      <div class="demo-arena" id="sb-arena">
+        <div style="display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; align-items: center; z-index: 2;">
+          <!-- Primary Demo Button -->
+          <button
+            id="interactive-specular-btn"
+            class="specular-button specular-button--lg"
+            data-radius="18"
+            data-intensity="1"
+            data-idle-intensity="0.35"
+            data-shine-size="12"
+            data-shine-fade="34"
+            data-thickness="1.2"
+            data-glow="1"
+            data-proximity="250"
+            data-follow-mouse="true"
+            data-auto-animate="false"
+            style="--sb-radius: 18px; --sb-tint: #235328; --sb-tint-opacity: 0.85; --sb-text-color: #ffffff;"
+            onclick="alert('SpecularButton clicked! Redirecting to shop...'); window.location.href='shop.html';"
+          >
+            <span class="specular-button__label">Shop Organic Spices &rarr;</span>
+          </button>
+
+          <!-- Auto-Animate Rotating Glow Button -->
+          <button
+            class="specular-button specular-button--lg"
+            data-radius="18"
+            data-line-color="#fed7aa"
+            data-base-color="#7c2d12"
+            data-auto-animate="true"
+            data-speed="0.4"
+            style="--sb-radius: 18px; --sb-tint: #c05621; --sb-tint-opacity: 0.9; --sb-text-color: #ffffff;"
+            onclick="window.location.href='product.html?id=pro-01';"
+          >
+            <span class="specular-button__label">Protein Health Mix (15% OFF)</span>
+          </button>
+
+          <!-- Minimal Glass Ghost Button -->
+          <button
+            class="specular-button specular-button--md"
+            data-radius="24"
+            data-line-color="#ffffff"
+            data-base-color="#64748b"
+            data-follow-mouse="true"
+            style="--sb-radius: 24px; --sb-tint: #ffffff; --sb-tint-opacity: 0.08; --sb-text-color: #f8fafc;"
+            onclick="window.location.href='about.html';"
+          >
+            <span class="specular-button__label">Our Farm Story</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Interactive Controls -->
+      <div class="controls-grid">
+        <div class="control-item">
+          <label>Edge Light Color: <span id="val-lineColor">#86efac</span></label>
+          <input type="color" id="ctrl-lineColor" value="#86efac" />
+        </div>
+        <div class="control-item">
+          <label>Glass Tint Color: <span id="val-tint">#235328</span></label>
+          <input type="color" id="ctrl-tint" value="#235328" />
+        </div>
+        <div class="control-item">
+          <label>Intensity: <span id="val-intensity">1.0</span></label>
+          <input type="range" id="ctrl-intensity" min="0" max="2.5" step="0.1" value="1.0" />
+        </div>
+        <div class="control-item">
+          <label>Glow: <span id="val-glow">1.0</span></label>
+          <input type="range" id="ctrl-glow" min="0" max="3" step="0.1" value="1.0" />
+        </div>
+        <div class="control-item">
+          <label>Border Radius (px): <span id="val-radius">18px</span></label>
+          <input type="range" id="ctrl-radius" min="4" max="36" step="1" value="18" />
+        </div>
+        <div class="control-item">
+          <label>Auto Animate Rim Light: <span id="val-autoAnimate">OFF</span></label>
+          <input type="checkbox" id="ctrl-autoAnimate" style="width: 20px; height: 20px; accent-color: #166534; margin-top: 6px;" />
+        </div>
+      </div>
+
+      <!-- React Usage Snippet -->
+      <div class="code-box">
+        <div class="code-box-header">
+          <span>React JSX Integration &bull; src/components/SpecularButton/</span>
+          <span style="color: #4ade80;">Ready to Import</span>
+        </div>
+        <pre><code>import SpecularButton from '@/components/SpecularButton';
+
+&lt;SpecularButton
+  size="lg"
+  radius={18}
+  tint="#235328"
+  tintOpacity={0.85}
+  textColor="#ffffff"
+  lineColor="#86efac"
+  baseColor="#14532d"
+  intensity={1}
+  glow={1}
+  followMouse
+  proximity={250}
+  onClick={() =&gt; navigate('/shop')}
+&gt;
+  Shop Organic Spices &rarr;
+&lt;/SpecularButton&gt;</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: BounceCards -->
+  <section id="bounce-cards" class="showcase-section">
+    <div class="showcase-container">
+      <div class="section-header">
+        <span class="pill-tag">Spring Physics &bull; Interactive Fan</span>
+        <h2>2. &lt;BounceCards /&gt;</h2>
+        <p>
+          Features realistic 240Hz spring physics simulation. Cards dynamically fan out, push neighboring cards apart on hover, straighten upright, and respond with tactile overshoot pops on click!
+        </p>
+      </div>
+
+      <!-- BounceCards Arena -->
+      <div class="demo-arena" style="min-height: 460px;">
+        <!-- The BounceCards Container -->
+        <div
+          id="interactive-bounce-cards"
+          class="bounce-cards"
+          data-spread="85"
+          data-rotation="10"
+          data-arc="0"
+          data-card-size="200"
+          data-bounciness="0.6"
+          data-push-distance="160"
+          data-hover-scale="1.06"
+          data-animation-delay="0.3"
+          data-animation-stagger="0.06"
+          style="width: 520px; height: 320px;"
+        >
+          <!-- Card 1: Protein Health Mix -->
+          <div class="bounce-cards__card bounce-cards__card--clickable" onclick="handleCardClick(0, 'Protein Health Mix (12g Protein)')">
+            <img src="assets/images/products/protein-health-mix-1.jpg" alt="Protein Health Mix" />
+          </div>
+
+          <!-- Card 2: Poondu Podi -->
+          <div class="bounce-cards__card bounce-cards__card--clickable" onclick="handleCardClick(1, 'Traditional Poondu Podi')">
+            <img src="assets/images/products/poondu-podi-1.jpg" alt="Poondu Podi" />
+          </div>
+
+          <!-- Card 3: 100% Millet Mix -->
+          <div class="bounce-cards__card bounce-cards__card--clickable" onclick="handleCardClick(2, '100% Millet Dosa Mix')">
+            <img src="assets/images/products/millet-mix-1.jpg" alt="100% Millet Mix" />
+          </div>
+
+          <!-- Card 4: Pirandai Podi -->
+          <div class="bounce-cards__card bounce-cards__card--clickable" onclick="handleCardClick(3, 'Pirandai Herbal Podi')">
+            <img src="assets/images/products/pirandai-podi-1.jpg" alt="Pirandai Podi" />
+          </div>
+
+          <!-- Card 5: Sundakkai Podi -->
+          <div class="bounce-cards__card bounce-cards__card--clickable" onclick="handleCardClick(4, 'Sundakkai Herbal Podi')">
+            <img src="assets/images/products/sundakkai-podi-1.jpg" alt="Sundakkai Podi" />
+          </div>
+        </div>
+
+        <div id="card-selection-badge" class="card-click-status">
+          👉 Hover over any card to trigger spring spread, or click a card!
+        </div>
+      </div>
+
+      <!-- React Usage Snippet -->
+      <div class="code-box">
+        <div class="code-box-header">
+          <span>React JSX Integration &bull; src/components/BounceCards/</span>
+          <span style="color: #4ade80;">Ready to Import</span>
+        </div>
+        <pre><code>import BounceCards from '@/components/BounceCards';
+
+const productImages = [
+  'assets/images/products/protein-health-mix-1.jpg',
+  'assets/images/products/poondu-podi-1.jpg',
+  'assets/images/products/millet-mix-1.jpg',
+  'assets/images/products/pirandai-podi-1.jpg',
+  'assets/images/products/sundakkai-podi-1.jpg'
+];
+
+&lt;BounceCards
+  images={productImages}
+  containerWidth={520}
+  containerHeight={320}
+  cardSize={200}
+  spread={85}
+  rotation={10}
+  arc={0}
+  pushDistance={160}
+  hoverScale={1.06}
+  bounciness={0.6}
+  borderWidth={4}
+  borderColor="#ffffff"
+  radius={22}
+  shadow
+  enableHover
+  onCardClick={(index) =&gt; console.log('Selected product:', index)}
+/&gt;</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: Combined Experience -->
+  <section id="combined" class="showcase-section">
+    <div class="showcase-container">
+      <div class="section-header">
+        <span class="pill-tag">Full Integration</span>
+        <h2>3. Combined Hero Showcase</h2>
+        <p>
+          Here is how both React Bits components work in synergy — creating a visually captivating eCommerce hero unit with natural physics and glowing specular CTAs.
+        </p>
+      </div>
+
+      <div style="background: linear-gradient(135deg, #14351b 0%, #0d2312 100%); border-radius: 24px; padding: 60px 30px; text-align: center; color: #ffffff; border: 1px solid #235328; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);">
+        <span style="display: inline-block; padding: 4px 12px; background: rgba(134,239,172,0.15); color: #86efac; border-radius: 999px; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; margin-bottom: 16px;">
+          🌾 Freshly Harvested 2026 Batch
+        </span>
+        <h3 style="font-size: 2.4rem; font-weight: 800; margin-bottom: 12px; color: #f8fafc;">
+          Taste Pure Authentic Tamil Nadu Organics
+        </h3>
+        <p style="max-width: 580px; margin: 0 auto 35px; color: #cbd5e1; font-size: 1.05rem;">
+          Single-origin Poondu, Pirandai, and Vallarai podis hand-ground with cold-pressed oils and nutrient-dense sprouted grains.
+        </p>
+
+        <!-- Mini BounceCards -->
+        <div style="margin-bottom: 40px; display: flex; justify-content: center;">
+          <div
+            class="bounce-cards"
+            data-spread="75"
+            data-rotation="12"
+            data-arc="8"
+            data-card-size="180"
+            data-bounciness="0.65"
+            data-push-distance="140"
+            style="width: 480px; height: 260px;"
+          >
+            <div class="bounce-cards__card bounce-cards__card--clickable" onclick="window.location.href='product.html?id=pro-01'">
+              <img src="assets/images/products/protein-health-mix-1.jpg" alt="Health Mix" />
+            </div>
+            <div class="bounce-cards__card bounce-cards__card--clickable" onclick="window.location.href='product.html?id=spc-01'">
+              <img src="assets/images/products/poondu-podi-1.jpg" alt="Poondu Podi" />
+            </div>
+            <div class="bounce-cards__card bounce-cards__card--clickable" onclick="window.location.href='product.html?id=mil-powder-01'">
+              <img src="assets/images/products/millet-mix-1.jpg" alt="Millet Mix" />
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+          <a
+            href="shop.html"
+            class="specular-button specular-button--lg"
+            data-radius="20"
+            data-line-color="#86efac"
+            data-base-color="#14532d"
+            style="--sb-radius: 20px; --sb-tint: #235328; --sb-tint-opacity: 0.95; --sb-text-color: #ffffff;"
+          >
+            <span class="specular-button__label">Shop All Organic Podis &rarr;</span>
+          </a>
+
+          <a
+            href="cart.html"
+            class="specular-button specular-button--lg"
+            data-radius="20"
+            data-line-color="#fde047"
+            data-base-color="#854d0e"
+            style="--sb-radius: 20px; --sb-tint: #c05621; --sb-tint-opacity: 0.95; --sb-text-color: #ffffff;"
+          >
+            <span class="specular-button__label">Order With Free Shipping Above ₹999</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" style="margin-top: 40px;">
+    <div class="container" style="text-align: center; padding: 30px 20px;">
+      <p style="color: #64748b;">
+        &copy; 2026 RP Organics. Components integrated from <a href="https://reactbits.dev" target="_blank" style="color: #166534; font-weight: 600;">React Bits</a>.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="assets/js/specular-button.js"></script>
+  <script src="assets/js/bounce-cards.js"></script>
+
+  <script>
+    // Interactive controls logic for SpecularButton
+    var mainBtn = document.getElementById('interactive-specular-btn');
+    var btnInstance = null;
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Setup dynamic controls
+      var ctrlLineColor = document.getElementById('ctrl-lineColor');
+      var ctrlTint = document.getElementById('ctrl-tint');
+      var ctrlIntensity = document.getElementById('ctrl-intensity');
+      var ctrlGlow = document.getElementById('ctrl-glow');
+      var ctrlRadius = document.getElementById('ctrl-radius');
+      var ctrlAutoAnimate = document.getElementById('ctrl-autoAnimate');
+
+      function updateButton() {
+        var lineColor = ctrlLineColor.value;
+        var tint = ctrlTint.value;
+        var intensity = parseFloat(ctrlIntensity.value);
+        var glow = parseFloat(ctrlGlow.value);
+        var radius = parseFloat(ctrlRadius.value);
+        var autoAnimate = ctrlAutoAnimate.checked;
+
+        document.getElementById('val-lineColor').textContent = lineColor;
+        document.getElementById('val-tint').textContent = tint;
+        document.getElementById('val-intensity').textContent = intensity.toFixed(1);
+        document.getElementById('val-glow').textContent = glow.toFixed(1);
+        document.getElementById('val-radius').textContent = radius + 'px';
+        document.getElementById('val-autoAnimate').textContent = autoAnimate ? 'ON' : 'OFF';
+
+        mainBtn.style.setProperty('--sb-radius', radius + 'px');
+        mainBtn.style.setProperty('--sb-tint', tint);
+
+        if (mainBtn._specularInitialized && window.SpecularButton) {
+          // Re-init with new options
+          delete mainBtn._specularInitialized;
+          window.SpecularButton.init(mainBtn, {
+            lineColor: lineColor,
+            baseColor: '#14532d',
+            intensity: intensity,
+            glow: glow,
+            radius: radius,
+            autoAnimate: autoAnimate,
+            followMouse: true,
+            proximity: 250
+          });
+        }
+      }
+
+      ctrlLineColor.addEventListener('input', updateButton);
+      ctrlTint.addEventListener('input', updateButton);
+      ctrlIntensity.addEventListener('input', updateButton);
+      ctrlGlow.addEventListener('input', updateButton);
+      ctrlRadius.addEventListener('input', updateButton);
+      ctrlAutoAnimate.addEventListener('change', updateButton);
+    });
+
+    // BounceCards click reporter
+    function handleCardClick(index, title) {
+      var badge = document.getElementById('card-selection-badge');
+      if (badge) {
+        badge.innerHTML = '🎉 Selected: <strong>' + title + '</strong> (Card #' + (index + 1) + ')';
+        badge.style.background = 'rgba(34, 197, 94, 0.3)';
+        badge.style.color = '#ffffff';
+        setTimeout(function() {
+          badge.style.background = 'rgba(34, 197, 94, 0.15)';
+          badge.style.color = '#86efac';
+        }, 1200);
+      }
+    }
+  </script>
+</body>
+</html>

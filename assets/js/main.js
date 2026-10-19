@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (featuredContainer && typeof PRODUCTS !== 'undefined') {
       const featuredList = PRODUCTS.slice(0, 4);
       featuredContainer.innerHTML = featuredList.map(prod => 
-        VedaComponents.renderProductCard(prod)
+        (window.RPComponents || window.VedaComponents).renderProductCard(prod)
       ).join('');
     }
 
@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (newArrivalsContainer && typeof PRODUCTS !== 'undefined') {
       const newArrivalsList = PRODUCTS.length >= 4 ? PRODUCTS.slice(2, 6) : PRODUCTS;
       newArrivalsContainer.innerHTML = newArrivalsList.map(prod => 
-        VedaComponents.renderProductCard(prod)
+        (window.RPComponents || window.VedaComponents).renderProductCard(prod)
       ).join('');
     }
 
@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (bestSellersContainer && typeof PRODUCTS !== 'undefined') {
       const bestSellers = PRODUCTS.filter(p => p.badgeType === 'bestseller' || p.rating >= 4.8).slice(0, 4);
       bestSellersContainer.innerHTML = bestSellers.map(prod => 
-        VedaComponents.renderProductCard(prod)
+        (window.RPComponents || window.VedaComponents).renderProductCard(prod)
       ).join('');
     }
 

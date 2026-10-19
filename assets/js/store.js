@@ -26,16 +26,16 @@ const Store = {
 
   loadState() {
     try {
-      const storedCart = localStorage.getItem('vr_cart');
+      const storedCart = localStorage.getItem('rp_cart') || localStorage.getItem('vr_cart');
       if (storedCart) this.state.cart = JSON.parse(storedCart);
 
-      const storedWishlist = localStorage.getItem('vr_wishlist');
+      const storedWishlist = localStorage.getItem('rp_wishlist') || localStorage.getItem('vr_wishlist');
       if (storedWishlist) this.state.wishlist = JSON.parse(storedWishlist);
 
-      const storedRecent = localStorage.getItem('vr_recently_viewed');
+      const storedRecent = localStorage.getItem('rp_recently_viewed') || localStorage.getItem('vr_recently_viewed');
       if (storedRecent) this.state.recentlyViewed = JSON.parse(storedRecent);
 
-      const storedCurrency = localStorage.getItem('vr_currency');
+      const storedCurrency = localStorage.getItem('rp_currency') || localStorage.getItem('vr_currency');
       if (storedCurrency && this.CURRENCY_RATE[storedCurrency]) {
         this.state.currency = storedCurrency;
       }
@@ -46,7 +46,9 @@ const Store = {
 
   saveCart() {
     try {
-      localStorage.setItem('vr_cart', JSON.stringify(this.state.cart));
+      const data = JSON.stringify(this.state.cart);
+      localStorage.setItem('rp_cart', data);
+      localStorage.setItem('vr_cart', data);
     } catch (e) {
       console.warn('Could not save cart:', e);
     }
@@ -55,7 +57,9 @@ const Store = {
 
   saveWishlist() {
     try {
-      localStorage.setItem('vr_wishlist', JSON.stringify(this.state.wishlist));
+      const data = JSON.stringify(this.state.wishlist);
+      localStorage.setItem('rp_wishlist', data);
+      localStorage.setItem('vr_wishlist', data);
     } catch (e) {
       console.warn('Could not save wishlist:', e);
     }
@@ -64,7 +68,9 @@ const Store = {
 
   saveRecentlyViewed() {
     try {
-      localStorage.setItem('vr_recently_viewed', JSON.stringify(this.state.recentlyViewed));
+      const data = JSON.stringify(this.state.recentlyViewed);
+      localStorage.setItem('rp_recently_viewed', data);
+      localStorage.setItem('vr_recently_viewed', data);
     } catch (e) {
       console.warn('Could not save recently viewed:', e);
     }
@@ -207,7 +213,9 @@ const Store = {
   setCurrency(curr) {
     if (this.CURRENCY_RATE[curr]) {
       this.state.currency = curr;
+      localStorage.setItem('rp_currency', curr);
       localStorage.setItem('vr_currency', curr);
+      window.dispatchEvent(new CustomEvent('rp:currency-updated', { detail: curr }));
       window.dispatchEvent(new CustomEvent('vr:currency-updated', { detail: curr }));
       this.emitCartUpdate();
     }
@@ -224,29 +232,29 @@ const Store = {
 
   // Events & Notifications
   emitCartUpdate() {
-    window.dispatchEvent(new CustomEvent('vr:cart-updated', {
-      detail: {
-        cart: this.state.cart,
-        count: this.getCartCount(),
-        subtotal: this.getCartSubtotal(),
-        freeShipping: this.getFreeShippingProgress()
-      }
-    }));
+    const detail = {
+      cart: this.state.cart,
+      count: this.getCartCount(),
+      subtotal: this.getCartSubtotal(),
+      freeShipping: this.getFreeShippingProgress()
+    };
+    window.dispatchEvent(new CustomEvent('rp:cart-updated', { detail }));
+    window.dispatchEvent(new CustomEvent('vr:cart-updated', { detail }));
   },
 
   emitWishlistUpdate() {
-    window.dispatchEvent(new CustomEvent('vr:wishlist-updated', {
-      detail: {
-        wishlist: this.state.wishlist,
-        count: this.getWishlistCount()
-      }
-    }));
+    const detail = {
+      wishlist: this.state.wishlist,
+      count: this.getWishlistCount()
+    };
+    window.dispatchEvent(new CustomEvent('rp:wishlist-updated', { detail }));
+    window.dispatchEvent(new CustomEvent('vr:wishlist-updated', { detail }));
   },
 
   showToast(message, type = 'info') {
-    const container = document.getElementById('vr-toast-container') || this.createToastContainer();
+    const container = document.getElementById('rp-toast-container') || document.getElementById('vr-toast-container') || this.createToastContainer();
     const toast = document.createElement('div');
-    toast.className = `vr-toast vr-toast-${type}`;
+    toast.className = `rp-toast vr-toast rp-toast-${type} vr-toast-${type}`;
 
     let iconSvg = '';
     if (type === 'success') {
@@ -258,8 +266,8 @@ const Store = {
     }
 
     toast.innerHTML = `
-      <div class="vr-toast-icon">${iconSvg}</div>
-      <div class="vr-toast-text">${message}</div>
+      <div class="rp-toast-icon vr-toast-icon">${iconSvg}</div>
+      <div class="rp-toast-text vr-toast-text">${message}</div>
     `;
 
     container.appendChild(toast);
@@ -272,11 +280,11 @@ const Store = {
   },
 
   createToastContainer() {
-    let el = document.getElementById('vr-toast-container');
+    let el = document.getElementById('rp-toast-container') || document.getElementById('vr-toast-container');
     if (!el) {
       el = document.createElement('div');
-      el.id = 'vr-toast-container';
-      el.className = 'vr-toast-container';
+      el.id = 'rp-toast-container';
+      el.className = 'rp-toast-container vr-toast-container';
       document.body.appendChild(el);
     }
     return el;
