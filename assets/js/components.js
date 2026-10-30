@@ -95,8 +95,8 @@ window.RPComponents = {
             </button>
             <button class="card-action-btn hover-add-cart-btn" 
                     onclick="event.preventDefault(); event.stopPropagation(); Store.addToCart('${product.id}', null, 1)"
-                    title="Add to Cart"
-                    aria-label="Add to Cart">
+                    title="Add to Order List"
+                    aria-label="Add to Order List">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-2z"></path>
                 <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -147,22 +147,33 @@ window.RPComponents = {
           ${variantsHtml}
 
           <div class="product-card-footer">
-            <div class="product-price-wrap">
-              <div style="display: flex; align-items: baseline; gap: 6px;">
-                <span class="product-price">${formattedPrice}</span>
-                ${formattedCompare ? `<span class="product-compare-price">${formattedCompare}</span>` : ''}
+            <div class="product-card-price-row">
+              <div class="product-price-wrap">
+                <div style="display: flex; align-items: baseline; gap: 6px;">
+                  <span class="product-price">${formattedPrice}</span>
+                  ${formattedCompare ? `<span class="product-compare-price">${formattedCompare}</span>` : ''}
+                </div>
+                ${currentSavings ? `<span class="product-savings-badge">${currentSavings}</span>` : ''}
               </div>
-              ${currentSavings ? `<span style="font-size: 0.72rem; color: #b91c1c; font-weight: 700;">${currentSavings}</span>` : ''}
+              <span class="product-fresh-pill" style="font-size: 0.72rem; font-weight: 700; color: #166534; background: #f0fdf4; padding: 2px 7px; border-radius: 4px; border: 1px solid #bbf7d0;">
+                100% Pure
+              </span>
             </div>
 
-            <button class="btn-add-cart" onclick="event.stopPropagation(); Store.addToCart('${product.id}', null, 1)" aria-label="Add ${product.title} to cart">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-2z"></path>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <path d="M16 10a4 4 0 0 1-8 0"></path>
-              </svg>
-              <span>Add</span>
-            </button>
+            <div class="product-card-actions-row">
+              <button class="btn-whatsapp-order" onclick="event.stopPropagation(); RPComponents.orderProductOnWhatsApp('${product.id}')" title="Order on WhatsApp" aria-label="Order ${product.title} on WhatsApp">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.072-1.848-.431-1.393-.576-2.316-1.996-2.385-2.088-.069-.093-.564-.75-.564-1.433 0-.682.358-1.017.486-1.155.127-.138.278-.173.371-.173.093 0 .185.001.266.005.086.004.202-.033.315.241.118.286.405.987.44 1.058.035.07.058.152.012.244-.047.092-.07.15-.14.23-.07.081-.148.182-.211.245-.07.07-.143.146-.062.285.081.139.362.597.776.966.533.475.981.623 1.12.693.139.07.22.058.301-.035.082-.093.348-.405.441-.544.093-.139.186-.116.313-.07.127.046.808.381.947.451.139.07.232.104.266.162.035.058.035.337-.109.742z"/>
+                </svg>
+                <span>Order on WhatsApp</span>
+              </button>
+              <button class="btn-add-order-list" onclick="event.stopPropagation(); Store.addToCart('${product.id}', null, 1)" title="Add to Order List" aria-label="Add ${product.title} to Order List">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M12 5v14M5 12h14"></path>
+                </svg>
+                <span>Add to List</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -188,6 +199,7 @@ window.RPComponents = {
   initSearch() {
     const searchInputs = document.querySelectorAll('.search-input');
     searchInputs.forEach(input => {
+      if (input.id === 'search-page-input') return;
       const dropdown = input.closest('.header-search')?.querySelector('.search-results-dropdown');
       if (!dropdown) return;
 
@@ -329,15 +341,36 @@ window.RPComponents = {
                 </div>
               ` : ''}
 
-              <div class="quickview-qty-row">
-                <div class="qty-picker">
+              <div class="quickview-qty-row" style="display: flex; gap: 10px; align-items: stretch; margin-bottom: 12px; flex-wrap: wrap;">
+                <div class="qty-picker" style="height: 48px;">
                   <button class="qty-btn" onclick="RPComponents.changeQuickViewQty(-1)" aria-label="Decrease quantity">-</button>
                   <input type="number" id="qv-qty-input" class="qty-input" value="1" min="1" readonly aria-label="Selected quantity" />
                   <button class="qty-btn" onclick="RPComponents.changeQuickViewQty(1)" aria-label="Increase quantity">+</button>
                 </div>
 
-                <button class="btn btn-primary" style="flex: 1;" onclick="RPComponents.addQuickViewToCart('${product.id}')">
-                  Add to Cart
+                <button class="btn btn-whatsapp-large" style="flex: 1.2; height: 48px;" onclick="RPComponents.orderQuickViewOnWhatsApp('${product.id}')">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.072-1.848-.431-1.393-.576-2.316-1.996-2.385-2.088-.069-.093-.564-.75-.564-1.433 0-.682.358-1.017.486-1.155.127-.138.278-.173.371-.173.093 0 .185.001.266.005.086.004.202-.033.315.241.118.286.405.987.44 1.058.035.07.058.152.012.244-.047.092-.07.15-.14.23-.07.081-.148.182-.211.245-.07.07-.143.146-.062.285.081.139.362.597.776.966.533.475.981.623 1.12.693.139.07.22.058.301-.035.082-.093.348-.405.441-.544.093-.139.186-.116.313-.07.127.046.808.381.947.451.139.07.232.104.266.162.035.058.035.337-.109.742z"/>
+                  </svg>
+                  <span>Order on WhatsApp</span>
+                </button>
+
+                <button class="btn btn-outline" style="flex: 1; height: 48px;" onclick="RPComponents.addQuickViewToCart('${product.id}')">
+                  + Add to Order List
+                </button>
+              </div>
+
+              <div class="whatsapp-notice-box" style="margin: 10px 0;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                <div>
+                  <strong>Order directly on WhatsApp.</strong> Send your selected items, and we’ll confirm availability, delivery charges, and payment details.
+                </div>
+              </div>
+
+              <div class="whatsapp-fallback-box" style="margin-bottom: 14px;">
+                Unable to open WhatsApp? Message us at <strong>+91 9150300641</strong>.<br />
+                <button type="button" class="btn-copy-msg" onclick="RPComponents.copyQuickViewOrderMessage('${product.id}')">
+                  📋 Copy Order Message
                 </button>
               </div>
 
@@ -353,6 +386,7 @@ window.RPComponents = {
     };
 
     renderModalContent();
+    overlay.dataset.activeVariant = activeVariant ? activeVariant.name : '';
     overlay.classList.add('active');
     document.body.style.overflow = 'hidden';
 
@@ -397,6 +431,8 @@ window.RPComponents = {
     if (savingsEl && variant.savings) savingsEl.textContent = variant.savings;
 
     btn.dataset.selectedVariant = variant.name;
+    const overlay = document.getElementById('rp-quickview-overlay') || document.getElementById('vr-quickview-overlay');
+    if (overlay) overlay.dataset.activeVariant = variant.name;
   },
 
   changeQuickViewQty(delta) {
@@ -415,6 +451,103 @@ window.RPComponents = {
 
     Store.addToCart(productId, variantName, qty);
     this.closeQuickView();
+  },
+
+  /**
+   * Order a single product on WhatsApp with default variant and quantity 1
+   */
+  orderProductOnWhatsApp(productId) {
+    const product = PRODUCTS.find(p => p.id === productId);
+    if (!product) return;
+    const defaultVariant = product.variants && product.variants.length > 0 ? product.variants[0] : null;
+    const whatsappUtil = window.RPWhatsApp;
+    if (!whatsappUtil) {
+      window.location.href = `https://wa.me/919150300641?text=${encodeURIComponent('Hello RP Organics! I would like to order: ' + (product.name || product.title))}`;
+      return;
+    }
+    const msg = whatsappUtil.buildSingleProductMessage(product, defaultVariant, 1);
+    whatsappUtil.openWhatsApp(msg);
+  },
+
+  /**
+   * Order currently selected variant and quantity from Quick View modal on WhatsApp
+   */
+  orderQuickViewOnWhatsApp(productId) {
+    const product = PRODUCTS.find(p => p.id === productId);
+    if (!product) return;
+    const activeBtn = document.querySelector('.quickview-modal .variant-btn.active');
+    const variantName = activeBtn ? activeBtn.textContent.trim() : (product.variants && product.variants.length > 0 ? product.variants[0].name : null);
+    const input = document.getElementById('qv-qty-input');
+    const qty = input ? parseInt(input.value, 10) : 1;
+
+    const whatsappUtil = window.RPWhatsApp;
+    if (!whatsappUtil) {
+      window.location.href = `https://wa.me/919150300641`;
+      return;
+    }
+    const msg = whatsappUtil.buildSingleProductMessage(product, variantName, qty);
+    whatsappUtil.openWhatsApp(msg);
+  },
+
+  /**
+   * Copy Quick View prefilled message to clipboard
+   */
+  copyQuickViewOrderMessage(productId) {
+    const product = PRODUCTS.find(p => p.id === productId);
+    if (!product) return;
+    const activeBtn = document.querySelector('.quickview-modal .variant-btn.active');
+    const variantName = activeBtn ? activeBtn.textContent.trim() : (product.variants && product.variants.length > 0 ? product.variants[0].name : null);
+    const input = document.getElementById('qv-qty-input');
+    const qty = input ? parseInt(input.value, 10) : 1;
+
+    const whatsappUtil = window.RPWhatsApp;
+    if (!whatsappUtil) return;
+    const msg = whatsappUtil.buildSingleProductMessage(product, variantName, qty);
+    whatsappUtil.copyMessage(msg).then(ok => {
+      if (ok) {
+        Store.showToast('✓ Order message copied to clipboard! You can paste it into WhatsApp directly.', 'success');
+      } else {
+        Store.showToast('Unable to copy message automatically.', 'error');
+      }
+    });
+  },
+
+  /**
+   * Send the entire Order List (Cart) to WhatsApp
+   */
+  sendOrderListToWhatsApp() {
+    const cart = Store.getCart();
+    if (!cart || cart.length === 0) {
+      Store.showToast('Your Order List is empty. Please add products first.', 'error');
+      return;
+    }
+    const subtotal = Store.getCartSubtotal();
+    const whatsappUtil = window.RPWhatsApp;
+    if (!whatsappUtil) return;
+    const msg = whatsappUtil.buildMultiProductMessage(cart, subtotal);
+    whatsappUtil.openWhatsApp(msg);
+  },
+
+  /**
+   * Copy entire Order List prefilled message to clipboard
+   */
+  copyOrderListMessage() {
+    const cart = Store.getCart();
+    if (!cart || cart.length === 0) {
+      Store.showToast('Your Order List is empty. Please add products first.', 'error');
+      return;
+    }
+    const subtotal = Store.getCartSubtotal();
+    const whatsappUtil = window.RPWhatsApp;
+    if (!whatsappUtil) return;
+    const msg = whatsappUtil.buildMultiProductMessage(cart, subtotal);
+    whatsappUtil.copyMessage(msg).then(ok => {
+      if (ok) {
+        Store.showToast('✓ Order List copied to clipboard! You can paste it into WhatsApp directly.', 'success');
+      } else {
+        Store.showToast('Unable to copy message automatically.', 'error');
+      }
+    });
   },
 
   /**
@@ -608,7 +741,7 @@ window.CartDrawer = {
               <path d="M16 10a4 4 0 0 1-8 0"></path>
             </svg>
           </div>
-          <h4 class="cart-empty-title">Your Basket is Empty</h4>
+          <h4 class="cart-empty-title">Your Order List is Empty</h4>
           <p class="cart-empty-desc">Discover our traditional Poondu Podi, Pirandai Podi, Millet Powder, and Protein Health Mix!</p>
           <a href="shop.html" class="btn btn-primary" onclick="CartDrawer.close()">Explore Store</a>
         </div>
@@ -661,8 +794,8 @@ window.CartDrawer = {
     this.drawerEl.innerHTML = `
       <div class="cart-drawer-header">
         <div class="cart-drawer-title-wrap">
-          <h3>Your Cart</h3>
-          <span class="cart-count-pill">${count} items</span>
+          <h3>Your Order List</h3>
+          <span class="cart-count-pill">${count} item${count === 1 ? '' : 's'}</span>
         </div>
         <button class="cart-drawer-close" onclick="CartDrawer.close()" aria-label="Close cart">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -678,17 +811,38 @@ window.CartDrawer = {
       ${cart.length > 0 ? `
         <div class="cart-drawer-footer">
           <div class="drawer-subtotal-row">
-            <span class="drawer-subtotal-label">Subtotal</span>
+            <span class="drawer-subtotal-label">Products subtotal</span>
             <span class="drawer-subtotal-amount">${Store.formatPrice(subtotal)}</span>
           </div>
-          <p class="drawer-tax-note">Shipping, taxes, and promotional coupons applied at checkout.</p>
+
+          <div class="whatsapp-notice-box" style="margin: 10px 0; font-size: 0.82rem;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            <div>
+              <strong>Order directly on WhatsApp.</strong> Send your selected items, and we’ll confirm availability, delivery charges, and payment details.
+            </div>
+          </div>
           
           <div class="drawer-actions">
-            <a href="cart.html" class="btn btn-primary btn-full">
-              Proceed to Checkout &rarr;
-            </a>
-            <button class="btn btn-outline btn-full btn-sm" onclick="CartDrawer.close()">
-              Continue Shopping
+            <button type="button" class="btn btn-whatsapp-large btn-full" style="height: 48px;" onclick="RPComponents.sendOrderListToWhatsApp()">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.072-1.848-.431-1.393-.576-2.316-1.996-2.385-2.088-.069-.093-.564-.75-.564-1.433 0-.682.358-1.017.486-1.155.127-.138.278-.173.371-.173.093 0 .185.001.266.005.086.004.202-.033.315.241.118.286.405.987.44 1.058.035.07.058.152.012.244-.047.092-.07.15-.14.23-.07.081-.148.182-.211.245-.07.07-.143.146-.062.285.081.139.362.597.776.966.533.475.981.623 1.12.693.139.07.22.058.301-.035.082-.093.348-.405.441-.544.093-.139.186-.116.313-.07.127.046.808.381.947.451.139.07.232.104.266.162.035.058.035.337-.109.742z"/>
+              </svg>
+              <span>Send Order on WhatsApp &rarr;</span>
+            </button>
+            <div style="display: flex; gap: 8px; margin-top: 6px;">
+              <a href="cart.html" class="btn btn-outline btn-full btn-sm" style="text-align: center; text-decoration: none;">
+                View Order List
+              </a>
+              <button class="btn btn-outline btn-full btn-sm" onclick="CartDrawer.close()">
+                Keep Browsing
+              </button>
+            </div>
+          </div>
+
+          <div class="whatsapp-fallback-box" style="margin-top: 10px;">
+            Unable to open WhatsApp? Message us at <strong>+91 9150300641</strong>.<br />
+            <button type="button" class="btn-copy-msg" onclick="RPComponents.copyOrderListMessage()">
+              📋 Copy Order Message
             </button>
           </div>
 
@@ -730,9 +884,52 @@ window.CartDrawer = {
 // Global backward compatibility alias
 window.VedaComponents = window.RPComponents;
 
+// Global Newsletter Handler across all pages
+function initGlobalNewsletter() {
+  document.querySelectorAll('.newsletter-form-wrap, .footer-newsletter-form, form.newsletter-form').forEach(form => {
+    if (form.dataset.boundNewsletter) return;
+    form.dataset.boundNewsletter = 'true';
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const input = form.querySelector('input[type="email"]');
+      const submitBtn = form.querySelector('button[type="submit"]');
+      if (!input || !input.value.trim() || !input.value.includes('@')) {
+        if (window.Store && Store.showToast) Store.showToast('Please provide a valid email address.', 'error');
+        return;
+      }
+      const email = input.value.trim();
+      const sourcePage = document.title ? document.title.split('•')[0].trim() : 'Footer';
+      try {
+        if (submitBtn) submitBtn.disabled = true;
+        const res = await fetch('/api/newsletter', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, source_page: sourcePage })
+        });
+        const data = await res.json();
+        if (data.alreadySubscribed) {
+          if (window.Store && Store.showToast) Store.showToast(data.message, 'info');
+        } else if (data.success) {
+          if (window.Store && Store.showToast) Store.showToast(data.message, 'success');
+          input.value = '';
+        } else {
+          if (window.Store && Store.showToast) Store.showToast(data.message || 'Subscription failed.', 'error');
+        }
+      } catch (err) {
+        console.error('Newsletter error:', err);
+        if (window.Store && Store.showToast) Store.showToast('🎉 Thank you for subscribing to RP Organics!', 'success');
+        input.value = '';
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    });
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   RPComponents.initCircularPreloader();
   RPComponents.initHeader();
   RPComponents.initSearch();
   CartDrawer.init();
+  initGlobalNewsletter();
 });

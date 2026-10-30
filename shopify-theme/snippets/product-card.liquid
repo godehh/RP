@@ -25,17 +25,39 @@
     </h3>
 
     <div class="product-card-footer">
-      <div class="product-price-wrap">
-        <span class="product-price">{{ product.price | money }}</span>
-        {% if product.compare_at_price > product.price %}
-          <span class="product-compare-price">{{ product.compare_at_price | money }}</span>
-        {% endif %}
+      <div class="product-card-price-row">
+        <div class="product-price-wrap">
+          <span class="product-price">{{ product.price | money }}</span>
+          {% if product.compare_at_price > product.price %}
+            <span class="product-compare-price">{{ product.compare_at_price | money }}</span>
+          {% endif %}
+        </div>
+        <span class="product-fresh-pill" style="font-size: 0.72rem; font-weight: 700; color: #166534; background: #f0fdf4; padding: 2px 7px; border-radius: 4px; border: 1px solid #bbf7d0;">
+          100% Pure
+        </span>
       </div>
 
-      <form method="post" action="/cart/add">
-        <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
-        <button type="submit" class="btn-add-cart">Add</button>
-      </form>
+      <div class="product-card-actions-row">
+        {% capture wa_msg %}Hello RP Organics! I would like to order:
+
+Product: {{ product.title }}
+Pack size: {{ product.variants.first.title | default: 'Standard' }}
+Quantity: 1
+Price per pack: {{ product.price | money }}
+Item total: {{ product.price | money }}
+
+Please confirm availability, delivery charges, payment details, and how to complete my order.{% endcapture %}
+        <a href="https://wa.me/919150300641?text={{ wa_msg | url_encode }}" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-order" title="Order on WhatsApp">
+          💬 <span>Order on WhatsApp</span>
+        </a>
+
+        <form method="post" action="/cart/add" style="margin: 0; flex: 0 0 auto;">
+          <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+          <button type="submit" class="btn-add-order-list" title="Add to Order List">
+            <span>+ Add to List</span>
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </div>

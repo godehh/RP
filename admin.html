@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Portal • RP Organics Offline Submissions Dashboard</title>
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <style>
+    :root {
+      --admin-bg: #f8fafc;
+      --admin-card: #ffffff;
+      --admin-primary: #15803d;
+      --admin-primary-dark: #14532d;
+      --admin-accent: #f59e0b;
+      --admin-border: #e2e8f0;
+      --admin-text: #0f172a;
+      --admin-muted: #64748b;
+    }
+
+    body {
+      background-color: var(--admin-bg);
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      color: var(--admin-text);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    /* Admin Top Header */
+    .admin-header {
+      background: #ffffff;
+      border-bottom: 1px solid var(--admin-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .admin-header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .admin-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+    .admin-badge {
+      background: #f0fdf4;
+      color: var(--admin-primary);
+      border: 1px solid #bbf7d0;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* Container Layout */
+    .admin-container {
+      max-width: 1400px;
+      margin: 24px auto;
+      padding: 0 24px 60px;
+    }
+
+    /* Stats Grid */
+    .admin-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+    .admin-stat-card {
+      background: var(--admin-card);
+      border: 1px solid var(--admin-border);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .admin-stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+    }
+    .stat-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .stat-val {
+      font-size: 1.8rem;
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--admin-text);
+    }
+    .stat-lbl {
+      font-size: 0.82rem;
+      color: var(--admin-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* Tabs Navigation */
+    .admin-tabs-bar {
+      display: flex;
+      gap: 8px;
+      border-bottom: 2px solid var(--admin-border);
+      margin-bottom: 24px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+    .admin-tab-btn {
+      background: transparent;
+      border: none;
+      padding: 12px 20px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--admin-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 8px 8px 0 0;
+      position: relative;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .admin-tab-btn:hover {
+      color: var(--admin-primary);
+      background: #f1f5f9;
+    }
+    .admin-tab-btn.active {
+      color: var(--admin-primary);
+      background: #ffffff;
+      border: 1px solid var(--admin-border);
+      border-bottom-color: #ffffff;
+      margin-bottom: -2px;
+    }
+    .tab-counter {
+      background: #e2e8f0;
+      color: #334155;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 10px;
+    }
+    .admin-tab-btn.active .tab-counter {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    /* Filter & Controls Toolbar */
+    .admin-toolbar {
+      background: #ffffff;
+      border: 1px solid var(--admin-border);
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin-bottom: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .admin-search-box {
+      flex: 1;
+      min-width: 240px;
+      position: relative;
+    }
+    .admin-search-box input {
+      width: 100%;
+      padding: 10px 14px 10px 36px;
+      border: 1.5px solid var(--admin-border);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .admin-search-box input:focus {
+      border-color: var(--admin-primary);
+    }
+    .admin-search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--admin-muted);
+      pointer-events: none;
+    }
+    .admin-filters-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .admin-select {
+      padding: 9px 12px;
+      border: 1.5px solid var(--admin-border);
+      border-radius: 8px;
+      font-size: 0.88rem;
+      background: #ffffff;
+      color: var(--admin-text);
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* Action Buttons */
+    .btn-admin {
+      padding: 9px 16px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: none;
+      transition: all 0.2s;
+    }
+    .btn-admin-primary {
+      background: var(--admin-primary);
+      color: #ffffff;
+    }
+    .btn-admin-primary:hover {
+      background: var(--admin-primary-dark);
+    }
+    .btn-admin-outline {
+      background: #ffffff;
+      border: 1.5px solid var(--admin-border);
+      color: var(--admin-text);
+    }
+    .btn-admin-outline:hover {
+      border-color: #cbd5e1;
+      background: #f8fafc;
+    }
+
+    /* Modern Data Table */
+    .admin-table-wrap {
+      background: #ffffff;
+      border: 1px solid var(--admin-border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+    .admin-table th {
+      background: #f8fafc;
+      padding: 14px 18px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #475569;
+      border-bottom: 1.5px solid var(--admin-border);
+      white-space: nowrap;
+    }
+    .admin-table td {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--admin-border);
+      vertical-align: middle;
+    }
+    .admin-table tr:last-child td {
+      border-bottom: none;
+    }
+    .admin-table tr:hover td {
+      background-color: #fbfcfe;
+    }
+
+    /* Status Badges */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 14px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .status-new { background: #eff6ff; color: #1d4ed8; }
+    .status-read { background: #f1f5f9; color: #475569; }
+    .status-replied { background: #ecfdf5; color: #047857; }
+    .status-subscribed { background: #ecfdf5; color: #047857; }
+    .status-unsubscribed { background: #fef2f2; color: #b91c1c; }
+    .status-pending { background: #fffbeb; color: #b45309; }
+    .status-approved { background: #ecfdf5; color: #047857; }
+    .status-rejected { background: #fef2f2; color: #b91c1c; }
+    .status-confirmed { background: #eff6ff; color: #1d4ed8; }
+    .status-shipped { background: #f5f3ff; color: #6d28d9; }
+    .status-delivered { background: #ecfdf5; color: #047857; }
+    .status-cancelled { background: #fef2f2; color: #b91c1c; }
+    .status-active { background: #ecfdf5; color: #047857; }
+
+    /* Modals */
+    .admin-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.25s ease;
+    }
+    .admin-modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .admin-modal {
+      background: #ffffff;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 650px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 28px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      transform: translateY(20px);
+      transition: transform 0.25s ease;
+    }
+    .admin-modal-overlay.active .admin-modal {
+      transform: translateY(0);
+    }
+    .admin-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--admin-border);
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+    }
+    .admin-modal-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin: 0;
+    }
+
+    /* Login Gateway Box */
+    .admin-login-box {
+      max-width: 440px;
+      margin: 80px auto;
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 18px;
+      border: 1px solid var(--admin-border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      text-align: center;
+    }
+
+    .empty-state {
+      padding: 60px 20px;
+      text-align: center;
+      color: var(--admin-muted);
+    }
+    .empty-state svg {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 12px;
+      color: #94a3b8;
+    }
+
+    /* Mobile Compatibility for Admin Portal */
+    @media (max-width: 768px) {
+      .admin-login-box {
+        margin: 40px 16px;
+        padding: 28px 20px;
+        border-radius: 14px;
+      }
+      .admin-header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        height: auto;
+        padding: 14px 16px;
+      }
+      .admin-header-inner > div {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .admin-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .admin-controls-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+      .admin-controls-bar .admin-search-input {
+        max-width: 100%;
+        width: 100%;
+      }
+      .admin-table-card {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .admin-modal {
+        margin: 16px;
+        padding: 20px 16px;
+        max-height: 85vh;
+      }
+    }
+    @media (max-width: 480px) {
+      .admin-stats-grid {
+        grid-template-columns: 1fr;
+      }
+    /* Neutralize browser autofill styling & background */
+    #admin-user-input:-webkit-autofill,
+    #admin-user-input:-webkit-autofill:hover,
+    #admin-user-input:-webkit-autofill:focus,
+    #admin-user-input:-webkit-autofill:active,
+    #admin-pass-input:-webkit-autofill,
+    #admin-pass-input:-webkit-autofill:hover,
+    #admin-pass-input:-webkit-autofill:focus,
+    #admin-pass-input:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+      -webkit-text-fill-color: #0f172a !important;
+      background-color: #ffffff !important;
+      color: #0f172a !important;
+      transition: background-color 5000s ease-in-out 0s;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ADMIN AUTH GATEWAY (If not logged in) -->
+  <div id="admin-login-gateway" style="display: none;">
+    <div class="admin-login-box">
+      <div style="margin-bottom: 16px;">
+        <img src="assets/images/rp-organics-logo.png" alt="RP Organics" height="48" style="object-fit: contain;" />
+      </div>
+      <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 6px;">RP Organics Admin Portal</h2>
+      <p style="color: var(--admin-muted); font-size: 0.88rem; margin-bottom: 24px;">
+        Secure Administrative Database Gateway
+      </p>
+
+      <form id="admin-login-form" autocomplete="off" onsubmit="handleAdminLogin(event)">
+        <!-- Decoy inputs to intercept browser autofill -->
+        <input type="text" name="decoy_username_prevent_autofill" style="position: absolute; top: -9999px; left: -9999px; opacity: 0; pointer-events: none;" tabindex="-1" autocomplete="off" />
+        <input type="password" name="decoy_password_prevent_autofill" style="position: absolute; top: -9999px; left: -9999px; opacity: 0; pointer-events: none;" tabindex="-1" autocomplete="new-password" />
+
+        <div style="text-align: left; margin-bottom: 16px;">
+          <label style="font-size: 0.84rem; font-weight: 700; display: block; margin-bottom: 6px;">Admin Username</label>
+          <input type="text" id="admin-user-input" name="rp_admin_user_field" required placeholder="Enter username" autocomplete="off" value="" readonly onfocus="this.removeAttribute('readonly');" onpointerdown="this.removeAttribute('readonly');" onclick="this.removeAttribute('readonly');" style="width: 100%; padding: 11px 14px; border: 1.5px solid var(--admin-border); border-radius: 8px; font-size: 0.92rem; outline: none; background: #ffffff;" />
+        </div>
+        <div style="text-align: left; margin-bottom: 24px;">
+          <label style="font-size: 0.84rem; font-weight: 700; display: block; margin-bottom: 6px;">Admin Password</label>
+          <input type="password" id="admin-pass-input" name="rp_admin_pass_field" required placeholder="Enter password" autocomplete="new-password" value="" readonly onfocus="this.removeAttribute('readonly');" onpointerdown="this.removeAttribute('readonly');" onclick="this.removeAttribute('readonly');" style="width: 100%; padding: 11px 14px; border: 1.5px solid var(--admin-border); border-radius: 8px; font-size: 0.92rem; outline: none; background: #ffffff;" />
+        </div>
+        <button type="submit" class="btn-admin btn-admin-primary" style="width: 100%; justify-content: center; padding: 12px; font-size: 0.95rem;">
+          Secure Admin Login &rarr;
+        </button>
+      </form>
+
+      <div style="margin-top: 24px; padding: 10px 14px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 0.78rem; color: #64748b; display: flex; align-items: center; justify-content: center; gap: 6px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        <span>Restricted Area &bull; Authorized Admin Personnel Only</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN ADMIN DASHBOARD (If authenticated) -->
+  <div id="admin-dashboard-app" style="display: none;">
+
+    <!-- Top Header -->
+    <header class="admin-header">
+      <div class="admin-header-inner">
+        <a href="index.html" class="admin-brand">
+          <img src="assets/images/rp-organics-logo.png" alt="RP Organics" height="36" style="object-fit: contain;" />
+          <div>
+            <strong style="display: block; font-size: 1rem; color: #14532d;">RP Organics &bull; Offline Admin Portal</strong>
+            <span style="font-size: 0.76rem; color: var(--admin-muted);">Database: <code>database/rp_organics.db</code></span>
+          </div>
+        </a>
+
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span class="admin-badge">⚡ Offline Local DB</span>
+          <a href="index.html" class="btn-admin btn-admin-outline" target="_blank" style="text-decoration: none;">
+            🌐 View Website
+          </a>
+          <button class="btn-admin btn-admin-outline" onclick="exportCurrentTableCsv()">
+            📥 Export CSV
+          </button>
+          <button class="btn-admin btn-admin-outline" onclick="handleAdminLogout()">
+            🚪 Logout
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="admin-container">
+
+      <!-- Stats Summary Grid -->
+      <div class="admin-stats-grid">
+        <div class="admin-stat-card">
+          <div class="stat-icon" style="background: #eff6ff; color: #2563eb;">📦</div>
+          <div>
+            <div class="stat-val" id="stat-orders-count">0</div>
+            <div class="stat-lbl">Order Enquiries</div>
+          </div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="stat-icon" style="background: #f0fdf4; color: #16a34a;">✉️</div>
+          <div>
+            <div class="stat-val" id="stat-contacts-count">0</div>
+            <div class="stat-lbl">Contact Messages</div>
+          </div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="stat-icon" style="background: #fffbeb; color: #d97706;">📰</div>
+          <div>
+            <div class="stat-val" id="stat-newsletters-count">0</div>
+            <div class="stat-lbl">Newsletter Subs</div>
+          </div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="stat-icon" style="background: #fdf2f8; color: #db2777;">⭐</div>
+          <div>
+            <div class="stat-val" id="stat-reviews-count">0</div>
+            <div class="stat-lbl">Product Reviews</div>
+          </div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="stat-icon" style="background: #f5f3ff; color: #7c3aed;">👥</div>
+          <div>
+            <div class="stat-val" id="stat-users-count">0</div>
+            <div class="stat-lbl">Registered Customers</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="admin-tabs-bar">
+        <button class="admin-tab-btn active" onclick="switchAdminTab('orders', this)">
+          📦 Order Enquiries <span class="tab-counter" id="tab-badge-orders">0</span>
+        </button>
+        <button class="admin-tab-btn" onclick="switchAdminTab('contacts', this)">
+          ✉️ Contact Enquiries <span class="tab-counter" id="tab-badge-contacts">0</span>
+        </button>
+        <button class="admin-tab-btn" onclick="switchAdminTab('newsletters', this)">
+          📰 Newsletter Subscribers <span class="tab-counter" id="tab-badge-newsletters">0</span>
+        </button>
+        <button class="admin-tab-btn" onclick="switchAdminTab('reviews', this)">
+          ⭐ Product Reviews <span class="tab-counter" id="tab-badge-reviews">0</span>
+        </button>
+        <button class="admin-tab-btn" onclick="switchAdminTab('users', this)">
+          👥 Registered Accounts <span class="tab-counter" id="tab-badge-users">0</span>
+        </button>
+        <button class="admin-tab-btn" onclick="switchAdminTab('payment-settings', this)">
+          💳 Payment Settings
+        </button>
+      </div>
+
+      <!-- Search & Filters Toolbar -->
+      <div class="admin-toolbar" id="admin-table-toolbar">
+        <div class="admin-search-box">
+          <span class="admin-search-icon">🔍</span>
+          <input type="text" id="admin-search-input" placeholder="Search customer name, email, phone, or order ID..." oninput="handleSearchAndFilter()" />
+        </div>
+
+        <div class="admin-filters-group">
+          <select id="admin-status-filter" class="admin-select" onchange="handleSearchAndFilter()">
+            <option value="ALL">All Statuses</option>
+          </select>
+
+          <select id="admin-date-filter" class="admin-select" onchange="handleSearchAndFilter()">
+            <option value="ALL">All Dates</option>
+            <option value="TODAY">Today</option>
+            <option value="WEEK">Last 7 Days</option>
+            <option value="MONTH">Last 30 Days</option>
+          </select>
+
+          <button class="btn-admin btn-admin-outline" onclick="loadAllSubmissions(true)">
+            🔄 Refresh
+          </button>
+        </div>
+      </div>
+
+      <!-- Dynamic Data Table Wrapper -->
+      <div class="admin-table-wrap" id="admin-table-wrapper">
+        <div style="overflow-x: auto;">
+          <table class="admin-table" id="admin-main-table">
+            <thead id="admin-table-head"></thead>
+            <tbody id="admin-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Payment Settings Panel (Razorpay & UPI Configuration) -->
+      <div id="admin-payment-settings-panel" style="display: none;">
+        <div class="checkout-card" style="background: #ffffff; border: 1px solid var(--admin-border); border-radius: 16px; padding: 28px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); margin-bottom: 24px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid var(--admin-border); padding-bottom: 14px; margin-bottom: 22px;">
+            <div>
+              <h2 style="font-size: 1.35rem; font-weight: 800; margin: 0 0 4px; color: var(--admin-text);">
+                💳 Payment Gateway &amp; UPI Configuration
+              </h2>
+              <p style="margin: 0; font-size: 0.85rem; color: var(--admin-muted);">
+                Credentials and settings are securely saved in your local offline SQLite database (<code>database/rp_organics.db</code>).
+              </p>
+            </div>
+            <span class="admin-badge" style="background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe;">Offline Database Secured</span>
+          </div>
+
+          <form id="admin-payment-settings-form" onsubmit="savePaymentSettings(event)">
+            
+            <!-- Section 1: Razorpay Settings -->
+            <div style="background: #f8fafc; border: 1px solid var(--admin-border); border-radius: 12px; padding: 20px; margin-bottom: 22px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <div>
+                  <h3 style="margin: 0 0 4px; font-size: 1.05rem; font-weight: 800; color: #0f172a;">
+                    ⚡ Razorpay Online Gateway
+                  </h3>
+                  <div style="font-size: 0.8rem; color: var(--admin-muted);">
+                    Enable debit/credit cards, net banking, and UPI via Razorpay. Your Key Secret is NEVER exposed to the frontend browser.
+                  </div>
+                </div>
+                <label style="display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 0.88rem; cursor: pointer;">
+                  <input type="checkbox" id="cfg-razorpay-enabled" style="width: 18px; height: 18px; accent-color: #15803d;" />
+                  <span>Enable Razorpay</span>
+                </label>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div>
+                  <label style="display: block; font-size: 0.84rem; font-weight: 700; margin-bottom: 6px;">Razorpay Key ID</label>
+                  <input type="text" id="cfg-razorpay-key-id" placeholder="rzp_live_... or rzp_test_..." style="width: 100%; padding: 10px 14px; border: 1.5px solid var(--admin-border); border-radius: 8px; font-family: monospace; font-size: 0.9rem;" />
+                  <div style="font-size: 0.74rem; color: var(--admin-muted); margin-top: 4px;">Public key used in client-side checkout</div>
+                </div>
+                <div>
+                  <label style="display: block; font-size: 0.84rem; font-weight: 700; margin-bottom: 6px;">Razorpay Key Secret</label>
+                  <div style="position: relative;">
+                    <input type="password" id="cfg-razorpay-key-secret" placeholder="Enter Razorpay Secret..." style="width: 100%; padding: 10px 40px 10px 14px; border: 1.5px solid var(--admin-border); border-radius: 8px; font-family: monospace; font-size: 0.9rem;" />
+                    <button type="button" onclick="toggleSecretVisibility()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 0.85rem;" title="Show/Hide">👁️</button>
+                  </div>
+                  <div style="font-size: 0.74rem; color: #b45309; margin-top: 4px;">🔒 Securely handled on backend only to generate order &amp; verify signatures</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 2: UPI Details -->
+            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 20px; margin-bottom: 22px;">
+              <h3 style="margin: 0 0 4px; font-size: 1.05rem; font-weight: 800; color: #14532d;">
+                📱 Direct UPI Details &amp; QR Code
+              </h3>
+              <div style="font-size: 0.8rem; color: #166534; margin-bottom: 16px;">
+                Used for instant UPI payment links, QR code scan, and mobile deep link redirection.
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+                <div>
+                  <label style="display: block; font-size: 0.84rem; font-weight: 700; margin-bottom: 6px; color: #14532d;">UPI ID (VPA)</label>
+                  <input type="text" id="cfg-upi-id" value="benseethalrani@okicici" required style="width: 100%; padding: 10px 14px; border: 1.5px solid #bbf7d0; border-radius: 8px; font-family: monospace; font-size: 0.9rem;" />
+                </div>
+                <div>
+                  <label style="display: block; font-size: 0.84rem; font-weight: 700; margin-bottom: 6px; color: #14532d;">UPI Account Name</label>
+                  <input type="text" id="cfg-upi-name" value="Benseethal Rani" required style="width: 100%; padding: 10px 14px; border: 1.5px solid #bbf7d0; border-radius: 8px; font-size: 0.9rem;" />
+                </div>
+                <div>
+                  <label style="display: block; font-size: 0.84rem; font-weight: 700; margin-bottom: 6px; color: #14532d;">UPI QR Code Image Path</label>
+                  <input type="text" id="cfg-upi-qr" value="assets/images/upi-qr-code.jpg" required style="width: 100%; padding: 10px 14px; border: 1.5px solid #bbf7d0; border-radius: 8px; font-size: 0.9rem;" />
+                </div>
+              </div>
+
+              <div style="margin-top: 14px; display: flex; align-items: center; gap: 14px;">
+                <img src="assets/images/upi-qr-code.jpg" alt="UPI QR" style="width: 60px; height: 60px; object-fit: contain; border-radius: 8px; border: 1px solid #bbf7d0; background: #fff;" />
+                <div style="font-size: 0.8rem; color: #166534;">
+                  <strong>Current UPI QR Image:</strong> <code>assets/images/upi-qr-code.jpg</code><br/>
+                  Customers will scan this image on checkout or click the Android UPI deep link.
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 3: Cash on Delivery (COD) Rules -->
+            <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px; padding: 20px; margin-bottom: 22px;">
+              <h3 style="margin: 0 0 4px; font-size: 1.05rem; font-weight: 800; color: #92400e;">
+                📦 Cash on Delivery (COD) Rules &amp; Charges
+              </h3>
+              <div style="font-size: 0.8rem; color: #b45309; margin-bottom: 16px;">
+                Configure packaging and delivery fee for COD orders according to your business rules.
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div>
+                  <label style="display: block; font-size: 0.84rem; font-weight: 700; margin-bottom: 6px; color: #92400e;">COD Packaging &amp; Delivery Fee (₹)</label>
+                  <input type="number" id="cfg-cod-fee" value="65" min="0" step="1" required style="width: 100%; padding: 10px 14px; border: 1.5px solid #fde68a; border-radius: 8px; font-size: 0.9rem;" />
+                  <div style="font-size: 0.74rem; color: #b45309; margin-top: 4px;">Applied when customer selects Cash on Delivery</div>
+                </div>
+                <div>
+                  <label style="display: block; font-size: 0.84rem; font-weight: 700; margin-bottom: 6px; color: #92400e;">Free COD Subtotal Threshold (₹)</label>
+                  <input type="number" id="cfg-free-cod-threshold" value="1000" min="0" step="1" required style="width: 100%; padding: 10px 14px; border: 1.5px solid #fde68a; border-radius: 8px; font-size: 0.9rem;" />
+                  <div style="font-size: 0.74rem; color: #b45309; margin-top: 4px;">Orders with subtotal above this amount get FREE COD delivery</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 12px;">
+              <button type="submit" class="btn-admin btn-admin-primary" style="padding: 12px 28px; font-size: 0.95rem;">
+                💾 Save Payment Settings
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ORDER DETAILS MODAL -->
+  <div class="admin-modal-overlay" id="order-details-modal">
+    <div class="admin-modal">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" id="modal-order-title">Order Enquiry Details</h3>
+        <button class="btn-admin btn-admin-outline" onclick="closeOrderModal()" style="padding: 4px 8px;">✕</button>
+      </div>
+      <div id="modal-order-content"></div>
+      <div style="text-align: right; margin-top: 24px;">
+        <button class="btn-admin btn-admin-primary" onclick="closeOrderModal()">Close Window</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT CONTROLLER -->
+  <script>
+    let adminToken = sessionStorage.getItem('rp_admin_token') || localStorage.getItem('rp_admin_token');
+    let currentTab = 'orders';
+    let submissionsData = {
+      orders: [],
+      contacts: [],
+      newsletters: [],
+      reviews: [],
+      users: []
+    };
+
+    function clearAdminInputs() {
+      const u = document.getElementById('admin-user-input');
+      const p = document.getElementById('admin-pass-input');
+      if (u) {
+        u.value = '';
+        u.defaultValue = '';
+      }
+      if (p) {
+        p.value = '';
+        p.defaultValue = '';
+      }
+      const form = document.getElementById('admin-login-form');
+      if (form) {
+        form.reset();
+      }
+    }
+
+    // Check auth on load
+    document.addEventListener('DOMContentLoaded', () => {
+      if (adminToken) {
+        showDashboard();
+      } else {
+        showLogin();
+      }
+    });
+
+    window.addEventListener('load', () => {
+      if (!adminToken) {
+        clearAdminInputs();
+      }
+    });
+
+    window.addEventListener('pageshow', () => {
+      if (!adminToken) {
+        clearAdminInputs();
+      }
+    });
+
+    function showLogin() {
+      document.getElementById('admin-login-gateway').style.display = 'block';
+      document.getElementById('admin-dashboard-app').style.display = 'none';
+      clearAdminInputs();
+      // Neutralize delayed browser password manager autofill
+      setTimeout(clearAdminInputs, 50);
+      setTimeout(clearAdminInputs, 150);
+      setTimeout(clearAdminInputs, 350);
+      setTimeout(clearAdminInputs, 600);
+    }
+
+    function showDashboard() {
+      document.getElementById('admin-login-gateway').style.display = 'none';
+      document.getElementById('admin-dashboard-app').style.display = 'block';
+      loadAllSubmissions();
+    }
+
+    // Handle Admin Login
+    async function handleAdminLogin(e) {
+      e.preventDefault();
+      const u = document.getElementById('admin-user-input').value.trim();
+      const p = document.getElementById('admin-pass-input').value.trim();
+
+      try {
+        const res = await fetch('/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: u, password: p })
+        });
+        const data = await res.json();
+        if (data.success && data.token) {
+          adminToken = data.token;
+          sessionStorage.setItem('rp_admin_token', adminToken);
+          localStorage.setItem('rp_admin_token', adminToken);
+          showDashboard();
+        } else {
+          alert('❌ ' + (data.message || 'Login failed. Invalid credentials.'));
+        }
+      } catch (err) {
+        alert('❌ Error connecting to backend server. Make sure the server is running on http://localhost:3000.');
+      }
+    }
+
+    function handleAdminLogout() {
+      sessionStorage.removeItem('rp_admin_token');
+      localStorage.removeItem('rp_admin_token');
+      adminToken = null;
+      showLogin();
+    }
+
+    // Fetch All Submissions from SQLite
+    async function loadAllSubmissions(isManualRefresh = false) {
+      try {
+        const res = await fetch('/api/admin/submissions', {
+          headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+        if (res.status === 401) {
+          handleAdminLogout();
+          return;
+        }
+        const result = await res.json();
+        if (result.success && result.data) {
+          submissionsData = result.data;
+          updateStats(result.counts);
+          populateStatusFilter();
+          renderActiveTab();
+          if (isManualRefresh) {
+            alert('✅ Submissions refreshed from SQLite database.');
+          }
+        }
+      } catch (err) {
+        console.error('Failed to load submissions:', err);
+      }
+    }
+
+    function updateStats(counts) {
+      if (!counts) return;
+      document.getElementById('stat-orders-count').textContent = counts.orders || 0;
+      document.getElementById('stat-contacts-count').textContent = counts.contacts || 0;
+      document.getElementById('stat-newsletters-count').textContent = counts.newsletters || 0;
+      document.getElementById('stat-reviews-count').textContent = counts.reviews || 0;
+      document.getElementById('stat-users-count').textContent = counts.users || 0;
+
+      document.getElementById('tab-badge-orders').textContent = counts.orders || 0;
+      document.getElementById('tab-badge-contacts').textContent = counts.contacts || 0;
+      document.getElementById('tab-badge-newsletters').textContent = counts.newsletters || 0;
+      document.getElementById('tab-badge-reviews').textContent = counts.reviews || 0;
+      document.getElementById('tab-badge-users').textContent = counts.users || 0;
+    }
+
+    function switchAdminTab(tab, btn) {
+      currentTab = tab;
+      document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      const toolbar = document.getElementById('admin-table-toolbar');
+      const tableWrap = document.getElementById('admin-table-wrapper');
+      const paymentPanel = document.getElementById('admin-payment-settings-panel');
+
+      if (tab === 'payment-settings') {
+        if (toolbar) toolbar.style.display = 'none';
+        if (tableWrap) tableWrap.style.display = 'none';
+        if (paymentPanel) paymentPanel.style.display = 'block';
+        loadPaymentSettings();
+        return;
+      } else {
+        if (toolbar) toolbar.style.display = 'flex';
+        if (tableWrap) tableWrap.style.display = 'block';
+        if (paymentPanel) paymentPanel.style.display = 'none';
+      }
+
+      document.getElementById('admin-search-input').value = '';
+      populateStatusFilter();
+      renderActiveTab();
+    }
+
+    function populateStatusFilter() {
+      const select = document.getElementById('admin-status-filter');
+      select.innerHTML = '<option value="ALL">All Statuses</option>';
+
+      let statuses = [];
+      if (currentTab === 'orders') statuses = ['Pending', 'Confirmed', 'Shipped', 'Delivered', 'Cancelled'];
+      if (currentTab === 'contacts') statuses = ['New', 'Read', 'Replied'];
+      if (currentTab === 'newsletters') statuses = ['Subscribed', 'Unsubscribed'];
+      if (currentTab === 'reviews') statuses = ['Pending', 'Approved', 'Rejected'];
+      if (currentTab === 'users') statuses = ['Active', 'Disabled'];
+
+      statuses.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s;
+        opt.textContent = s;
+        select.appendChild(opt);
+      });
+    }
+
+    function handleSearchAndFilter() {
+      renderActiveTab();
+    }
+
+    function getFilteredRows() {
+      const query = (document.getElementById('admin-search-input').value || '').toLowerCase().trim();
+      const statusFilter = document.getElementById('admin-status-filter').value;
+      const dateFilter = document.getElementById('admin-date-filter').value;
+
+      const raw = submissionsData[currentTab] || [];
+
+      return raw.filter(row => {
+        // Status filter
+        if (statusFilter !== 'ALL' && row.status !== statusFilter) return false;
+
+        // Date filter
+        if (dateFilter !== 'ALL' && row.created_at) {
+          const rowDate = new Date(row.created_at);
+          const now = new Date();
+          const diffDays = (now - rowDate) / (1000 * 60 * 60 * 24);
+          if (dateFilter === 'TODAY' && diffDays > 1) return false;
+          if (dateFilter === 'WEEK' && diffDays > 7) return false;
+          if (dateFilter === 'MONTH' && diffDays > 30) return false;
+        }
+
+        // Search Query filter
+        if (!query) return true;
+        const searchPool = [
+          row.order_number,
+          row.customer_name,
+          row.full_name,
+          row.email,
+          row.phone,
+          row.product_name,
+          row.subject,
+          row.message,
+          row.review_title,
+          row.upi_transaction_id,
+          row.payment_method,
+          row.payment_status
+        ].filter(Boolean).join(' ').toLowerCase();
+
+        return searchPool.includes(query);
+      });
+    }
+
+    function renderActiveTab() {
+      if (currentTab === 'payment-settings') return;
+
+      const thead = document.getElementById('admin-table-head');
+      const tbody = document.getElementById('admin-table-body');
+      const rows = getFilteredRows();
+
+      if (rows.length === 0) {
+        thead.innerHTML = '';
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8">
+              <div class="empty-state">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
+                <h3>No submissions found</h3>
+                <p>No customer records match your filter criteria or search query.</p>
+              </div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      if (currentTab === 'orders') renderOrdersTable(thead, tbody, rows);
+      else if (currentTab === 'contacts') renderContactsTable(thead, tbody, rows);
+      else if (currentTab === 'newsletters') renderNewslettersTable(thead, tbody, rows);
+      else if (currentTab === 'reviews') renderReviewsTable(thead, tbody, rows);
+      else if (currentTab === 'users') renderUsersTable(thead, tbody, rows);
+    }
+
+    // 1. ORDERS TABLE
+    function renderOrdersTable(thead, tbody, rows) {
+      thead.innerHTML = `
+        <tr>
+          <th>Order #</th>
+          <th>Customer</th>
+          <th>Contact &amp; Location</th>
+          <th>Total &amp; COD Fee</th>
+          <th>Payment Method</th>
+          <th>Payment Status</th>
+          <th>Order Status</th>
+          <th>Actions</th>
+        </tr>
+      `;
+
+      tbody.innerHTML = rows.map(r => {
+        const isPendingUpi = (r.payment_status === 'Payment Pending' || (r.payment_method === 'UPI' && r.payment_status !== 'Payment Received' && r.payment_status !== 'Paid'));
+        const paymentBadgeStyle = (r.payment_status === 'Paid' || r.payment_status === 'Payment Received')
+          ? 'background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0;'
+          : (r.payment_status === 'Payment Pending' ? 'background: #fef3c7; color: #b45309; border: 1px solid #fde68a;' : 'background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe;');
+
+        return `
+        <tr>
+          <td>
+            <strong style="color: #15803d;">${r.order_number}</strong>
+            <br/><span style="font-size: 0.72rem; color: #64748b;">${formatDate(r.created_at)}</span>
+          </td>
+          <td>
+            <strong>${escapeHtml(r.customer_name)}</strong>
+          </td>
+          <td>
+            ${escapeHtml(r.phone)}<br/>
+            <span style="font-size: 0.76rem; color: #64748b;">${escapeHtml(r.city || '')} ${escapeHtml(r.pincode)}</span>
+          </td>
+          <td>
+            <strong style="font-size: 0.98rem; color: #047857;">₹${Number(r.total_amount).toLocaleString('en-IN')}</strong>
+            ${r.payment_method === 'COD' ? `
+              <div style="font-size: 0.72rem; color: #b45309; margin-top: 2px;">
+                ${r.is_free_cod ? '<span style="color: #15803d; font-weight: 700;">COD: FREE</span>' : `COD Fee: ₹${r.cod_charge || 65}`}
+              </div>
+            ` : ''}
+          </td>
+          <td>
+            <span style="font-size: 0.76rem; font-weight: 700; background: #f8fafc; border: 1px solid #e2e8f0; padding: 3px 8px; border-radius: 6px;">
+              ${escapeHtml(r.payment_method)}
+            </span>
+            ${r.upi_transaction_id ? `<div style="font-size: 0.7rem; font-family: monospace; color: #15803d; font-weight: 700; margin-top: 2px;">UTR: ${escapeHtml(r.upi_transaction_id)}</div>` : ''}
+          </td>
+          <td>
+            <span style="display: inline-block; font-size: 0.72rem; font-weight: 800; padding: 3px 8px; border-radius: 12px; ${paymentBadgeStyle}">
+              ${escapeHtml(r.payment_status || 'Pending')}
+            </span>
+          </td>
+          <td>
+            <select class="admin-select" style="padding: 4px 8px; font-size: 0.78rem; font-weight: 700;" onchange="updateRecordStatus('order', ${r.id}, this.value)">
+              ${['Pending', 'Confirmed', 'Shipped', 'Delivered', 'Cancelled'].map(s => `
+                <option value="${s}" ${r.status === s ? 'selected' : ''}>${s}</option>
+              `).join('')}
+            </select>
+          </td>
+          <td>
+            <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+              ${isPendingUpi ? `
+                <button class="btn-admin btn-admin-primary" style="padding: 4px 8px; font-size: 0.72rem;" onclick="updateOrderPaymentStatus(${r.id}, 'Payment Received')" title="Mark as Payment Received">
+                  ✓ Received
+                </button>
+              ` : ''}
+              <button class="btn-admin btn-admin-outline" style="padding: 4px 8px; font-size: 0.72rem;" onclick="viewOrderDetails(${r.id})">
+                👁️ View
+              </button>
+            </div>
+          </td>
+        </tr>
+      `;
+      }).join('');
+    }
+
+    // 2. CONTACTS TABLE
+    function renderContactsTable(thead, tbody, rows) {
+      thead.innerHTML = `
+        <tr>
+          <th>Date</th>
+          <th>Name</th>
+          <th>Contact Info</th>
+          <th>Subject</th>
+          <th>Message</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      `;
+
+      tbody.innerHTML = rows.map(r => `
+        <tr>
+          <td style="white-space: nowrap; font-size: 0.78rem; color: #64748b;">${formatDate(r.created_at)}</td>
+          <td><strong>${escapeHtml(r.full_name)}</strong></td>
+          <td>${escapeHtml(r.phone || '—')}<br/><a href="mailto:${escapeHtml(r.email)}" style="color: #15803d; font-size: 0.8rem;">${escapeHtml(r.email)}</a></td>
+          <td><span style="background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-weight: 600; font-size: 0.78rem;">${escapeHtml(r.subject || 'Inquiry')}</span></td>
+          <td style="max-width: 280px; word-break: break-word; font-size: 0.84rem;">${escapeHtml(r.message)}</td>
+          <td>
+            <select class="admin-select" style="padding: 4px 8px; font-size: 0.78rem; font-weight: 700;" onchange="updateRecordStatus('contact', ${r.id}, this.value)">
+              ${['New', 'Read', 'Replied'].map(s => `
+                <option value="${s}" ${r.status === s ? 'selected' : ''}>${s}</option>
+              `).join('')}
+            </select>
+          </td>
+          <td>
+            <a href="mailto:${escapeHtml(r.email)}?subject=Re: ${encodeURIComponent(r.subject || 'RP Organics Inquiry')}" class="btn-admin btn-admin-primary" style="padding: 4px 8px; font-size: 0.76rem; text-decoration: none;">
+              ✉️ Reply
+            </a>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // 3. NEWSLETTER TABLE
+    function renderNewslettersTable(thead, tbody, rows) {
+      thead.innerHTML = `
+        <tr>
+          <th>Date</th>
+          <th>Subscriber Email</th>
+          <th>Source Page</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      `;
+
+      tbody.innerHTML = rows.map(r => `
+        <tr>
+          <td style="white-space: nowrap; font-size: 0.78rem; color: #64748b;">${formatDate(r.created_at)}</td>
+          <td><strong>${escapeHtml(r.email)}</strong></td>
+          <td><span style="background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 0.78rem;">${escapeHtml(r.source_page)}</span></td>
+          <td>
+            <span class="status-pill status-${r.status.toLowerCase()}">${r.status}</span>
+          </td>
+          <td>
+            <button class="btn-admin btn-admin-outline" style="padding: 4px 8px; font-size: 0.76rem;" onclick="updateRecordStatus('newsletter', ${r.id}, '${r.status === 'Subscribed' ? 'Unsubscribed' : 'Subscribed'}')">
+              ${r.status === 'Subscribed' ? 'Unsubscribe' : 'Resubscribe'}
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // 4. REVIEWS TABLE
+    function renderReviewsTable(thead, tbody, rows) {
+      thead.innerHTML = `
+        <tr>
+          <th>Date</th>
+          <th>Product</th>
+          <th>Customer</th>
+          <th>Rating</th>
+          <th>Review Feedback</th>
+          <th>Status</th>
+          <th>Approve / Reject</th>
+        </tr>
+      `;
+
+      tbody.innerHTML = rows.map(r => `
+        <tr>
+          <td style="white-space: nowrap; font-size: 0.78rem; color: #64748b;">${formatDate(r.created_at)}</td>
+          <td><strong>${escapeHtml(r.product_name || r.product_id)}</strong></td>
+          <td>${escapeHtml(r.customer_name)}<br/><span style="font-size: 0.76rem; color: #64748b;">${escapeHtml(r.email || '')}</span></td>
+          <td><span style="color: #f59e0b; font-size: 1rem;">${'★'.repeat(r.rating)}</span> <span style="font-size: 0.8rem; font-weight: 700;">(${r.rating}/5)</span></td>
+          <td style="max-width: 260px; word-break: break-word;">
+            <strong>${escapeHtml(r.review_title || '')}</strong>
+            <p style="margin: 4px 0 0; font-size: 0.82rem; color: #475569;">${escapeHtml(r.review_message)}</p>
+          </td>
+          <td>
+            <span class="status-pill status-${r.status.toLowerCase()}">${r.status}</span>
+          </td>
+          <td>
+            <div style="display: flex; gap: 6px;">
+              <button class="btn-admin btn-admin-primary" style="padding: 3px 8px; font-size: 0.75rem;" onclick="updateRecordStatus('review', ${r.id}, 'Approved')">✓ Approve</button>
+              <button class="btn-admin btn-admin-outline" style="padding: 3px 8px; font-size: 0.75rem; color: #b91c1c;" onclick="updateRecordStatus('review', ${r.id}, 'Rejected')">✕ Reject</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // 5. USERS TABLE
+    function renderUsersTable(thead, tbody, rows) {
+      thead.innerHTML = `
+        <tr>
+          <th>User ID</th>
+          <th>Full Name</th>
+          <th>Email Address</th>
+          <th>Mobile Phone</th>
+          <th>Registered Date</th>
+          <th>Status</th>
+        </tr>
+      `;
+
+      tbody.innerHTML = rows.map(r => `
+        <tr>
+          <td>#${r.id}</td>
+          <td><strong>${escapeHtml(r.full_name)}</strong></td>
+          <td><a href="mailto:${escapeHtml(r.email)}" style="color: #15803d;">${escapeHtml(r.email)}</a></td>
+          <td>${escapeHtml(r.phone || '—')}</td>
+          <td style="font-size: 0.78rem; color: #64748b;">${formatDate(r.created_at)}</td>
+          <td>
+            <span class="status-pill status-${r.status.toLowerCase()}">${r.status}</span>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // Update Status API call
+    async function updateRecordStatus(type, id, newStatus) {
+      try {
+        const res = await fetch(`/api/admin/submissions/${type}/${id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${adminToken}`
+          },
+          body: JSON.stringify({ status: newStatus })
+        });
+        const data = await res.json();
+        if (data.success) {
+          // Update in local array
+          const plural = type === 'order' ? 'orders' : type + 's';
+          const item = (submissionsData[plural] || []).find(x => x.id === id);
+          if (item) item.status = newStatus;
+          renderActiveTab();
+        } else {
+          alert('Failed to update status: ' + data.message);
+        }
+      } catch (err) {
+        alert('Network error while updating status.');
+      }
+    }
+
+    // View Order Details Modal
+    function viewOrderDetails(id) {
+      const order = (submissionsData.orders || []).find(o => o.id === id);
+      if (!order) return;
+
+      let items = [];
+      try {
+        items = typeof order.ordered_products === 'string'
+          ? JSON.parse(order.ordered_products)
+          : (order.ordered_products || []);
+      } catch (e) {
+        items = [];
+      }
+
+      document.getElementById('modal-order-title').textContent = `Order Details: ${order.order_number}`;
+      
+      const itemsHtml = Array.isArray(items) && items.length > 0 ? items.map(it => `
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f1f5f9;">
+          <div>
+            <strong>${escapeHtml(it.title || it.name || 'RP Organics Item')}</strong>
+            <div style="font-size: 0.78rem; color: #64748b;">Variant: ${escapeHtml(it.variant || it.weight || 'Default')} &bull; Qty: ${it.quantity || it.qty || 1}</div>
+          </div>
+          <strong>₹${((it.price || 0) * (it.quantity || it.qty || 1)).toLocaleString('en-IN')}</strong>
+        </div>
+      `).join('') : '<p style="color: #64748b;">Items list: ' + escapeHtml(order.ordered_products) + '</p>';
+
+      const isPending = order.payment_status === 'Payment Pending';
+      const isCod = order.payment_method === 'COD';
+
+      document.getElementById('modal-order-content').innerHTML = `
+        <!-- Customer & Delivery Information -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; background: #f8fafc; padding: 16px; border-radius: 12px; font-size: 0.88rem; border: 1px solid var(--admin-border);">
+          <div>
+            <span style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; font-weight: 800;">Customer Contact</span>
+            <div style="font-weight: 800; font-size: 1rem; margin-top: 4px; color: #0f172a;">${escapeHtml(order.customer_name)}</div>
+            <div style="margin-top: 2px;"><a href="tel:${escapeHtml(order.phone)}" style="color: #15803d; font-weight: 700;">📞 ${escapeHtml(order.phone)}</a></div>
+            <div><a href="mailto:${escapeHtml(order.email)}" style="color: #64748b;">✉️ ${escapeHtml(order.email)}</a></div>
+          </div>
+          <div>
+            <span style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; font-weight: 800;">Delivery Address</span>
+            <div style="margin-top: 4px; color: #0f172a; line-height: 1.4;">${escapeHtml(order.delivery_address)}</div>
+            ${order.landmark ? `<div style="font-size: 0.8rem; color: #475569; margin-top: 2px;">Landmark: <em>${escapeHtml(order.landmark)}</em></div>` : ''}
+            <div style="font-weight: 700; color: #15803d; margin-top: 2px;">${escapeHtml(order.city || '')}, ${escapeHtml(order.state || '')} - ${escapeHtml(order.pincode)}</div>
+          </div>
+        </div>
+
+        ${order.order_notes ? `
+          <div style="background: #fffbeb; border: 1px solid #fef08a; padding: 10px 14px; border-radius: 8px; margin-bottom: 18px; font-size: 0.84rem; color: #854d0e;">
+            <strong>📝 Delivery Notes:</strong> ${escapeHtml(order.order_notes)}
+          </div>
+        ` : ''}
+
+        <!-- Ordered Items -->
+        <h4 style="font-size: 0.95rem; font-weight: 800; margin: 0 0 8px; color: #334155;">Ordered Products</h4>
+        <div style="margin-bottom: 20px; background: #ffffff; border: 1px solid #f1f5f9; border-radius: 10px; padding: 0 14px;">
+          ${itemsHtml}
+        </div>
+
+        <!-- Price Calculation Breakdown & COD Charges -->
+        <div style="background: #f8fafc; border: 1px solid var(--admin-border); border-radius: 12px; padding: 14px 18px; margin-bottom: 20px;">
+          <h4 style="font-size: 0.88rem; font-weight: 800; margin: 0 0 10px; color: #334155; text-transform: uppercase;">Amount Calculation</h4>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.86rem;">
+            <span>Product Subtotal:</span>
+            <strong>₹${Number(order.subtotal || order.total_amount).toLocaleString('en-IN')}</strong>
+          </div>
+          ${order.discount_amount > 0 ? `
+            <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.86rem; color: #15803d;">
+              <span>Coupon Discount (${escapeHtml(order.coupon_code || '')}):</span>
+              <strong>- ₹${Number(order.discount_amount).toLocaleString('en-IN')}</strong>
+            </div>
+          ` : ''}
+          <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.86rem;">
+            <span>Regular Shipping:</span>
+            <strong style="color: #15803d;">FREE</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.86rem;">
+            <span>COD Packaging &amp; Delivery Charge:</span>
+            ${isCod ? `
+              <span>${order.is_free_cod ? '<span style="color: #15803d; font-weight: 800;">FREE (Qualified: Order > ₹1,000)</span>' : `<strong>₹${order.cod_charge || 65}</strong>`}</span>
+            ` : '<span style="color: #64748b;">₹0 (Free / Not applicable)</span>'}
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 1.15rem; font-weight: 800; color: #15803d; border-top: 1.5px dashed #cbd5e1; padding-top: 10px; margin-top: 8px;">
+            <span>Final Payable Amount:</span>
+            <span>₹${Number(order.total_amount).toLocaleString('en-IN')}</span>
+          </div>
+        </div>
+
+        <!-- Payment Verification Details -->
+        <div style="background: #ffffff; border: 1.5px solid ${isPending ? '#fde68a' : '#bbf7d0'}; border-radius: 12px; padding: 18px; margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <div>
+              <span style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; font-weight: 800;">Payment Method</span>
+              <div style="font-weight: 800; font-size: 1rem; color: #0f172a;">${escapeHtml(order.payment_method)}</div>
+            </div>
+            <div style="text-align: right;">
+              <span style="font-size: 0.72rem; color: #64748b; text-transform: uppercase; font-weight: 800;">Payment Status</span>
+              <div>
+                <span class="status-pill" style="${order.payment_status === 'Paid' || order.payment_status === 'Payment Received' ? 'background:#dcfce7; color:#15803d;' : (isPending ? 'background:#fef3c7; color:#b45309;' : 'background:#eff6ff; color:#1d4ed8;')}">
+                  ${escapeHtml(order.payment_status || 'Pending')}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          ${order.upi_transaction_id ? `
+            <div style="margin-top: 8px; font-size: 0.88rem; background: #f8fafc; padding: 10px 14px; border-radius: 8px; border: 1px dashed #cbd5e1;">
+              <strong>UPI Reference / UTR Number:</strong>
+              <span style="font-family: monospace; font-size: 1rem; color: #15803d; font-weight: 800; margin-left: 6px;">${escapeHtml(order.upi_transaction_id)}</span>
+            </div>
+          ` : ''}
+
+          ${order.payment_screenshot ? `
+            <div style="margin-top: 12px;">
+              <span style="font-size: 0.78rem; font-weight: 700; color: #475569; display: block; margin-bottom: 6px;">Payment Screenshot Proof:</span>
+              <a href="/${escapeHtml(order.payment_screenshot)}" target="_blank" style="display: inline-block;">
+                <img src="/${escapeHtml(order.payment_screenshot)}" alt="Payment Proof" style="max-height: 120px; border-radius: 8px; border: 1px solid #cbd5e1; box-shadow: 0 2px 6px rgba(0,0,0,0.08);" />
+                <div style="font-size: 0.72rem; color: #15803d; margin-top: 2px;">🔍 Click to view full screenshot</div>
+              </a>
+            </div>
+          ` : ''}
+
+          <!-- Admin Quick Action for Payment -->
+          <div style="margin-top: 16px; display: flex; gap: 10px; justify-content: flex-end; align-items: center; border-top: 1px solid #f1f5f9; padding-top: 12px;">
+            ${order.payment_status !== 'Payment Received' ? `
+              <button class="btn-admin btn-admin-primary" style="padding: 6px 14px; font-size: 0.82rem;" onclick="updateOrderPaymentStatus(${order.id}, 'Payment Received')">
+                ✓ Mark as Payment Received
+              </button>
+            ` : `
+              <span style="font-size: 0.82rem; color: #15803d; font-weight: 700;">✓ Payment Verified by Admin</span>
+            `}
+          </div>
+        </div>
+      `;
+
+      document.getElementById('order-details-modal').classList.add('active');
+    }
+
+    // Update Order Payment Status API
+    async function updateOrderPaymentStatus(orderId, newStatus) {
+      try {
+        const res = await fetch(`/api/admin/orders/${orderId}/payment-status`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${adminToken}`
+          },
+          body: JSON.stringify({ payment_status: newStatus })
+        });
+        const data = await res.json();
+        if (data.success) {
+          const item = (submissionsData.orders || []).find(x => x.id === orderId);
+          if (item) item.payment_status = newStatus;
+          renderActiveTab();
+          closeOrderModal();
+          alert(`✅ Order payment status updated to "${newStatus}".`);
+        } else {
+          alert('Failed to update payment status: ' + data.message);
+        }
+      } catch (err) {
+        alert('Network error while updating payment status.');
+      }
+    }
+
+    // Payment Settings Functions
+    async function loadPaymentSettings() {
+      try {
+        const res = await fetch('/api/admin/settings/payment', {
+          headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+        const data = await res.json();
+        if (data.success && data.settings) {
+          const s = data.settings;
+          document.getElementById('cfg-razorpay-key-id').value = s.razorpay_key_id || '';
+          document.getElementById('cfg-razorpay-key-secret').value = s.razorpay_key_secret || '';
+          document.getElementById('cfg-razorpay-enabled').checked = s.razorpay_enabled === 1;
+          document.getElementById('cfg-upi-id').value = s.upi_id || 'benseethalrani@okicici';
+          document.getElementById('cfg-upi-name').value = s.upi_name || 'Benseethal Rani';
+          document.getElementById('cfg-upi-qr').value = s.upi_qr_image || 'assets/images/upi-qr-code.jpg';
+          document.getElementById('cfg-cod-fee').value = s.cod_fee !== undefined ? s.cod_fee : 65;
+          document.getElementById('cfg-free-cod-threshold').value = s.free_cod_threshold !== undefined ? s.free_cod_threshold : 1000;
+        }
+      } catch (err) {
+        console.error('Failed to load payment settings:', err);
+      }
+    }
+
+    async function savePaymentSettings(e) {
+      e.preventDefault();
+      const payload = {
+        razorpay_key_id: document.getElementById('cfg-razorpay-key-id').value.trim(),
+        razorpay_key_secret: document.getElementById('cfg-razorpay-key-secret').value.trim(),
+        razorpay_enabled: document.getElementById('cfg-razorpay-enabled').checked ? 1 : 0,
+        upi_id: document.getElementById('cfg-upi-id').value.trim(),
+        upi_name: document.getElementById('cfg-upi-name').value.trim(),
+        upi_qr_image: document.getElementById('cfg-upi-qr').value.trim(),
+        upi_enabled: 1,
+        cod_enabled: 1,
+        cod_fee: parseFloat(document.getElementById('cfg-cod-fee').value) || 65,
+        free_cod_threshold: parseFloat(document.getElementById('cfg-free-cod-threshold').value) || 1000
+      };
+
+      try {
+        const res = await fetch('/api/admin/settings/payment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${adminToken}`
+          },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert('✅ Payment settings successfully saved into offline SQLite database!');
+        } else {
+          alert('Failed to save settings: ' + data.message);
+        }
+      } catch (err) {
+        alert('Network error while saving payment settings.');
+      }
+    }
+
+    function toggleSecretVisibility() {
+      const input = document.getElementById('cfg-razorpay-key-secret');
+      if (input.type === 'password') {
+        input.type = 'text';
+      } else {
+        input.type = 'password';
+      }
+    }
+
+    function closeOrderModal() {
+      document.getElementById('order-details-modal').classList.remove('active');
+    }
+
+    // CSV Direct Export
+    function exportCurrentTableCsv() {
+      const typeMap = {
+        orders: 'orders',
+        contacts: 'contacts',
+        newsletters: 'newsletters',
+        reviews: 'reviews',
+        users: 'users'
+      };
+      const apiType = typeMap[currentTab] || 'orders';
+      window.open(`/api/admin/export/${apiType}?token=${encodeURIComponent(adminToken)}`, '_blank');
+    }
+
+    // Utility helpers
+    function formatDate(dateStr) {
+      if (!dateStr) return '—';
+      try {
+        const d = new Date(dateStr);
+        return d.toLocaleDateString('en-IN', {
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+      } catch (e) {
+        return dateStr;
+      }
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+  </script>
+</body>
+</html>

@@ -876,6 +876,23 @@
   .main-header .header-inner {
     display: none;
   }
+  /* Fallback: if page has no .mobile-header-bar, preserve compact .header-inner */
+  .main-header:not(:has(.mobile-header-bar)) .header-inner {
+    display: flex;
+    height: 64px;
+    padding: 0 16px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .main-header:not(:has(.mobile-header-bar)) .header-search {
+    display: none;
+  }
+  .main-header:not(:has(.mobile-header-bar)) .header-action-label {
+    display: none;
+  }
+  .main-header:not(:has(.mobile-header-bar)) .brand-logo-img {
+    height: 42px;
+  }
   .mobile-header-bar {
     display: flex;
   }

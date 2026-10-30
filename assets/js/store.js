@@ -116,7 +116,7 @@ const Store = {
     }
 
     this.saveCart();
-    this.showToast(`Added ${product.title} to cart!`, 'success');
+    this.showToast(`Added ${product.title} to Order List!`, 'success');
 
     if (showDrawer && window.CartDrawer) {
       window.CartDrawer.open();
@@ -141,13 +141,20 @@ const Store = {
     this.state.cart = this.state.cart.filter(i => i.key !== key);
     this.saveCart();
     if (item) {
-      this.showToast(`Removed from cart`, 'info');
+      this.showToast(`Removed from Order List`, 'info');
     }
   },
 
   clearCart() {
     this.state.cart = [];
     this.saveCart();
+  },
+
+  getCart() {
+    if (!this.state.cart || this.state.cart.length === 0) {
+      this.loadState();
+    }
+    return this.state.cart || [];
   },
 
   getCartSubtotal() {

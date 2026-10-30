@@ -73,11 +73,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Search query
     if (filterState.searchQuery) {
       const q = filterState.searchQuery.toLowerCase().trim();
-      results = results.filter(p => 
-        p.title.toLowerCase().includes(q) ||
-        p.category.toLowerCase().includes(q) ||
-        p.shortDescription.toLowerCase().includes(q)
-      );
+      if (typeof searchProducts === 'function') {
+        const searched = searchProducts(q);
+        const searchedIds = new Set(searched.map(p => p.id));
+        results = results.filter(p => searchedIds.has(p.id));
+      } else {
+        results = results.filter(p => 
+          p.title.toLowerCase().includes(q) ||
+          p.category.toLowerCase().includes(q) ||
+          p.shortDescription.toLowerCase().includes(q)
+        );
+      }
     }
 
     // Category filter

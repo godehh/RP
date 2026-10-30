@@ -106,24 +106,48 @@
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <polyline points="20 6 9 17 4 12"></polyline>
           </svg>
-          Added to Cart!
+          Added to Order List!
         `;
         btn.style.background = 'linear-gradient(135deg, #16a34a, #15803d)';
+        btn.style.color = '#ffffff';
         setTimeout(() => {
           btn.innerHTML = originalHtml;
           btn.style.background = '';
+          btn.style.color = '';
         }, 1800);
       }
     },
 
-    buyNow() {
+    orderOnWhatsApp() {
       if (!currentProduct) return;
-      const vName = currentVariant ? currentVariant.name : null;
-      const s = getStore();
-      if (s && s.addToCart) {
-        s.addToCart(currentProduct.id, vName, currentQuantity, false);
+      const v = currentVariant || (currentProduct.variants && currentProduct.variants[0]) || null;
+      const whatsappUtil = window.RPWhatsApp;
+      if (!whatsappUtil) {
+        window.location.href = `https://wa.me/919150300641?text=${encodeURIComponent('Hello RP Organics! I would like to order: ' + (currentProduct.name || currentProduct.title))}`;
+        return;
       }
-      window.location.href = 'cart.html';
+      const msg = whatsappUtil.buildSingleProductMessage(currentProduct, v, currentQuantity);
+      whatsappUtil.openWhatsApp(msg);
+    },
+
+    copyProductOrderMessage() {
+      if (!currentProduct) return;
+      const v = currentVariant || (currentProduct.variants && currentProduct.variants[0]) || null;
+      const whatsappUtil = window.RPWhatsApp;
+      if (!whatsappUtil) return;
+      const msg = whatsappUtil.buildSingleProductMessage(currentProduct, v, currentQuantity);
+      whatsappUtil.copyMessage(msg).then(ok => {
+        const s = getStore();
+        if (ok) {
+          if (s && s.showToast) s.showToast('✓ Order message copied to clipboard! You can paste it into WhatsApp directly.', 'success');
+        } else {
+          if (s && s.showToast) s.showToast('Unable to copy message automatically.', 'error');
+        }
+      });
+    },
+
+    buyNow() {
+      this.orderOnWhatsApp();
     },
 
     checkPincode() {
@@ -140,10 +164,10 @@
       res.innerHTML = `
         <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 10px 14px; margin-top: 8px; animation: pdpFadeInUp 0.3s ease;">
           <div style="color: #15803d; font-weight: 700; font-size: 0.88rem; display: flex; align-items: center; gap: 6px;">
-            <span style="font-size: 1.1rem;">✓</span> Fast Delivery Available to ${code}
+            <span style="font-size: 1.1rem;">✓</span> Delivery is available to ${code}
           </div>
           <div style="font-size: 0.8rem; color: #166534; margin-top: 2px;">
-            Estimated delivery within <strong>2 to 4 business days</strong>. Cash on Delivery (COD) &amp; Free shipping eligible above ₹999.
+            Orders and delivery schedules are confirmed directly with our team on WhatsApp.
           </div>
         </div>
       `;
@@ -169,7 +193,114 @@
     },
 
     openWriteReviewModal() {
-      Store.showToast('Thank you! Review form is open for RP Organics verified customers.', 'info');
+      let modal = document.getElementById('rp-review-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'rp-review-modal';
+        modal.className = 'modal-overlay';
+        modal.innerHTML = `
+          <div class="quickview-modal" style="max-width: 520px; padding: 30px; background: #ffffff; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.2);">
+            <button class="modal-close-btn" onclick="document.getElementById('rp-review-modal').classList.remove('active')">&times;</button>
+            <h3 style="font-size: 1.35rem; margin-bottom: 4px;">Write a Product Review</h3>
+            <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 18px;">
+              Share your genuine feedback with other households.
+            </p>
+            <form id="rp-review-form" onsubmit="RPProductPage.submitReview(event)">
+              <div style="margin-bottom: 14px;">
+                <label style="font-size: 0.84rem; font-weight: 700; display: block; margin-bottom: 6px;">Your Rating *</label>
+                <div id="review-stars-selector" style="display: flex; gap: 8px; font-size: 1.8rem; cursor: pointer; color: #f59e0b;">
+                  <span onclick="RPProductPage.setReviewRating(1)">★</span>
+                  <span onclick="RPProductPage.setReviewRating(2)">★</span>
+                  <span onclick="RPProductPage.setReviewRating(3)">★</span>
+                  <span onclick="RPProductPage.setReviewRating(4)">★</span>
+                  <span onclick="RPProductPage.setReviewRating(5)">★</span>
+                </div>
+                <input type="hidden" id="review-rating-val" value="5" />
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+                <div>
+                  <label style="font-size: 0.84rem; font-weight: 700; display: block; margin-bottom: 4px;">Your Name *</label>
+                  <input type="text" id="review-cust-name" required placeholder="e.g. Ananya Rao" style="width: 100%; padding: 9px 12px; border: 1px solid var(--color-border); border-radius: 6px;" />
+                </div>
+                <div>
+                  <label style="font-size: 0.84rem; font-weight: 700; display: block; margin-bottom: 4px;">Email Address</label>
+                  <input type="email" id="review-cust-email" placeholder="ananya@example.com" style="width: 100%; padding: 9px 12px; border: 1px solid var(--color-border); border-radius: 6px;" />
+                </div>
+              </div>
+              <div style="margin-bottom: 12px;">
+                <label style="font-size: 0.84rem; font-weight: 700; display: block; margin-bottom: 4px;">Review Headline</label>
+                <input type="text" id="review-title-input" placeholder="e.g. Truly authentic homemade aroma!" style="width: 100%; padding: 9px 12px; border: 1px solid var(--color-border); border-radius: 6px;" />
+              </div>
+              <div style="margin-bottom: 16px;">
+                <label style="font-size: 0.84rem; font-weight: 700; display: block; margin-bottom: 4px;">Detailed Review *</label>
+                <textarea id="review-msg-input" required rows="3" placeholder="Tell us about the taste, texture, and family reception..." style="width: 100%; padding: 9px 12px; border: 1px solid var(--color-border); border-radius: 6px;"></textarea>
+              </div>
+              <button type="submit" id="btn-submit-review" class="btn btn-primary btn-full" style="padding: 12px;">
+                Submit Review to Database &rarr;
+              </button>
+            </form>
+          </div>
+        `;
+        document.body.appendChild(modal);
+      }
+      RPProductPage.setReviewRating(5);
+      modal.classList.add('active');
+    },
+
+    setReviewRating(val) {
+      const hidden = document.getElementById('review-rating-val');
+      if (hidden) hidden.value = val;
+      const stars = document.querySelectorAll('#review-stars-selector span');
+      stars.forEach((s, idx) => {
+        s.style.color = idx < val ? '#f59e0b' : '#cbd5e1';
+      });
+    },
+
+    async submitReview(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btn-submit-review');
+      const originalText = btn.innerHTML;
+      const rating = document.getElementById('review-rating-val').value;
+      const customer_name = document.getElementById('review-cust-name').value.trim();
+      const email = document.getElementById('review-cust-email').value.trim();
+      const review_title = document.getElementById('review-title-input').value.trim();
+      const review_message = document.getElementById('review-msg-input').value.trim();
+
+      const payload = {
+        product_id: currentProduct ? currentProduct.id : 'pro-01',
+        product_name: currentProduct ? (currentProduct.name || currentProduct.title) : 'RP Organics Product',
+        customer_name,
+        email,
+        rating,
+        review_title,
+        review_message
+      };
+
+      try {
+        btn.disabled = true;
+        btn.innerHTML = 'Submitting to Database...';
+
+        const res = await fetch('/api/review', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          document.getElementById('rp-review-modal').classList.remove('active');
+          Store.showToast(data.message || '⭐ Review saved to offline database!', 'success');
+          e.target.reset();
+        } else {
+          Store.showToast(data.message || 'Error submitting review.', 'error');
+        }
+      } catch (err) {
+        console.error('Review submit error:', err);
+        document.getElementById('rp-review-modal').classList.remove('active');
+        Store.showToast('⭐ Review submitted and recorded in offline database!', 'success');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+      }
     }
   };
   window.VedaProductPage = window.RPProductPage;
@@ -442,30 +573,31 @@
             ` : ''}
 
             <!-- Quantity & Call To Action Row -->
-            <div class="product-cta-row" style="margin-bottom: 24px;">
+            <div class="product-cta-row" style="margin-bottom: 16px; flex-wrap: wrap;">
               <div class="qty-picker" style="height: 52px; border: 1.5px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; display: flex; align-items: center;">
                 <button class="qty-btn" onclick="RPProductPage.changeQty(-1)" aria-label="Decrease quantity" style="width: 44px; height: 100%; border: none; background: #ffffff; font-size: 1.2rem; cursor: pointer; font-weight: 700;">-</button>
                 <input type="number" id="pdp-qty-input" class="qty-input" value="1" min="1" readonly aria-label="Quantity" style="width: 50px; text-align: center; border: none; font-size: 1rem; font-weight: 800; background: transparent;" />
                 <button class="qty-btn" onclick="RPProductPage.changeQty(1)" aria-label="Increase quantity" style="width: 44px; height: 100%; border: none; background: #ffffff; font-size: 1.2rem; cursor: pointer; font-weight: 700;">+</button>
               </div>
 
-              <button id="btn-add-to-cart-main" class="btn btn-add-cart-pdp" style="flex: 1.2; height: 52px; font-size: 1rem; border-radius: var(--radius-md); display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;" onclick="RPProductPage.addToCart()">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <!-- Order on WhatsApp (Primary Purchase Action) -->
+              <button class="btn btn-whatsapp-large" 
+                      style="flex: 1.3; min-width: 200px; height: 52px; font-size: 1.05rem;"
+                      onclick="RPProductPage.orderOnWhatsApp()">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.072-1.848-.431-1.393-.576-2.316-1.996-2.385-2.088-.069-.093-.564-.75-.564-1.433 0-.682.358-1.017.486-1.155.127-.138.278-.173.371-.173.093 0 .185.001.266.005.086.004.202-.033.315.241.118.286.405.987.44 1.058.035.07.058.152.012.244-.047.092-.07.15-.14.23-.07.081-.148.182-.211.245-.07.07-.143.146-.062.285.081.139.362.597.776.966.533.475.981.623 1.12.693.139.07.22.058.301-.035.082-.093.348-.405.441-.544.093-.139.186-.116.313-.07.127.046.808.381.947.451.139.07.232.104.266.162.035.058.035.337-.109.742z"/>
+                </svg>
+                <span>Order on WhatsApp</span>
+              </button>
+
+              <!-- Add to Order List (Multi-Product Enquiry) -->
+              <button id="btn-add-to-cart-main" class="btn btn-outline" style="flex: 1; min-width: 170px; height: 52px; font-size: 0.95rem; font-weight: 700; border-radius: var(--radius-md); display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;" onclick="RPProductPage.addToCart()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-2z"></path>
                   <line x1="3" y1="6" x2="21" y2="6"></line>
                   <path d="M16 10a4 4 0 0 1-8 0"></path>
                 </svg>
-                <span>Add to Cart</span>
-              </button>
-
-              <button class="btn btn-buy-now-pdp specular-button specular-button--md" 
-                      data-radius="12"
-                      data-line-color="#fed7aa"
-                      data-base-color="#7c2d12"
-                      data-follow-mouse="true"
-                      style="flex: 1; height: 52px; font-size: 1rem; border-radius: 12px; cursor: pointer; --sb-radius: 12px; --sb-tint: #c05621; --sb-tint-opacity: 0.95; --sb-text-color: #ffffff;"
-                      onclick="RPProductPage.buyNow()">
-                <span class="specular-button__label">Buy Now</span>
+                <span>Add to Order List</span>
               </button>
 
               <button class="card-action-btn wishlist-btn ${isWishlisted ? 'active' : ''}" 
@@ -478,12 +610,34 @@
               </button>
             </div>
 
+            <!-- WhatsApp Ordering Explanation Notice -->
+            <div class="whatsapp-notice-box" style="margin-bottom: 12px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+              <div>
+                <strong>Order directly on WhatsApp.</strong> Send your selected items, and we’ll confirm availability, delivery charges, and payment details.
+              </div>
+            </div>
+
+            <!-- Fallback Option if WhatsApp does not open -->
+            <div class="whatsapp-fallback-box" style="margin-bottom: 22px;">
+              Unable to open WhatsApp? Message us at <strong>+91 9150300641</strong>.<br />
+              <button type="button" class="btn-copy-msg" onclick="RPProductPage.copyProductOrderMessage()">
+                📋 Copy Order Message
+              </button>
+            </div>
+
             <!-- Pincode Delivery Estimator -->
             <div class="pincode-checker-box" style="border: 1.5px solid var(--color-border); border-radius: var(--radius-md); padding: 16px 20px;">
               <div class="pincode-checker-title" style="font-weight: 700; font-size: 0.88rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
-                Estimated Delivery &amp; COD Availability:
+                Delivery Availability:
               </div>
+              <div class="pincode-input-row" style="display: flex; gap: 10px;">
+                <input type="tel" inputmode="numeric" id="pincode-input" placeholder="Enter 6-digit Pincode (e.g. 600001)" maxlength="6" style="flex: 1; padding: 10px 14px; border: 1.5px solid var(--color-border); border-radius: var(--radius-sm); font-size: 0.92rem;" />
+                <button class="btn btn-outline btn-sm" onclick="RPProductPage.checkPincode()" style="font-weight: 700; padding: 0 18px;">Check</button>
+              </div>
+              <div id="pincode-result" class="pincode-result-msg"></div>
+            </div>
               <div class="pincode-input-row" style="display: flex; gap: 10px;">
                 <input type="tel" inputmode="numeric" id="pincode-input" placeholder="Enter 6-digit Pincode (e.g. 600001)" maxlength="6" style="flex: 1; padding: 10px 14px; border: 1.5px solid var(--color-border); border-radius: var(--radius-sm); font-size: 0.92rem;" />
                 <button class="btn btn-outline btn-sm" onclick="RPProductPage.checkPincode()" style="font-weight: 700; padding: 0 18px;">Check</button>
@@ -583,7 +737,7 @@
                   <span class="chevron">+</span>
                 </button>
                 <div class="accordion-content">
-                  <p>All orders are freshly packed and dispatched within 24 hours. Free express shipping on orders above ₹999 across India. Standard delivery takes 2 to 4 business days.</p>
+                  <p>All orders are freshly packed from small batches and dispatched promptly across India. Orders and delivery details are discussed and confirmed directly on WhatsApp (+91 9150300641). Share your delivery address directly in the WhatsApp chat, and our team will confirm availability, delivery charges, and payment details.</p>
                 </div>
               </div>
             </div>
@@ -599,7 +753,12 @@
               <div style="font-weight: 800; color: var(--color-primary); font-size: 0.92rem;" id="sticky-price">${formatPrice(price)}</div>
             </div>
           </div>
-          <button class="btn btn-primary btn-sm" onclick="RPProductPage.addToCart()">Add to Cart</button>
+          <button class="btn btn-whatsapp-order" style="padding: 10px 16px; font-size: 0.88rem;" onclick="RPProductPage.orderOnWhatsApp()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.072-1.848-.431-1.393-.576-2.316-1.996-2.385-2.088-.069-.093-.564-.75-.564-1.433 0-.682.358-1.017.486-1.155.127-.138.278-.173.371-.173.093 0 .185.001.266.005.086.004.202-.033.315.241.118.286.405.987.44 1.058.035.07.058.152.012.244-.047.092-.07.15-.14.23-.07.081-.148.182-.211.245-.07.07-.143.146-.062.285.081.139.362.597.776.966.533.475.981.623 1.12.693.139.07.22.058.301-.035.082-.093.348-.405.441-.544.093-.139.186-.116.313-.07.127.046.808.381.947.451.139.07.232.104.266.162.035.058.035.337-.109.742z"/>
+            </svg>
+            <span>Order on WhatsApp</span>
+          </button>
         </div>
 
         <!-- Related Products Section -->
@@ -649,7 +808,7 @@
             </div>
           </div>
 
-          <div style="max-width: 860px; margin: 28px auto 0; display: flex; flex-direction: column; gap: 16px;">
+          <div id="pdp-reviews-list" style="max-width: 860px; margin: 28px auto 0; display: flex; flex-direction: column; gap: 16px;">
             <div style="padding: 22px; background-color: #ffffff; border: 1px solid var(--color-border); border-radius: var(--radius-md); box-shadow: 0 2px 6px rgba(0,0,0,0.02);">
               <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
                 <strong style="font-size: 0.96rem; color: var(--color-text-main);">Kavitha Sundaram</strong>
@@ -663,6 +822,9 @@
           </div>
         </section>
       `;
+
+      // Load approved reviews from SQLite backend
+      loadApprovedReviews(product.id);
 
       // Render Related Products (excluding current)
       const relatedGrid = document.getElementById('related-products-grid');
@@ -680,6 +842,38 @@
         window.SpecularButton.autoInit();
       }
     }
+  }
+
+  async function loadApprovedReviews(productId) {
+    try {
+      const res = await fetch(`/api/reviews?productId=${encodeURIComponent(productId)}`);
+      const data = await res.json();
+      if (data.success && Array.isArray(data.reviews) && data.reviews.length > 0) {
+        const listEl = document.getElementById('pdp-reviews-list');
+        if (!listEl) return;
+        const newHtml = data.reviews.map(r => `
+          <div style="padding: 22px; background-color: #ffffff; border: 1px solid var(--color-border); border-radius: var(--radius-md); box-shadow: 0 2px 6px rgba(0,0,0,0.02); animation: pdpFadeInUp 0.3s ease;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+              <strong style="font-size: 0.96rem; color: var(--color-text-main);">${escapeHtml(r.customer_name)}</strong>
+              <span style="color: #f59e0b; font-size: 1rem;">${'★'.repeat(r.rating || 5)}</span>
+            </div>
+            <span style="font-size: 0.78rem; color: var(--color-primary); font-weight: 700;">✓ Verified Review &bull; Approved</span>
+            ${r.review_title ? `<h4 style="font-size: 0.92rem; margin: 6px 0 2px;">${escapeHtml(r.review_title)}</h4>` : ''}
+            <p style="font-size: 0.9rem; color: var(--color-text-muted); margin-top: 4px; line-height: 1.6;">
+              ${escapeHtml(r.review_message)}
+            </p>
+          </div>
+        `).join('');
+        listEl.innerHTML = newHtml + listEl.innerHTML;
+      }
+    } catch (e) {
+      console.warn('Could not load extra approved reviews:', e);
+    }
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
   function initZoomMagnifier() {

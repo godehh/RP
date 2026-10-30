@@ -216,20 +216,43 @@
   color: var(--color-primary);
 }
 
-/* Price & Add to Cart Area */
+/* Price & Action Area */
 .product-card-footer {
   margin-top: auto;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
   gap: 8px;
   padding-top: 10px;
   border-top: 1px dashed var(--color-border-light);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.product-card-price-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .product-price-wrap {
   display: flex;
   flex-direction: column;
+}
+
+.product-savings-badge {
+  font-size: 0.72rem;
+  color: #b91c1c;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.product-card-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .product-price {
@@ -664,3 +687,146 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
   }
 }
+
+/* ==========================================================================
+   WhatsApp Direct Ordering Components & Actions
+   ========================================================================== */
+
+.btn-whatsapp-order {
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  color: #ffffff !important;
+  border: none;
+  padding: 8px 12px;
+  min-height: 40px;
+  border-radius: var(--radius-md);
+  font-size: 0.82rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none !important;
+  box-shadow: 0 2px 8px rgba(18, 140, 126, 0.25);
+  touch-action: manipulation;
+  white-space: nowrap;
+  flex: 1 1 auto;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.btn-whatsapp-order:hover {
+  background: linear-gradient(135deg, #20ba59 0%, #0d6e63 100%);
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(18, 140, 126, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-whatsapp-order svg {
+  flex-shrink: 0;
+}
+
+.btn-add-order-list {
+  background-color: var(--color-surface-subtle);
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-border);
+  padding: 8px 12px;
+  min-height: 40px;
+  border-radius: var(--radius-md);
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  flex: 0 0 auto;
+  min-width: fit-content;
+  box-sizing: border-box;
+}
+
+.btn-add-order-list:hover {
+  background-color: var(--color-primary-soft);
+  border-color: var(--color-primary);
+  color: var(--color-primary-dark);
+}
+
+.btn-whatsapp-large {
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  color: #ffffff !important;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  text-decoration: none !important;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+  letter-spacing: 0.01em;
+}
+
+.btn-whatsapp-large:hover {
+  background: linear-gradient(135deg, #20ba59 0%, #0d6e63 100%);
+  box-shadow: 0 6px 20px rgba(18, 140, 126, 0.45);
+  transform: translateY(-2px);
+  color: #ffffff !important;
+}
+
+.whatsapp-notice-box {
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #166534;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.whatsapp-notice-box svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #15803d;
+}
+
+.whatsapp-fallback-box {
+  background: #f8fafc;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-top: 12px;
+}
+
+.whatsapp-fallback-box .btn-copy-msg {
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  cursor: pointer;
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all var(--transition-fast);
+}
+
+.whatsapp-fallback-box .btn-copy-msg:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+

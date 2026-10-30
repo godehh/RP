@@ -6,10 +6,10 @@
 <div id="vr-cart-drawer" class="cart-drawer">
   <div class="cart-drawer-header">
     <div class="cart-drawer-title-wrap">
-      <h3>Your Cart</h3>
+      <h3>Your Order List</h3>
       <span class="cart-count-pill">{{ cart.item_count }} items</span>
     </div>
-    <button class="cart-drawer-close" aria-label="Close cart">&times;</button>
+    <button class="cart-drawer-close" aria-label="Close order list">&times;</button>
   </div>
 
   <div class="free-shipping-bar">
@@ -43,10 +43,33 @@
 
   <div class="cart-drawer-footer">
     <div class="drawer-subtotal-row">
-      <span class="drawer-subtotal-label">Subtotal</span>
+      <span class="drawer-subtotal-label">Products subtotal</span>
       <span class="drawer-subtotal-amount">{{ cart.total_price | money }}</span>
     </div>
-    <a href="/checkout" class="btn btn-primary btn-full">Proceed to Checkout &rarr;</a>
+
+    <div class="whatsapp-notice-box" style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 10px 12px; margin-bottom: 12px; font-size: 0.8rem; color: #166534; line-height: 1.45;">
+      💬 Order directly on WhatsApp. Send your selected items, and we'll confirm availability, delivery charges, and payment details.
+    </div>
+
+    {% capture list_msg %}Hello RP Organics! I would like to order:
+
+{% for item in cart.items %}{{ forloop.index }}. {{ item.product.title }}
+   Pack size: {{ item.variant.title }}
+   Quantity: {{ item.quantity }}
+   Price per pack: {{ item.final_price | money }}
+   Item total: {{ item.final_line_price | money }}
+
+{% endfor %}Products subtotal: {{ cart.total_price | money }}
+
+Please confirm availability, delivery charges, payment details, and the final amount. I will share my delivery address here on WhatsApp.{% endcapture %}
+
+    <a href="https://wa.me/919150300641?text={{ list_msg | url_encode }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-full" style="background: #16a34a; border-color: #16a34a; display: flex; align-items: center; justify-content: center; gap: 8px;">
+      💬 Send Order on WhatsApp &rarr;
+    </a>
+
+    <div style="text-align: center; margin-top: 8px; font-size: 0.78rem; color: #64748b;">
+      Unable to open WhatsApp? Message us at <strong>+91 9150300641</strong>.
+    </div>
   </div>
 </div>
 

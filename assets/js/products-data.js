@@ -85,20 +85,20 @@ const PRODUCTS = [
       {
         "name": "500g",
         "weight": "500g",
-        "price": 320,
+        "price": 330,
         "comparePrice": 390,
         "compareAtPrice": 390,
-        "discount": "18% OFF",
-        "savings": "Save ₹70",
+        "discount": "15% OFF",
+        "savings": "Save ₹60",
         "inStock": true
       },
       {
         "name": "1kg",
         "weight": "1kg",
-        "price": 600,
-        "comparePrice": 750,
-        "compareAtPrice": 750,
-        "discount": "20% OFF",
+        "price": 650,
+        "comparePrice": 800,
+        "compareAtPrice": 800,
+        "discount": "19% OFF",
         "savings": "Save ₹150",
         "inStock": true
       }
@@ -223,21 +223,21 @@ const PRODUCTS = [
       {
         "name": "500g",
         "weight": "500g",
-        "price": 260,
+        "price": 270,
         "comparePrice": 350,
         "compareAtPrice": 350,
-        "discount": "26% OFF",
-        "savings": "Save ₹90",
+        "discount": "23% OFF",
+        "savings": "Save ₹80",
         "inStock": true
       },
       {
         "name": "1kg",
         "weight": "1kg",
-        "price": 480,
-        "comparePrice": 650,
-        "compareAtPrice": 650,
-        "discount": "26% OFF",
-        "savings": "Save ₹170",
+        "price": 550,
+        "comparePrice": 700,
+        "compareAtPrice": 700,
+        "discount": "21% OFF",
+        "savings": "Save ₹150",
         "inStock": true
       }
     ],
@@ -279,142 +279,6 @@ const PRODUCTS = [
       "Spices",
       "Rice Mix",
       "Idly Podi",
-      "Tamil Tradition"
-    ]
-  },
-  {
-    "id": "spc-sundakkai",
-    "slug": "sundakkai-podi",
-    "name": "Sundakkai Podi",
-    "tamilName": "சுண்டைக்காய் பொடி",
-    "title": "Sundakkai Podi (சுண்டைக்காய் பொடி)",
-    "category": "Spices & Masalas",
-    "categorySlug": "spices",
-    "subCategory": "Traditional Podis",
-    "dietary": "Vegetarian",
-    "rating": 4.7,
-    "reviewCount": 78,
-    "badge": "Herbal",
-    "badgeType": "sale",
-    "badges": [
-      "Gut Health",
-      "Antioxidant Rich",
-      "100% Natural"
-    ],
-    "specialClaim": "",
-    "shortDescription": "Traditional South Indian Turkey Berry herbal mix for digestion, gut health, and overall wellness. 100% natural and free of preservatives.",
-    "fullDescription": "RP Organics Sundakkai Podi (சுண்டைக்காய் பொடி) is made from sun-dried Turkey Berries (Solanum torvum), renowned in Siddha and traditional Tamil home remedies. Blended with slow-roasted lentils, cumin, and coriander seeds, this herbal podi soothes the digestive tract, relieves indigestion, and provides vital micro-nutrients.",
-    "ingredients": "Sundakkai (Turkey Berry), Urad Dal, Chana Dal, Red Chilli, Cumin Seeds, Coriander Seeds, Curry Leaves, Asafoetida, Rock Salt and other natural spices.",
-    "ingredientsList": [
-      "Sundakkai (Turkey Berry)",
-      "Urad Dal",
-      "Chana Dal",
-      "Red Chilli",
-      "Cumin Seeds",
-      "Coriander Seeds",
-      "Curry Leaves",
-      "Asafoetida",
-      "Rock Salt",
-      "Natural Spices"
-    ],
-    "benefits": [
-      "Aids Digestion: Helps improve gut health and soothes stomach disorders",
-      "Boosts Immunity: Rich in natural antioxidants and protective phytonutrients",
-      "Supports Overall Health: Good source of dietary minerals and iron",
-      "Traditional Taste: Made with time-tested heritage roasted spice recipe",
-      "100% Natural: Zero preservatives, artificial colours, or fillers"
-    ],
-    "howToUse": "1. Cook your rice, idly or dosa.\n2. Add required amount of Sundakkai Podi.\n3. Mix well with ghee, sesame oil or a little oil (optional).\n4. Ready to enjoy!",
-    "shelfLife": "Best before 6 Months from manufacturing date",
-    "storageInstructions": "Store in a cool, dry place. Reseal tightly after each use.",
-    "fssaiLicNo": "22426431000125",
-    "brandOwner": "Rani Pavunrasu",
-    "countryOfOrigin": "India",
-    "inStock": true,
-    "price": 60,
-    "comparePrice": 80,
-    "compareAtPrice": 80,
-    "defaultWeight": "100g",
-    "variants": [
-      {
-        "name": "100g",
-        "weight": "100g",
-        "price": 60,
-        "comparePrice": 80,
-        "compareAtPrice": 80,
-        "discount": "25% OFF",
-        "savings": "Save ₹20",
-        "inStock": true,
-        "isDefault": true
-      },
-      {
-        "name": "250g",
-        "weight": "250g",
-        "price": 140,
-        "comparePrice": 190,
-        "compareAtPrice": 190,
-        "discount": "26% OFF",
-        "savings": "Save ₹50",
-        "inStock": true
-      },
-      {
-        "name": "500g",
-        "weight": "500g",
-        "price": 260,
-        "comparePrice": 350,
-        "compareAtPrice": 350,
-        "discount": "26% OFF",
-        "savings": "Save ₹90",
-        "inStock": true
-      },
-      {
-        "name": "1kg",
-        "weight": "1kg",
-        "price": 480,
-        "comparePrice": 650,
-        "compareAtPrice": 650,
-        "discount": "26% OFF",
-        "savings": "Save ₹170",
-        "inStock": true
-      }
-    ],
-    "nutrition": {
-      "Serving Size": "Not specified in PDF — requires client confirmation",
-      "Energy / Calories": "Not specified in PDF — requires client confirmation",
-      "Protein": "Not specified in PDF — requires client confirmation",
-      "Carbohydrates": "Not specified in PDF — requires client confirmation",
-      "Fat": "Not specified in PDF — requires client confirmation",
-      "Dietary Fibre": "Not specified in PDF — requires client confirmation"
-    },
-    "nutritionFacts": {
-      "servingSize": "Not specified in PDF — requires client confirmation",
-      "protein": "Not specified in PDF — requires client confirmation",
-      "energy": "Not specified in PDF — requires client confirmation",
-      "carbohydrates": "Not specified in PDF — requires client confirmation",
-      "fat": "Not specified in PDF — requires client confirmation",
-      "fiber": "Not specified in PDF — requires client confirmation"
-    },
-    "primaryImage": "assets/images/products/sundakkai-podi-1.jpg",
-    "hoverImage": "assets/images/products/sundakkai-podi-2.jpg",
-    "gallery": [
-      "assets/images/products/sundakkai-podi-1.jpg",
-      "assets/images/products/sundakkai-podi-2.jpg",
-      "assets/images/products/sundakkai-podi-3.jpg",
-      "assets/images/products/sundakkai-podi-4.jpg",
-      "assets/images/products/sundakkai-podi-5.jpg"
-    ],
-    "images": [
-      "assets/images/products/sundakkai-podi-1.jpg",
-      "assets/images/products/sundakkai-podi-2.jpg",
-      "assets/images/products/sundakkai-podi-3.jpg",
-      "assets/images/products/sundakkai-podi-4.jpg",
-      "assets/images/products/sundakkai-podi-5.jpg"
-    ],
-    "tags": [
-      "Sundakkai",
-      "Turkey Berry",
-      "Digestion",
-      "Gut Health",
       "Tamil Tradition"
     ]
   },
@@ -497,21 +361,21 @@ const PRODUCTS = [
       {
         "name": "500g",
         "weight": "500g",
-        "price": 260,
+        "price": 270,
         "comparePrice": 350,
         "compareAtPrice": 350,
-        "discount": "26% OFF",
-        "savings": "Save ₹90",
+        "discount": "23% OFF",
+        "savings": "Save ₹80",
         "inStock": true
       },
       {
         "name": "1kg",
         "weight": "1kg",
-        "price": 480,
-        "comparePrice": 650,
-        "compareAtPrice": 650,
-        "discount": "26% OFF",
-        "savings": "Save ₹170",
+        "price": 550,
+        "comparePrice": 700,
+        "compareAtPrice": 700,
+        "discount": "21% OFF",
+        "savings": "Save ₹150",
         "inStock": true
       }
     ],
@@ -556,51 +420,50 @@ const PRODUCTS = [
     ]
   },
   {
-    "id": "spc-vallarai",
-    "slug": "vallarai-podi",
-    "name": "Vallarai Podi",
-    "tamilName": "வல்லாரை பொடி",
-    "title": "Vallarai Podi (வல்லாரை பொடி)",
+    "id": "spc-sundakkai",
+    "slug": "sundakkai-podi",
+    "name": "Sundakkai Podi",
+    "tamilName": "சுண்டைக்காய் பொடி",
+    "title": "Sundakkai Podi (சுண்டைக்காய் பொடி)",
     "category": "Spices & Masalas",
     "categorySlug": "spices",
     "subCategory": "Traditional Podis",
     "dietary": "Vegetarian",
-    "rating": 4.8,
-    "reviewCount": 84,
+    "rating": 4.7,
+    "reviewCount": 78,
     "badge": "Herbal",
     "badgeType": "sale",
     "badges": [
-      "Memory Booster",
-      "Brain Health",
+      "Gut Health",
+      "Antioxidant Rich",
       "100% Natural"
     ],
     "specialClaim": "",
-    "shortDescription": "Ancient herbal recipe made with Vallarai (Centella asiatica) to support memory, cognitive concentration, and daily vitality.",
-    "fullDescription": "RP Organics Vallarai Podi (வல்லாரை பொடி) features shade-dried Centella asiatica (Indian Pennywort), traditionally revered as 'Saraswati herb' for brain power and sharp memory. Carefully dry-roasted with urad dal, Bengal gram, black pepper, and cumin, this podi provides a calming, nutrient-rich addition to everyday family meals.",
-    "ingredients": "Vallarai (Centella asiatica), Urad Dal, Chana Dal, Bengal Gram, Curry Leaves, Cumin Seeds, Black Pepper, Sesame Seeds, Asafoetida, Rock Salt and other natural spices.",
+    "shortDescription": "Traditional South Indian Turkey Berry herbal mix for digestion, gut health, and overall wellness. 100% natural and free of preservatives.",
+    "fullDescription": "RP Organics Sundakkai Podi (சுண்டைக்காய் பொடி) is made from sun-dried Turkey Berries (Solanum torvum), renowned in Siddha and traditional Tamil home remedies. Blended with slow-roasted lentils, cumin, and coriander seeds, this herbal podi soothes the digestive tract, relieves indigestion, and provides vital micro-nutrients.",
+    "ingredients": "Sundakkai (Turkey Berry), Urad Dal, Chana Dal, Red Chilli, Cumin Seeds, Coriander Seeds, Curry Leaves, Asafoetida, Rock Salt and other natural spices.",
     "ingredientsList": [
-      "Vallarai (Centella asiatica)",
+      "Sundakkai (Turkey Berry)",
       "Urad Dal",
       "Chana Dal",
-      "Bengal Gram",
-      "Curry Leaves",
+      "Red Chilli",
       "Cumin Seeds",
-      "Black Pepper",
-      "Sesame Seeds",
+      "Coriander Seeds",
+      "Curry Leaves",
       "Asafoetida",
       "Rock Salt",
       "Natural Spices"
     ],
     "benefits": [
-      "Supports Brain Health: Helps enhance memory retention, cognitive sharpness, and concentration",
-      "Aids Digestion: Herbal compounds soothe stomach lining and support healthy absorption",
-      "Boosts Immunity: Natural bio-flavonoids provide strong antioxidant protection",
-      "100% Natural: No artificial colors, preservatives, or chemical additives",
-      "Kid Friendly: Great for growing students mixed with rice and cow's ghee"
+      "Aids Digestion: Helps improve gut health and soothes stomach disorders",
+      "Boosts Immunity: Rich in natural antioxidants and protective phytonutrients",
+      "Supports Overall Health: Good source of dietary minerals and iron",
+      "Traditional Taste: Made with time-tested heritage roasted spice recipe",
+      "100% Natural: Zero preservatives, artificial colours, or fillers"
     ],
-    "howToUse": "1. Take freshly cooked rice, idly or dosa.\n2. Add required amount of Vallarai Podi.\n3. Mix well with ghee, sesame oil or a little oil (optional).\n4. Ready to enjoy!",
+    "howToUse": "1. Cook your rice, idly or dosa.\n2. Add required amount of Sundakkai Podi.\n3. Mix well with ghee, sesame oil or a little oil (optional).\n4. Ready to enjoy!",
     "shelfLife": "Best before 6 Months from manufacturing date",
-    "storageInstructions": "Keep container tightly closed in a dry place.",
+    "storageInstructions": "Store in a cool, dry place. Reseal tightly after each use.",
     "fssaiLicNo": "22426431000125",
     "brandOwner": "Rani Pavunrasu",
     "countryOfOrigin": "India",
@@ -634,21 +497,21 @@ const PRODUCTS = [
       {
         "name": "500g",
         "weight": "500g",
-        "price": 260,
+        "price": 270,
         "comparePrice": 350,
         "compareAtPrice": 350,
-        "discount": "26% OFF",
-        "savings": "Save ₹90",
+        "discount": "23% OFF",
+        "savings": "Save ₹80",
         "inStock": true
       },
       {
         "name": "1kg",
         "weight": "1kg",
-        "price": 480,
-        "comparePrice": 650,
-        "compareAtPrice": 650,
-        "discount": "26% OFF",
-        "savings": "Save ₹170",
+        "price": 550,
+        "comparePrice": 700,
+        "compareAtPrice": 700,
+        "discount": "21% OFF",
+        "savings": "Save ₹150",
         "inStock": true
       }
     ],
@@ -668,27 +531,27 @@ const PRODUCTS = [
       "fat": "Not specified in PDF — requires client confirmation",
       "fiber": "Not specified in PDF — requires client confirmation"
     },
-    "primaryImage": "assets/images/products/vallarai-podi-1.jpg",
-    "hoverImage": "assets/images/products/vallarai-podi-2.jpg",
+    "primaryImage": "assets/images/products/sundakkai-podi-1.jpg",
+    "hoverImage": "assets/images/products/sundakkai-podi-2.jpg",
     "gallery": [
-      "assets/images/products/vallarai-podi-1.jpg",
-      "assets/images/products/vallarai-podi-2.jpg",
-      "assets/images/products/vallarai-podi-3.jpg",
-      "assets/images/products/vallarai-podi-4.jpg",
-      "assets/images/products/vallarai-podi-5.jpg"
+      "assets/images/products/sundakkai-podi-1.jpg",
+      "assets/images/products/sundakkai-podi-2.jpg",
+      "assets/images/products/sundakkai-podi-3.jpg",
+      "assets/images/products/sundakkai-podi-4.jpg",
+      "assets/images/products/sundakkai-podi-5.jpg"
     ],
     "images": [
-      "assets/images/products/vallarai-podi-1.jpg",
-      "assets/images/products/vallarai-podi-2.jpg",
-      "assets/images/products/vallarai-podi-3.jpg",
-      "assets/images/products/vallarai-podi-4.jpg",
-      "assets/images/products/vallarai-podi-5.jpg"
+      "assets/images/products/sundakkai-podi-1.jpg",
+      "assets/images/products/sundakkai-podi-2.jpg",
+      "assets/images/products/sundakkai-podi-3.jpg",
+      "assets/images/products/sundakkai-podi-4.jpg",
+      "assets/images/products/sundakkai-podi-5.jpg"
     ],
     "tags": [
-      "Vallarai",
-      "Brain Health",
-      "Memory",
-      "Focus",
+      "Sundakkai",
+      "Turkey Berry",
+      "Digestion",
+      "Gut Health",
       "Tamil Tradition"
     ]
   },
@@ -819,37 +682,145 @@ const PRODUCTS = [
       "Rice Free",
       "Tamil Tradition"
     ]
+  },
+  {
+    "id": "spc-vallarai",
+    "slug": "vallarai-podi",
+    "name": "Vallarai Podi",
+    "tamilName": "வல்லாரை பொடி",
+    "title": "Vallarai Podi (வல்லாரை பொடி)",
+    "category": "Spices & Masalas",
+    "categorySlug": "spices",
+    "subCategory": "Traditional Podis",
+    "dietary": "Vegetarian",
+    "rating": 4.8,
+    "reviewCount": 84,
+    "badge": "Herbal",
+    "badgeType": "sale",
+    "badges": [
+      "Memory Booster",
+      "Brain Health",
+      "100% Natural"
+    ],
+    "specialClaim": "",
+    "shortDescription": "Ancient herbal recipe made with Vallarai (Centella asiatica) to support memory, cognitive concentration, and daily vitality.",
+    "fullDescription": "RP Organics Vallarai Podi (வல்லாரை பொடி) features shade-dried Centella asiatica (Indian Pennywort), traditionally revered as 'Saraswati herb' for brain power and sharp memory. Carefully dry-roasted with urad dal, Bengal gram, black pepper, and cumin, this podi provides a calming, nutrient-rich addition to everyday family meals.",
+    "ingredients": "Vallarai (Centella asiatica), Urad Dal, Chana Dal, Bengal Gram, Curry Leaves, Cumin Seeds, Black Pepper, Sesame Seeds, Asafoetida, Rock Salt and other natural spices.",
+    "ingredientsList": [
+      "Vallarai (Centella asiatica)",
+      "Urad Dal",
+      "Chana Dal",
+      "Bengal Gram",
+      "Curry Leaves",
+      "Cumin Seeds",
+      "Black Pepper",
+      "Sesame Seeds",
+      "Asafoetida",
+      "Rock Salt",
+      "Natural Spices"
+    ],
+    "benefits": [
+      "Supports Brain Health: Helps enhance memory retention, cognitive sharpness, and concentration",
+      "Aids Digestion: Herbal compounds soothe stomach lining and support healthy absorption",
+      "Boosts Immunity: Natural bio-flavonoids provide strong antioxidant protection",
+      "100% Natural: No artificial colors, preservatives, or chemical additives",
+      "Kid Friendly: Great for growing students mixed with rice and cow's ghee"
+    ],
+    "howToUse": "1. Take freshly cooked rice, idly or dosa.\n2. Add required amount of Vallarai Podi.\n3. Mix well with ghee, sesame oil or a little oil (optional).\n4. Ready to enjoy!",
+    "shelfLife": "Best before 6 Months from manufacturing date",
+    "storageInstructions": "Keep container tightly closed in a dry place.",
+    "fssaiLicNo": "22426431000125",
+    "brandOwner": "Rani Pavunrasu",
+    "countryOfOrigin": "India",
+    "inStock": true,
+    "price": 60,
+    "comparePrice": 80,
+    "compareAtPrice": 80,
+    "defaultWeight": "100g",
+    "variants": [
+      {
+        "name": "100g",
+        "weight": "100g",
+        "price": 60,
+        "comparePrice": 80,
+        "compareAtPrice": 80,
+        "discount": "25% OFF",
+        "savings": "Save ₹20",
+        "inStock": true,
+        "isDefault": true
+      },
+      {
+        "name": "250g",
+        "weight": "250g",
+        "price": 140,
+        "comparePrice": 190,
+        "compareAtPrice": 190,
+        "discount": "26% OFF",
+        "savings": "Save ₹50",
+        "inStock": true
+      },
+      {
+        "name": "500g",
+        "weight": "500g",
+        "price": 270,
+        "comparePrice": 350,
+        "compareAtPrice": 350,
+        "discount": "23% OFF",
+        "savings": "Save ₹80",
+        "inStock": true
+      },
+      {
+        "name": "1kg",
+        "weight": "1kg",
+        "price": 550,
+        "comparePrice": 700,
+        "compareAtPrice": 700,
+        "discount": "21% OFF",
+        "savings": "Save ₹150",
+        "inStock": true
+      }
+    ],
+    "nutrition": {
+      "Serving Size": "Not specified in PDF — requires client confirmation",
+      "Energy / Calories": "Not specified in PDF — requires client confirmation",
+      "Protein": "Not specified in PDF — requires client confirmation",
+      "Carbohydrates": "Not specified in PDF — requires client confirmation",
+      "Fat": "Not specified in PDF — requires client confirmation",
+      "Dietary Fibre": "Not specified in PDF — requires client confirmation"
+    },
+    "nutritionFacts": {
+      "servingSize": "Not specified in PDF — requires client confirmation",
+      "protein": "Not specified in PDF — requires client confirmation",
+      "energy": "Not specified in PDF — requires client confirmation",
+      "carbohydrates": "Not specified in PDF — requires client confirmation",
+      "fat": "Not specified in PDF — requires client confirmation",
+      "fiber": "Not specified in PDF — requires client confirmation"
+    },
+    "primaryImage": "assets/images/products/vallarai-podi-1.jpg",
+    "hoverImage": "assets/images/products/vallarai-podi-2.jpg",
+    "gallery": [
+      "assets/images/products/vallarai-podi-1.jpg",
+      "assets/images/products/vallarai-podi-2.jpg",
+      "assets/images/products/vallarai-podi-3.jpg",
+      "assets/images/products/vallarai-podi-4.jpg",
+      "assets/images/products/vallarai-podi-5.jpg"
+    ],
+    "images": [
+      "assets/images/products/vallarai-podi-1.jpg",
+      "assets/images/products/vallarai-podi-2.jpg",
+      "assets/images/products/vallarai-podi-3.jpg",
+      "assets/images/products/vallarai-podi-4.jpg",
+      "assets/images/products/vallarai-podi-5.jpg"
+    ],
+    "tags": [
+      "Vallarai",
+      "Brain Health",
+      "Memory",
+      "Focus",
+      "Tamil Tradition"
+    ]
   }
 ];
-
-function getProductById(id) {
-  if (!id) return null;
-  return PRODUCTS.find(p => p.id === id || p.slug === id);
-}
-
-function getProductsByCategory(category) {
-  if (!category || category === 'all') return PRODUCTS;
-  const c = category.toLowerCase();
-  return PRODUCTS.filter(p => 
-    p.category.toLowerCase().includes(c) || 
-    (p.categorySlug && p.categorySlug.toLowerCase().includes(c)) ||
-    (p.subCategory && p.subCategory.toLowerCase().includes(c))
-  );
-}
-
-function searchProducts(query) {
-  if (!query) return PRODUCTS;
-  const q = query.toLowerCase().trim();
-  return PRODUCTS.filter(p => 
-    p.title.toLowerCase().includes(q) ||
-    p.name.toLowerCase().includes(q) ||
-    (p.tamilName && p.tamilName.includes(q)) ||
-    p.category.toLowerCase().includes(q) ||
-    (p.subCategory && p.subCategory.toLowerCase().includes(q)) ||
-    p.ingredients.toLowerCase().includes(q) ||
-    p.tags.some(t => t.toLowerCase().includes(q))
-  );
-}
 
 const CATEGORIES = [
   {
@@ -940,6 +911,134 @@ const TESTIMONIALS = [
   }
 ];
 
+/**
+ * Lookup product by ID or Slug
+ */
+function getProductById(id) {
+  if (!id) return null;
+  const targetId = String(id).toLowerCase().trim();
+  return PRODUCTS.find(p => 
+    String(p.id).toLowerCase() === targetId || 
+    String(p.slug).toLowerCase() === targetId
+  ) || null;
+}
+
+/**
+ * Filter products by category or category slug
+ */
+function getProductsByCategory(category) {
+  if (!category || category === 'all') return PRODUCTS;
+  const cat = String(category).toLowerCase().trim();
+  return PRODUCTS.filter(p => 
+    (p.category && p.category.toLowerCase().includes(cat)) ||
+    (p.categorySlug && p.categorySlug.toLowerCase() === cat) ||
+    (p.subCategory && p.subCategory.toLowerCase().includes(cat))
+  );
+}
+
+/**
+ * Comprehensive multi-field, fuzzy and synonym-aware search for RP Organics products
+ */
+function searchProducts(query) {
+  if (!query || typeof query !== 'string') return [];
+  const cleanQuery = query.toLowerCase().trim();
+  if (!cleanQuery) return [];
+
+  // Common synonyms, alternate spellings, and transliterations
+  const synonyms = {
+    'garlic': ['poondu', 'garlic'],
+    'poondu': ['poondu', 'garlic', 'பூண்டு'],
+    'lasun': ['poondu', 'garlic'],
+    'lahsun': ['poondu', 'garlic'],
+    'pirandai': ['pirandai', 'adamant', 'creeper', 'veld', 'பிரண்டை'],
+    'sundakkai': ['sundakkai', 'turkey berry', 'சுண்டைக்காய்'],
+    'sundakai': ['sundakkai', 'turkey berry'],
+    'vallarai': ['vallarai', 'brahmi', 'gotu kola', 'வல்லாரை'],
+    'brahmi': ['vallarai'],
+    'protein': ['protein', 'புரதச்சத்து', 'health mix', 'ragi'],
+    'health mix': ['health mix', 'protein', 'புரதச்சத்து'],
+    'millet': ['millet', 'சிறுதானிய', 'ragi', 'kodo', 'dosa'],
+    'millets': ['millet', 'சிறுதானிய'],
+    'grain': ['millet'],
+    'grains': ['millet'],
+    'podi': ['podi', 'powder', 'பொடி', 'spices'],
+    'podis': ['podi', 'powder'],
+    'powder': ['podi', 'powder', 'mix'],
+    'powders': ['podi', 'powder'],
+    'masala': ['spices', 'podi'],
+    'spice': ['spices', 'podi'],
+    'spices': ['spices', 'podi'],
+    'dosa': ['millet', 'podi'],
+    'idli': ['millet', 'podi'],
+    'rice': ['podi', 'health mix'],
+    'immunity': ['poondu', 'sundakkai', 'spices'],
+    'digestion': ['sundakkai', 'pirandai'],
+    'bone': ['pirandai'],
+    'bones': ['pirandai'],
+    'joint': ['pirandai'],
+    'joints': ['pirandai'],
+    'memory': ['vallarai'],
+    'brain': ['vallarai'],
+    'kids': ['protein', 'health mix']
+  };
+
+  const rawTerms = cleanQuery.split(/\s+/).filter(Boolean);
+  const searchKeywords = new Set(rawTerms);
+
+  rawTerms.forEach(term => {
+    if (synonyms[term]) {
+      synonyms[term].forEach(s => searchKeywords.add(s.toLowerCase()));
+    }
+  });
+
+  if (synonyms[cleanQuery]) {
+    synonyms[cleanQuery].forEach(s => searchKeywords.add(s.toLowerCase()));
+  }
+
+  const keywordList = Array.from(searchKeywords);
+
+  const scoredProducts = PRODUCTS.map(product => {
+    let score = 0;
+    const name = (product.name || '').toLowerCase();
+    const title = (product.title || '').toLowerCase();
+    const tamilName = (product.tamilName || '').toLowerCase();
+    const category = (product.category || '').toLowerCase();
+    const subCategory = (product.subCategory || '').toLowerCase();
+    const tags = Array.isArray(product.tags) ? product.tags.join(' ').toLowerCase() : '';
+    const ingredients = (product.ingredients || '').toLowerCase();
+    const shortDesc = (product.shortDescription || '').toLowerCase();
+    const fullDesc = (product.fullDescription || '').toLowerCase();
+    const benefits = Array.isArray(product.benefits) ? product.benefits.join(' ').toLowerCase() : '';
+
+    // Direct exact matches give massive boosts
+    if (name === cleanQuery || title === cleanQuery) score += 100;
+    else if (name.startsWith(cleanQuery)) score += 60;
+    else if (name.includes(cleanQuery)) score += 40;
+    else if (tamilName.includes(cleanQuery)) score += 40;
+    else if (title.includes(cleanQuery)) score += 30;
+
+    // Check individual keywords
+    keywordList.forEach(kw => {
+      if (!kw) return;
+      if (name.includes(kw)) score += 25;
+      if (tamilName.includes(kw)) score += 20;
+      if (title.includes(kw)) score += 15;
+      if (tags.includes(kw)) score += 12;
+      if (category.includes(kw) || subCategory.includes(kw)) score += 10;
+      if (ingredients.includes(kw)) score += 6;
+      if (benefits.includes(kw)) score += 5;
+      if (shortDesc.includes(kw) || fullDesc.includes(kw)) score += 3;
+    });
+
+    return { product, score };
+  });
+
+  return scoredProducts
+    .filter(item => item.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .map(item => item.product);
+}
+
 if (typeof window !== 'undefined') {
   window.PRODUCTS = PRODUCTS;
   window.CATEGORIES = CATEGORIES;
@@ -953,4 +1052,5 @@ if (typeof window !== 'undefined') {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = { PRODUCTS, CATEGORIES, WELLNESS_GOALS, TESTIMONIALS, getProductById, getProductsByCategory, searchProducts };
 }
+
 

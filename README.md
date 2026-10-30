@@ -39,6 +39,49 @@ A modern, high-performance, mobile-first eCommerce website crafted for an authen
 
 ---
 
+## 🗄️ Offline Local Database & Backend System (SQLite)
+
+RP Organics includes a **100% offline, local database system** powered by **Node.js, Express, and SQLite**. All customer form submissions on the website are permanently stored in `database/rp_organics.db`.
+
+### 🚀 Quick Start Commands
+
+```bash
+# 1. Install dependencies
+npm install
+
+# 2. (Optional) Initialize or verify the database tables
+npm run init-db
+
+# 3. Start the website and offline backend server together on http://localhost:3000
+npm start
+# (or: npm run dev)
+
+# 4. View all customer submissions directly in the terminal
+npm run view-db
+
+# 5. Export all database submissions to CSV files
+npm run export-csv
+```
+
+### 📊 Admin Portal & Data Access
+- **URL:** [http://localhost:3000/admin.html](http://localhost:3000/admin.html)
+- **Default Username:** `admin`
+- **Default Password:** `admin@rporganics`
+- **Features:**
+  - View, search, and filter Order Enquiries, Contact Inquiries, Newsletter Subscribers, Product Reviews, and Registered Accounts.
+  - Change status on the fly (e.g., Mark Orders Confirmed/Shipped/Delivered, Approve/Reject Reviews, Mark Contacts Read/Replied).
+  - 1-Click CSV direct download for all tables.
+  - View individual order item breakdowns, delivery addresses, and payment details.
+
+### 🗃️ Database Tables in `database/rp_organics.db`:
+1. `order_enquiries` — Checkout & enquiry details (Order #, Name, Phone, Email, Address, Products JSON, Quantity, Amount, Coupon, Payment Method, Status, Date)
+2. `contact_submissions` — Contact form messages (Full Name, Email, Phone, Subject, Message, Status, Date)
+3. `newsletter_subscriptions` — Newsletter subscriptions (Email, Source Page, Status, Date, duplicate protection)
+4. `product_reviews` — Verified customer ratings & reviews (Product ID/Name, Customer Name, Email, Rating 1-5, Title, Message, Status, Date)
+5. `users` — Customer accounts with bcrypt password hashing (Full Name, Email, Phone, Hashed Password, Status, Date)
+
+---
+
 ## 📁 Project Directory Structure
 
 ```

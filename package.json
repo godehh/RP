@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "description": "RP Organics — Production-Ready eCommerce Website",
   "scripts": {
-    "dev": "serve . -p 3000",
-    "start": "serve . -p 3000",
-    "serve": "serve . -p 3000"
+    "start": "node server/server.js",
+    "dev": "node server/server.js",
+    "server": "node server/server.js",
+    "init-db": "node server/init-db.js",
+    "view-db": "node server/view-cli.js",
+    "export-csv": "node server/export-cli.js",
+    "serve-static": "serve . -p 3000"
   },
   "keywords": [
     "ecommerce",
@@ -17,6 +21,11 @@
     "serve": "^14.2.6"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^13.0.3",
+    "cors": "^2.8.6",
+    "express": "^5.3.0",
+    "gsap": "^3.15.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   }

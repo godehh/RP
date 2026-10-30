@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Checkout Updated • Order on WhatsApp • RP Organics</title>
+  <meta name="description" content="RP Organics has moved from website checkout to direct WhatsApp ordering for personalized order confirmation, real-time availability, and direct delivery coordination." />
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/product-card.css" />
+
+  <style>
+    :root {
+      --checkout-bg: #f8fafc;
+      --checkout-card: #ffffff;
+      --checkout-border: #e2e8f0;
+      --checkout-primary: #15803d;
+      --checkout-primary-dark: #14532d;
+      --checkout-primary-light: #f0fdf4;
+      --checkout-text: #0f172a;
+      --checkout-muted: #64748b;
+    }
+
+    body {
+      background-color: var(--checkout-bg);
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      color: var(--checkout-text);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .checkout-nav {
+      background: #ffffff;
+      border-bottom: 1px solid var(--checkout-border);
+      padding: 16px 24px;
+    }
+    .checkout-nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .checkout-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #15803d;
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+    .checkout-brand img {
+      height: 44px;
+      object-fit: contain;
+    }
+
+    .checkout-main {
+      flex: 1;
+      max-width: 760px;
+      margin: 48px auto;
+      padding: 0 20px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .notice-card {
+      background: #ffffff;
+      border: 1px solid #dcfce7;
+      border-radius: 20px;
+      padding: 40px 32px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(21, 128, 61, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .notice-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #16a34a, #22c55e, #10b981);
+    }
+
+    .icon-badge {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 20px;
+      background: #f0fdf4;
+      border: 2px solid #bbf7d0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #16a34a;
+    }
+    .icon-badge svg {
+      width: 36px;
+      height: 36px;
+    }
+
+    .notice-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.85rem;
+      color: #14532d;
+      margin: 0 0 12px 0;
+    }
+
+    .notice-desc {
+      font-size: 1.02rem;
+      color: #475569;
+      line-height: 1.65;
+      margin: 0 0 24px 0;
+    }
+
+    .steps-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 20px 24px;
+      text-align: left;
+      margin-bottom: 28px;
+    }
+
+    .steps-heading {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 0.92rem;
+      color: #334155;
+    }
+
+    .steps-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.45;
+    }
+
+    .steps-list li span.step-num {
+      background: #16a34a;
+      color: #ffffff;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .actions-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    .btn-action-primary {
+      background: #16a34a;
+      color: #ffffff;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(22, 163, 74, 0.28);
+    }
+    .btn-action-primary:hover {
+      background: #15803d;
+      transform: translateY(-1px);
+    }
+
+    .btn-action-secondary {
+      background: #ffffff;
+      color: #1e293b;
+      border: 1px solid #cbd5e1;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+    .btn-action-secondary:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+
+    .redirect-timer {
+      font-size: 0.85rem;
+      color: #64748b;
+      margin-top: 18px;
+    }
+
+    .contact-help {
+      margin-top: 32px;
+      font-size: 0.88rem;
+      color: #64748b;
+      text-align: center;
+    }
+    .contact-help a {
+      color: #15803d;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .contact-help a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="checkout-nav">
+    <div class="checkout-nav-inner">
+      <a href="index.html" class="checkout-brand">
+        <img src="assets/images/logo.png" alt="RP Organics Logo" onerror="this.src='assets/images/favicon.png'" />
+        <span>RP Organics</span>
+      </a>
+      <a href="cart.html" class="btn-action-secondary" style="padding: 8px 16px; font-size: 0.88rem;">
+        View Order List
+      </a>
+    </div>
+  </header>
+
+  <main class="checkout-main">
+    <div class="notice-card">
+      <div class="icon-badge">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.04 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/>
+        </svg>
+      </div>
+
+      <h1 class="notice-title">We’ve Switched to Direct WhatsApp Ordering</h1>
+      <p class="notice-desc">
+        To provide you with real-time stock confirmation, accurate delivery quotes, and personalized customer care, RP Organics now takes orders directly via WhatsApp instead of website payment checkout.
+      </p>
+
+      <div class="steps-box">
+        <div class="steps-heading">
+          <span>🌿 How WhatsApp Ordering Works</span>
+        </div>
+        <ul class="steps-list">
+          <li>
+            <span class="step-num">1</span>
+            <span>Add your favorite organic items and pack sizes to your <strong>Order List</strong>.</span>
+          </li>
+          <li>
+            <span class="step-num">2</span>
+            <span>Click <strong>Send Order on WhatsApp</strong> to open a prefilled message addressed to Rani Pavunrasu (+91 9150300641).</span>
+          </li>
+          <li>
+            <span class="step-num">3</span>
+            <span>Send the message to confirm availability, delivery charges to your address, and direct payment details.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="actions-group">
+        <a href="cart.html" class="btn-action-primary">
+          <span>Go to Your Order List</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+
+        <a href="shop.html" class="btn-action-secondary">
+          <span>Browse All Organic Products</span>
+        </a>
+
+        <a href="https://wa.me/919150300641?text=Hello%20RP%20Organics!%20I%20would%20like%20to%20enquire%20about%20ordering%20products." target="_blank" rel="noopener noreferrer" class="btn-action-secondary" style="color: #15803d; border-color: #86efac;">
+          <span>Direct WhatsApp: +91 9150300641</span>
+        </a>
+      </div>
+
+      <div class="redirect-timer" id="redirectNotice">
+        Redirecting you to your Order List in <span id="secCount">4</span> seconds...
+      </div>
+
+      <div class="whatsapp-fallback-box" style="margin-top: 24px; text-align: center;">
+        <p class="fallback-note" style="margin-bottom: 6px;">Unable to open WhatsApp? Message or call us directly at <strong>+91 9150300641</strong>.</p>
+        <p class="fallback-note" style="font-size: 0.8rem; color: #64748b;">Opening WhatsApp opens a conversation — it does not automatically submit an order until you press send.</p>
+      </div>
+    </div>
+
+    <div class="contact-help">
+      RP Organics • Rani Pavunrasu • FSSAI Lic No. 22426431000125<br />
+      Email: <a href="mailto:benseethalrani@gmail.com">benseethalrani@gmail.com</a> | Phone / WhatsApp: <a href="tel:+919150300641">+91 9150300641</a>
+    </div>
+  </main>
+
+  <script src="assets/js/whatsapp-order.js"></script>
+  <script>
+    let secondsLeft = 4;
+    const secEl = document.getElementById('secCount');
+    const timer = setInterval(() => {
+      secondsLeft--;
+      if (secEl) secEl.textContent = secondsLeft;
+      if (secondsLeft <= 0) {
+        clearInterval(timer);
+        window.location.href = 'cart.html';
+      }
+    }, 1000);
+  </script>
+</body>
+</html>

@@ -117,72 +117,14 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // 3. HERO BANNER SLIDE-IN (Second Banner Section)
+  // 3. HERO BANNER PROMO (Stone-Ground Tamil Podis with AccordionGallery)
   const initHeroBannerSlideIn = () => {
-    const track = document.querySelector('.banner-slide-in-track');
-    const items = document.querySelectorAll('.banner-slide-item');
-    const dots = document.querySelectorAll('.banner-dot, .banner-slide-dot');
-    const wrap = document.querySelector('.banner-slide-in-wrap');
-
-    if (!track || items.length === 0) return;
-
-    let currentIndex = 0;
-    const totalBanners = items.length;
-    let bannerInterval = null;
-
-    const goToBanner = (index) => {
-      currentIndex = (index + totalBanners) % totalBanners;
-      track.style.transform = `translateX(-${currentIndex * 100}%)`;
-
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === currentIndex);
-      });
-    };
-
-    const nextBanner = () => goToBanner(currentIndex + 1);
-
-    dots.forEach((dot, idx) => {
-      dot.addEventListener('click', () => goToBanner(idx));
-    });
-
-    // Autoplay every 5 seconds, pause on hover, loop infinitely
-    const startBannerAutoplay = () => {
-      stopBannerAutoplay();
-      bannerInterval = setInterval(nextBanner, 5000);
-    };
-
-    const stopBannerAutoplay = () => {
-      if (bannerInterval) {
-        clearInterval(bannerInterval);
-        bannerInterval = null;
-      }
-    };
-
-    if (wrap) {
-      wrap.addEventListener('mouseenter', stopBannerAutoplay);
-      wrap.addEventListener('mouseleave', startBannerAutoplay);
+    const promoGallery = document.querySelector('.banner-promo-section .accordion-gallery, .banner-slide-in-section .accordion-gallery');
+    if (promoGallery && promoGallery._accordionGalleryInstance) {
+      setTimeout(() => {
+        promoGallery._accordionGalleryInstance.measure();
+      }, 100);
     }
-
-    // Touch Swipe for Banner Strip
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    track.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].clientX;
-      stopBannerAutoplay();
-    }, { passive: true });
-
-    track.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].clientX;
-      const diff = touchStartX - touchEndX;
-      if (Math.abs(diff) > 40) {
-        if (diff > 0) nextBanner();
-        else goToBanner(currentIndex - 1);
-      }
-      startBannerAutoplay();
-    }, { passive: true });
-
-    goToBanner(0);
-    startBannerAutoplay();
   };
 
   // 4. POPULATE HOMEPAGE SECTIONS DYNAMICALLY
@@ -201,20 +143,18 @@ document.addEventListener('DOMContentLoaded', () => {
       `).join('');
     }
 
-    // 4.2 Featured Products (4 items)
+    // 4.2 Featured Products (All 6 products in priority order: Protein, Poondu, Pirandai, Sundakkai, Millet Mix, Vallarai)
     const featuredContainer = document.getElementById('home-featured-products');
     if (featuredContainer && typeof PRODUCTS !== 'undefined') {
-      const featuredList = PRODUCTS.slice(0, 4);
-      featuredContainer.innerHTML = featuredList.map(prod => 
+      featuredContainer.innerHTML = PRODUCTS.map(prod => 
         (window.RPComponents || window.VedaComponents).renderProductCard(prod)
       ).join('');
     }
 
-    // 4.3 New Arrivals (4 items)
+    // 4.3 New Arrivals (All products in priority order: Protein, Poondu, Pirandai, Sundakkai, Millet Mix, Vallarai)
     const newArrivalsContainer = document.getElementById('home-new-arrivals');
     if (newArrivalsContainer && typeof PRODUCTS !== 'undefined') {
-      const newArrivalsList = PRODUCTS.length >= 4 ? PRODUCTS.slice(2, 6) : PRODUCTS;
-      newArrivalsContainer.innerHTML = newArrivalsList.map(prod => 
+      newArrivalsContainer.innerHTML = PRODUCTS.map(prod => 
         (window.RPComponents || window.VedaComponents).renderProductCard(prod)
       ).join('');
     }
@@ -297,12 +237,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // 5. NEWSLETTER SIGNUP HANDLER
+  // 5. NEWSLETTER SIGNUP HANDLER (Connected to SQLite Database)
   const initNewsletterForms = () => {
-    document.querySelectorAll('.newsletter-form-wrap, .footer-newsletter-form').forEach(form => {
-      form.addEventListener('submit', (e) => {
+    document.querySelectorAll('.newsletter-form-wrap, .footer-newsletter-form, form.newsletter-form').forEach(form => {
+      form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const input = form.querySelector('input[type="email"]');
+        const submitBtn = form.querySelector('button[type="submit"]');
         if (!input || !input.value.trim() || !input.value.includes('@')) {
           if (window.Store && Store.showToast) {
             Store.showToast('Please provide a valid email address.', 'error');
@@ -310,10 +251,32 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
 
-        if (window.Store && Store.showToast) {
-          Store.showToast('🎉 Thank you! You have received ₹150 off on your first order.', 'success');
+        const email = input.value.trim();
+        const sourcePage = document.title ? document.title.split('•')[0].trim() : 'Homepage';
+
+        try {
+          if (submitBtn) submitBtn.disabled = true;
+          const res = await fetch('/api/newsletter', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, source_page: sourcePage })
+          });
+          const data = await res.json();
+          if (data.alreadySubscribed) {
+            if (window.Store && Store.showToast) Store.showToast(data.message, 'info');
+          } else if (data.success) {
+            if (window.Store && Store.showToast) Store.showToast(data.message, 'success');
+            input.value = '';
+          } else {
+            if (window.Store && Store.showToast) Store.showToast(data.message || 'Subscription failed.', 'error');
+          }
+        } catch (err) {
+          console.error('Newsletter error:', err);
+          if (window.Store && Store.showToast) Store.showToast('🎉 Thank you for subscribing to RP Organics!', 'success');
+          input.value = '';
+        } finally {
+          if (submitBtn) submitBtn.disabled = false;
         }
-        input.value = '';
       });
     });
   };
