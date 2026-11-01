@@ -241,16 +241,90 @@
       }
     }
 
-    function onClick(event) {
-      var index = pick(event);
-      if (index < 0) return;
-      var card = bodies[index];
-      if (card && !reduce) card.vs -= 2.2;
-      wake();
-      if (typeof options.onCardClick === 'function') {
-        options.onCardClick(index);
+    function navigateToCard(cardEl, index) {
+      if (!cardEl) return;
+      var href = cardEl.getAttribute('href') || cardEl.dataset.href;
+      var productId = cardEl.dataset.productId;
+
+      if (!href && cardEl.getAttribute('onclick')) {
+        var onclickStr = cardEl.getAttribute('onclick');
+        var matchUrl = onclickStr.match(/['"](product\.html\?[^'"]+)['"]/);
+        if (matchUrl) {
+          href = matchUrl[1];
+        }
+      }
+
+      if (!productId && href) {
+        var matchId = href.match(/id=([^&#]+)/);
+        if (matchId) {
+          productId = matchId[1];
+        }
+      }
+
+      if (!href && productId) {
+        href = 'product.html?id=' + productId;
+      }
+
+      if (productId) {
+        try {
+          sessionStorage.setItem('rp_current_product_id', productId);
+          localStorage.setItem('rp_current_product_id', productId);
+        } catch (e) {}
+      }
+
+      if (href) {
+        window.location.href = href;
       }
     }
+
+    function onClick(event) {
+      var clickedCard = event.target ? (event.target.closest ? event.target.closest('.bounce-cards__card') : null) : null;
+      var index = clickedCard ? cardElements.indexOf(clickedCard) : pick(event);
+      if (index < 0 && !clickedCard) return;
+
+      var targetCard = clickedCard || cardElements[index];
+      if (targetCard) {
+        navigateToCard(targetCard, index);
+      }
+
+      if (typeof options.onCardClick === 'function') {
+        options.onCardClick(index, targetCard);
+      }
+    }
+
+    // Attach direct listeners on each card element for instant navigation
+    cardElements.forEach(function(el, i) {
+      el.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        navigateToCard(el, i);
+      });
+    });
+
+    var touchStartPos = null;
+    root.addEventListener('touchstart', function(e) {
+      if (e.touches && e.touches[0]) {
+        touchStartPos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      }
+    }, { passive: true });
+
+    root.addEventListener('touchend', function(e) {
+      if (!touchStartPos || !e.changedTouches || !e.changedTouches[0]) return;
+      var dx = Math.abs(e.changedTouches[0].clientX - touchStartPos.x);
+      var dy = Math.abs(e.changedTouches[0].clientY - touchStartPos.y);
+      if (dx < 14 && dy < 14) {
+        var targetCard = e.target.closest ? e.target.closest('.bounce-cards__card') : null;
+        var index = targetCard ? cardElements.indexOf(targetCard) : pick({
+          clientX: e.changedTouches[0].clientX,
+          clientY: e.changedTouches[0].clientY
+        });
+        var cardToNav = targetCard || (index >= 0 ? cardElements[index] : null);
+        if (cardToNav) {
+          navigateToCard(cardToNav, index);
+        }
+      }
+      touchStartPos = null;
+    }, { passive: true });
 
     root.addEventListener('pointermove', onMove);
     root.addEventListener('pointerdown', onMove);

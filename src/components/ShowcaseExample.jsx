@@ -86,7 +86,7 @@ export default function ShowcaseExample() {
                 transition: 'all 0.2s ease'
               }}
             >
-              {isBwTheme ? '🎨 Switch to Organic Theme' : '🌓 Switch to Black & White Theme'}
+              {isBwTheme ? '🎨 Switch to Color Theme' : '🌓 Switch to Monochrome'}
             </button>
           </div>
         </div>

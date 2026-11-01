@@ -19,7 +19,7 @@ const parseTransform = value => {
   };
 };
 
-const toCard = item => (typeof item === 'string' ? { src: item, alt: '' } : { src: item?.src, alt: item?.alt ?? '' });
+const toCard = item => (typeof item === 'string' ? { src: item, alt: '' } : { src: item?.src, alt: item?.alt ?? '', href: item?.href, productId: item?.productId });
 
 export default function BounceCards({
   images = [],
@@ -300,19 +300,44 @@ export default function BounceCards({
         ...style
       }}
     >
-      {cards.map((card, i) => (
-        <div
-          key={i}
-          ref={el => {
-            cardRefs.current[i] = el;
-          }}
-          className={`bounce-cards__card${settings.clickable ? ' bounce-cards__card--clickable' : ''}`}
-          style={{ zIndex: i + 1 }}
-          {...(settings.clickable ? { role: 'button', tabIndex: 0, 'aria-label': card.alt || `Card ${i + 1}` } : null)}
-        >
-          {card.src && <img src={card.src} alt={card.alt} draggable={false} />}
-        </div>
-      ))}
+      {cards.map((card, i) => {
+        const Comp = card.href ? 'a' : 'div';
+        const linkProps = card.href
+          ? {
+              href: card.href,
+              onClick: e => {
+                if (card.productId) {
+                  try {
+                    sessionStorage.setItem('rp_current_product_id', card.productId);
+                    localStorage.setItem('rp_current_product_id', card.productId);
+                  } catch (err) {}
+                }
+                onCardClick?.(i, card);
+              }
+            }
+          : settings.clickable
+          ? {
+              role: 'button',
+              tabIndex: 0,
+              'aria-label': card.alt || `Card ${i + 1}`,
+              onClick: () => onCardClick?.(i, card)
+            }
+          : null;
+
+        return (
+          <Comp
+            key={i}
+            ref={el => {
+              cardRefs.current[i] = el;
+            }}
+            className={`bounce-cards__card${settings.clickable || card.href ? ' bounce-cards__card--clickable' : ''}`}
+            style={{ zIndex: i + 1 }}
+            {...linkProps}
+          >
+            {card.src && <img src={card.src} alt={card.alt} draggable={false} />}
+          </Comp>
+        );
+      })}
     </div>
   );
 }

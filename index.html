@@ -10,16 +10,15 @@
 
   <link rel="icon" type="image/png" href="assets/images/rp-organics-logo.png" />
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="assets/css/main.css" />
-  <link rel="stylesheet" href="assets/css/header-footer.css" />
-  <link rel="stylesheet" href="assets/css/product-card.css" />
-  <link rel="stylesheet" href="assets/css/cart-drawer.css" />
-  <link rel="stylesheet" href="assets/css/pages.css" />
-  <link rel="stylesheet" href="assets/css/specular-button.css" />
-  <link rel="stylesheet" href="assets/css/bounce-cards.css" />
-  <link rel="stylesheet" href="assets/css/antigravity.css" />
-  <link rel="stylesheet" href="assets/css/gooey-nav.css" />
-  <link rel="stylesheet" href="assets/css/accordion-gallery.css" />
+  <link rel="stylesheet" href="assets/css/main.css?v=20261101_v4" />
+  <link rel="stylesheet" href="assets/css/header-footer.css?v=20261101_v4" />
+  <link rel="stylesheet" href="assets/css/product-card.css?v=20261101_v4" />
+  <link rel="stylesheet" href="assets/css/cart-drawer.css?v=20261101_v4" />
+  <link rel="stylesheet" href="assets/css/pages.css?v=20261101_v4" />
+  <link rel="stylesheet" href="assets/css/specular-button.css?v=20261101_v4" />
+  <link rel="stylesheet" href="assets/css/bounce-cards.css?v=20261101_v4" />
+  <link rel="stylesheet" href="assets/css/gooey-nav.css?v=20261101_v4" />
+  <link rel="stylesheet" href="assets/css/accordion-gallery.css?v=20261101_v4" />
 </head>
 
 <body>
@@ -216,29 +215,23 @@
       </div>
     </nav>
 
-    <!-- Mobile Header Bar -->
+    <!-- Mobile Header Bar (Mutually exclusive with desktop header) -->
     <div class="mobile-header-bar">
-      <button class="hamburger-btn" aria-label="Open Navigation Menu">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <button class="hamburger-btn" aria-label="Open Navigation Menu" type="button">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
           <line x1="3" y1="12" x2="21" y2="12"></line>
           <line x1="3" y1="6" x2="21" y2="6"></line>
           <line x1="3" y1="18" x2="21" y2="18"></line>
         </svg>
       </button>
 
-      <a href="index.html" class="brand-logo" aria-label="RP Organics Home">
+      <a href="index.html" class="mobile-brand-logo" aria-label="RP Organics Home">
         <img src="assets/images/rp-organics-logo.png" alt="RP Organics logo" class="mobile-brand-logo-img" />
       </a>
 
       <div class="mobile-header-actions">
-        <a href="search.html" class="mobile-header-action-btn" aria-label="Search">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-        </a>
-        <a href="cart.html" class="mobile-header-action-btn trigger-cart-drawer" aria-label="Cart">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <a href="cart.html" class="mobile-header-action-btn trigger-cart-drawer" aria-label="WhatsApp Order List">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-2z"></path>
             <line x1="3" y1="6" x2="21" y2="6"></line>
             <path d="M16 10a4 4 0 0 1-8 0"></path>
@@ -247,53 +240,100 @@
         </a>
       </div>
     </div>
+
+    <!-- Below Main Row: Full-Width Search Field within Page Gutters -->
+    <div class="mobile-search-row">
+      <form action="search.html" method="GET" class="mobile-search-form" role="search">
+        <div class="mobile-search-input-wrap">
+          <span class="mobile-search-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </span>
+          <input type="search" name="q" class="mobile-search-input" placeholder="Search spices, podis, health mix..." autocomplete="off" aria-label="Search products" />
+          <button type="submit" class="mobile-search-btn" aria-label="Submit search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+      </form>
+    </div>
   </header>
 
-  <!-- Mobile Slide-In Navigation Drawer -->
-  <div class="mobile-drawer-overlay"></div>
-  <aside class="mobile-nav-drawer" aria-label="Mobile Navigation Drawer">
+  <!-- Mobile Slide-In Navigation Drawer & Backdrop -->
+  <div class="mobile-drawer-overlay" aria-hidden="true"></div>
+  <aside class="mobile-nav-drawer" aria-label="Mobile Navigation Drawer" aria-hidden="true">
     <div class="mobile-drawer-header">
-      <div class="brand-logo">
-        <img src="assets/images/rp-organics-logo.png" alt="RP Organics logo" style="height: 38px; width: auto;" />
-        <span class="brand-title" style="font-size: 1.15rem;">RP Organics</span>
-      </div>
-      <button class="mobile-drawer-close" aria-label="Close menu">&times;</button>
+      <a href="index.html" class="brand-logo" aria-label="RP Organics Home">
+        <img src="assets/images/rp-organics-logo.png" alt="RP Organics logo" style="height: 38px; width: auto; object-fit: contain;" />
+        <span class="brand-title" style="font-size: 1.15rem; color: var(--color-primary); font-weight: 800;">RP Organics</span>
+      </a>
+      <button class="mobile-drawer-close" aria-label="Close menu" type="button">&times;</button>
     </div>
 
     <div class="mobile-drawer-body">
-      <div class="mobile-nav-links">
-        <a href="index.html" class="mobile-nav-link">Home</a>
-        <a href="shop.html" class="mobile-nav-link">Shop All Products</a>
+      <nav class="mobile-nav-links" aria-label="Mobile Navigation Links">
+        <a href="index.html" class="mobile-nav-link">
+          <span>Home</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </a>
+        <a href="shop.html" class="mobile-nav-link">
+          <span>Shop All Products</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </a>
 
-        <div>
-          <a href="javascript:void(0)" class="mobile-nav-link"
-            onclick="document.querySelector('.mobile-categories-accordion').classList.toggle('open')">
-            Categories <span>+</span>
-          </a>
-          <div class="mobile-categories-accordion">
-            <a href="shop.html?category=spices" class="mobile-sub-link">Organic Spices &amp; Herbal Podis (From ₹60)</a>
-            <a href="product.html?id=pro-01" class="mobile-sub-link">Protein Health Mix (12g Veg Protein)</a>
-            <a href="product.html?id=mil-powder-01" class="mobile-sub-link">100% Millet Mix (Instant Rice-Free Dosa)</a>
+        <!-- Categories Accordion (Only expands upon tapping) -->
+        <div class="mobile-drawer-accordion-wrap">
+          <button type="button" class="mobile-nav-link mobile-categories-toggle" aria-expanded="false" style="width: 100%; border: none; background: none; text-align: left; cursor: pointer;">
+            <span>Categories</span>
+            <span class="accordion-chevron" aria-hidden="true">+</span>
+          </button>
+          <div class="mobile-categories-accordion" style="display: none;">
+            <a href="shop.html?category=spices" class="mobile-sub-link">🌱 Organic Spices &amp; Herbal Podis (From ₹60)</a>
+            <a href="product.html?id=pro-01" class="mobile-sub-link">⚡ Protein Health Mix (12g Veg Protein)</a>
+            <a href="product.html?id=mil-powder-01" class="mobile-sub-link">🌾 100% Millet Mix (Instant Rice-Free Dosa)</a>
           </div>
         </div>
 
-        <a href="https://maps.app.goo.gl/3Ba8wCBjjAUvrJXu5?g_st=aw" target="_blank" rel="noopener noreferrer" class="mobile-nav-link">📍 RP Organics store location</a>
-        <a href="contact.html" class="mobile-nav-link">Contact &amp; Store</a>
-        <a href="account.html" class="mobile-nav-link">My Account / Order Tracker</a>
-        <a href="wishlist.html" class="mobile-nav-link">My Saved Wishlist</a>
-      </div>
+        <a href="https://maps.app.goo.gl/3Ba8wCBjjAUvrJXu5?g_st=aw" target="_blank" rel="noopener noreferrer" class="mobile-nav-link">
+          <span>📍 RP Organics store location</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        </a>
+        <a href="about.html" class="mobile-nav-link">
+          <span>About Us</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </a>
+        <a href="contact.html" class="mobile-nav-link">
+          <span>Contact &amp; Offline Store</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </a>
+        <a href="wishlist.html" class="mobile-nav-link">
+          <span>❤️ Saved Wishlist</span>
+          <span class="badge-count wishlist-count-badge" style="display: none;">0</span>
+        </a>
+        <a href="cart.html" class="mobile-nav-link trigger-cart-drawer">
+          <span>💬 WhatsApp Order List</span>
+          <span class="badge-count cart-count-badge" style="display: none;">0</span>
+        </a>
+      </nav>
 
-      <div style="margin-top: 20px; padding: 14px; background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px;">
-        <strong style="color: #166534; font-size: 0.85rem; display: block;">FSSAI REGISTERED</strong>
-        <span style="font-size: 0.8rem; color: #14532d;">FSSAI Lic No: 22426431000125</span>
+      <!-- FSSAI License Trust Badge inside Drawer -->
+      <div style="margin-top: 24px; padding: 14px; background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 10px;">
+        <strong style="color: #166534; font-size: 0.85rem; display: block; margin-bottom: 2px;">FSSAI REGISTERED</strong>
+        <span style="font-size: 0.82rem; color: #14532d; font-weight: 700;">Lic: 22426431000125</span>
+        <span style="display: block; font-size: 0.76rem; color: #4b5563; margin-top: 4px;">Owner: Rani Pavunrasu</span>
       </div>
     </div>
 
     <div class="mobile-drawer-footer">
-      <a href="tel:9150300641" style="font-size: 0.9rem; color: var(--color-primary); font-weight: 700;">📞
-        Call/WhatsApp: 9150300641</a>
-      <a href="mailto:benseethalrani@gmail.com" style="font-size: 0.85rem; color: var(--color-text-muted);">✉️
-        benseethalrani@gmail.com</a>
+      <a href="https://wa.me/919150300641" target="_blank" rel="noopener noreferrer" style="font-size: 0.88rem; color: #15803d; font-weight: 700; display: flex; align-items: center; gap: 6px;">
+        <span>💬 Order on WhatsApp: 9150300641</span>
+      </a>
+      <a href="mailto:benseethalrani@gmail.com" style="font-size: 0.82rem; color: #6b7280;">
+        ✉️ benseethalrani@gmail.com
+      </a>
     </div>
   </aside>
 
@@ -301,16 +341,6 @@
   <main>
     <!-- 1. HERO SLIDE CAROUSEL -->
     <section class="hero-carousel-wrap" aria-label="RP Organics Featured Carousel">
-      <!-- Antigravity WebGL2 Particle Simulation Backdrop -->
-      <div class="hero-antigravity-bg antigravity" id="hero-antigravity" aria-hidden="true"></div>
-
-      <!-- Theme Switcher: Organic Palette <-> Black & White -->
-      <div class="hero-theme-toggle-wrap">
-        <button class="hero-theme-toggle-btn" id="antigravity-theme-toggle" type="button" aria-pressed="false" aria-label="Toggle Black and White particle theme" title="Toggle particle colors between Organic and Black & White">
-          <span class="theme-icon" id="theme-toggle-icon">🌿</span>
-          <span class="theme-label" id="theme-toggle-text">Organic Theme</span>
-        </button>
-      </div>
 
       <div class="hero-carousel-track">
         <!-- Slide 1: Protein Health Mix -->
@@ -351,21 +381,26 @@
                 style="position: relative; display: flex; flex-direction: column; align-items: center;">
                 <div class="bounce-cards" data-spread="95" data-rotation="9" data-arc="0" data-card-size="410"
                   data-radius="32" data-bounciness="0.65" data-push-distance="190" data-hover-scale="1.08"
-                  data-animation-delay="0.1" data-animation-stagger="0.06"
+                  data-animation-delay="0.1" data-animation-stagger="0.06" data-clickable="true"
                   style="width: 640px; height: 480px; max-width: 100%; --bounce-cards-size: 410px; --bounce-cards-radius: 32px; --bounce-cards-border: 6px;">
-                  <div class="bounce-cards__card bounce-cards__card--clickable"
-                    title="Protein Health Mix (12g Veg Protein)"
-                    onclick="window.location.href='product.html?id=pro-01'">
+                  <a href="product.html?id=pro-01" data-product-id="pro-01" data-href="product.html?id=pro-01"
+                    class="bounce-cards__card bounce-cards__card--clickable"
+                    title="RP Organics Protein Health Mix (புரதச்சத்து மாவு)"
+                    onclick="try{sessionStorage.setItem('rp_current_product_id','pro-01');localStorage.setItem('rp_current_product_id','pro-01');}catch(e){}">
                     <img src="assets/images/products/protein-health-mix-1.jpg" alt="RP Organics Protein Health Mix" />
-                  </div>
-                  <div class="bounce-cards__card bounce-cards__card--clickable" title="38+ Wholesome Ingredients Detail"
-                    onclick="window.location.href='product.html?id=pro-01'">
-                    <img src="assets/images/products/protein-health-mix-2.jpg" alt="Health Mix Ingredients" />
-                  </div>
-                  <div class="bounce-cards__card bounce-cards__card--clickable" title="Traditional Formulation"
-                    onclick="window.location.href='product.html?id=pro-01'">
+                  </a>
+                  <a href="product.html?id=pro-01" data-product-id="pro-01" data-href="product.html?id=pro-01"
+                    class="bounce-cards__card bounce-cards__card--clickable"
+                    title="Made of 38+ Healthy Items (12g Veg Protein)"
+                    onclick="try{sessionStorage.setItem('rp_current_product_id','pro-01');localStorage.setItem('rp_current_product_id','pro-01');}catch(e){}">
+                    <img src="assets/images/products/protein-health-mix-2.jpg" alt="Health Mix 38+ Healthy Items" />
+                  </a>
+                  <a href="product.html?id=pro-01" data-product-id="pro-01" data-href="product.html?id=pro-01"
+                    class="bounce-cards__card bounce-cards__card--clickable"
+                    title="Traditional Formulation 250g Pack"
+                    onclick="try{sessionStorage.setItem('rp_current_product_id','pro-01');localStorage.setItem('rp_current_product_id','pro-01');}catch(e){}">
                     <img src="assets/images/products/protein-health-mix-3.jpg" alt="Health Mix Pack View" />
-                  </div>
+                  </a>
                 </div>
                 <span class="hero-badge-floating"
                   style="margin-top: 24px; position: static; font-size: 0.95rem; padding: 8px 22px; font-weight: 800;">✓
@@ -413,20 +448,26 @@
                 style="position: relative; display: flex; flex-direction: column; align-items: center;">
                 <div class="bounce-cards" data-spread="95" data-rotation="9" data-arc="0" data-card-size="410"
                   data-radius="32" data-bounciness="0.65" data-push-distance="190" data-hover-scale="1.08"
-                  data-animation-delay="0.1" data-animation-stagger="0.06"
+                  data-animation-delay="0.1" data-animation-stagger="0.06" data-clickable="true"
                   style="width: 640px; height: 480px; max-width: 100%; --bounce-cards-size: 410px; --bounce-cards-radius: 32px; --bounce-cards-border: 6px;">
-                  <div class="bounce-cards__card bounce-cards__card--clickable" title="Traditional Poondu Podi"
-                    onclick="window.location.href='product.html?id=spc-poondu'">
+                  <a href="product.html?id=spc-poondu" data-product-id="spc-poondu" data-href="product.html?id=spc-poondu"
+                    class="bounce-cards__card bounce-cards__card--clickable"
+                    title="Traditional Poondu Podi (பூண்டு பொடி)"
+                    onclick="try{sessionStorage.setItem('rp_current_product_id','spc-poondu');localStorage.setItem('rp_current_product_id','spc-poondu');}catch(e){}">
                     <img src="assets/images/products/poondu-podi-1.jpg" alt="RP Organics Poondu Podi" />
-                  </div>
-                  <div class="bounce-cards__card bounce-cards__card--clickable" title="Pirandai Podi"
-                    onclick="window.location.href='product.html?id=spc-pirandai'">
-                    <img src="assets/images/products/pirandai-podi-1.jpg" alt="Pirandai Podi" />
-                  </div>
-                  <div class="bounce-cards__card bounce-cards__card--clickable" title="Sundakkai Podi"
-                    onclick="window.location.href='product.html?id=spc-sundakkai'">
-                    <img src="assets/images/products/sundakkai-podi-1.jpg" alt="Sundakkai Podi" />
-                  </div>
+                  </a>
+                  <a href="product.html?id=spc-pirandai" data-product-id="spc-pirandai" data-href="product.html?id=spc-pirandai"
+                    class="bounce-cards__card bounce-cards__card--clickable"
+                    title="Traditional Pirandai Podi (பிரண்டை பொடி)"
+                    onclick="try{sessionStorage.setItem('rp_current_product_id','spc-pirandai');localStorage.setItem('rp_current_product_id','spc-pirandai');}catch(e){}">
+                    <img src="assets/images/products/pirandai-podi-1.jpg" alt="RP Organics Pirandai Podi" />
+                  </a>
+                  <a href="product.html?id=spc-sundakkai" data-product-id="spc-sundakkai" data-href="product.html?id=spc-sundakkai"
+                    class="bounce-cards__card bounce-cards__card--clickable"
+                    title="Traditional Sundakkai Podi (சுண்டைக்காய் பொடி)"
+                    onclick="try{sessionStorage.setItem('rp_current_product_id','spc-sundakkai');localStorage.setItem('rp_current_product_id','spc-sundakkai');}catch(e){}">
+                    <img src="assets/images/products/sundakkai-podi-1.jpg" alt="RP Organics Sundakkai Podi" />
+                  </a>
                 </div>
                 <span class="hero-badge-floating"
                   style="margin-top: 24px; position: static; font-size: 0.95rem; padding: 8px 22px; font-weight: 800;">✓
@@ -474,20 +515,26 @@
                 style="position: relative; display: flex; flex-direction: column; align-items: center;">
                 <div class="bounce-cards" data-spread="95" data-rotation="9" data-arc="0" data-card-size="410"
                   data-radius="32" data-bounciness="0.65" data-push-distance="190" data-hover-scale="1.08"
-                  data-animation-delay="0.1" data-animation-stagger="0.06"
+                  data-animation-delay="0.1" data-animation-stagger="0.06" data-clickable="true"
                   style="width: 640px; height: 480px; max-width: 100%; --bounce-cards-size: 410px; --bounce-cards-radius: 32px; --bounce-cards-border: 6px;">
-                  <div class="bounce-cards__card bounce-cards__card--clickable" title="100% Millet Mix"
-                    onclick="window.location.href='product.html?id=mil-powder-01'">
+                  <a href="product.html?id=mil-powder-01" data-product-id="mil-powder-01" data-href="product.html?id=mil-powder-01"
+                    class="bounce-cards__card bounce-cards__card--clickable"
+                    title="100% Millet Mix (சிறுதானிய மாவு கலவை)"
+                    onclick="try{sessionStorage.setItem('rp_current_product_id','mil-powder-01');localStorage.setItem('rp_current_product_id','mil-powder-01');}catch(e){}">
                     <img src="assets/images/products/millet-mix-1.jpg" alt="RP Organics Millet Mix" />
-                  </div>
-                  <div class="bounce-cards__card bounce-cards__card--clickable" title="Crispy Dosa Prep"
-                    onclick="window.location.href='product.html?id=mil-powder-01'">
+                  </a>
+                  <a href="product.html?id=mil-powder-01" data-product-id="mil-powder-01" data-href="product.html?id=mil-powder-01"
+                    class="bounce-cards__card bounce-cards__card--clickable"
+                    title="Crispy Dosa Prep (No Rice, Instant Batter)"
+                    onclick="try{sessionStorage.setItem('rp_current_product_id','mil-powder-01');localStorage.setItem('rp_current_product_id','mil-powder-01');}catch(e){}">
                     <img src="assets/images/products/millet-mix-2.jpg" alt="Crispy Dosa Prep" />
-                  </div>
-                  <div class="bounce-cards__card bounce-cards__card--clickable" title="Nutritional Millets"
-                    onclick="window.location.href='product.html?id=mil-powder-01'">
+                  </a>
+                  <a href="product.html?id=mil-powder-01" data-product-id="mil-powder-01" data-href="product.html?id=mil-powder-01"
+                    class="bounce-cards__card bounce-cards__card--clickable"
+                    title="Nutritional Millets (Foxtail, Kodo, Barnyard)"
+                    onclick="try{sessionStorage.setItem('rp_current_product_id','mil-powder-01');localStorage.setItem('rp_current_product_id','mil-powder-01');}catch(e){}">
                     <img src="assets/images/products/millet-mix-3.jpg" alt="Nutritional Millets" />
-                  </div>
+                  </a>
                 </div>
                 <span class="hero-badge-floating"
                   style="margin-top: 24px; position: static; font-size: 0.95rem; padding: 8px 22px; font-weight: 800;">✓
@@ -585,7 +632,7 @@
                 data-overlay-color="#052e16"
                 data-text-color="#ffffff"
                 style="height: 390px;">
-                <a class="ag-panel" href="product.html?id=spc-poondu" aria-label="Poondu Podi">
+                <a class="ag-panel" href="product.html?id=spc-poondu" aria-label="Poondu Podi" onclick="try{sessionStorage.setItem('rp_current_product_id','spc-poondu');localStorage.setItem('rp_current_product_id','spc-poondu');}catch(e){}">
                   <span class="ag-panel__frame">
                     <span class="ag-panel__media">
                       <img src="assets/images/products/poondu-podi-flyer.jpg" alt="Poondu Podi" draggable="false" />
@@ -596,9 +643,10 @@
                   <span class="ag-panel__label" aria-hidden="true">
                     <span class="ag-panel__bar"></span>
                     <span class="ag-panel__text">Poondu Podi</span>
+                    <span class="ag-panel__cta">View Product &rarr;</span>
                   </span>
                 </a>
-                <a class="ag-panel" href="product.html?id=spc-sundakkai" aria-label="Sundakkai Podi">
+                <a class="ag-panel" href="product.html?id=spc-sundakkai" aria-label="Sundakkai Podi" onclick="try{sessionStorage.setItem('rp_current_product_id','spc-sundakkai');localStorage.setItem('rp_current_product_id','spc-sundakkai');}catch(e){}">
                   <span class="ag-panel__frame">
                     <span class="ag-panel__media">
                       <img src="assets/images/products/sundakkai-podi-flyer.jpg" alt="Sundakkai Podi" draggable="false" />
@@ -609,9 +657,10 @@
                   <span class="ag-panel__label" aria-hidden="true">
                     <span class="ag-panel__bar"></span>
                     <span class="ag-panel__text">Sundakkai Podi</span>
+                    <span class="ag-panel__cta">View Product &rarr;</span>
                   </span>
                 </a>
-                <a class="ag-panel" href="product.html?id=spc-pirandai" aria-label="Pirandai Podi">
+                <a class="ag-panel" href="product.html?id=spc-pirandai" aria-label="Pirandai Podi" onclick="try{sessionStorage.setItem('rp_current_product_id','spc-pirandai');localStorage.setItem('rp_current_product_id','spc-pirandai');}catch(e){}">
                   <span class="ag-panel__frame">
                     <span class="ag-panel__media">
                       <img src="assets/images/products/pirandai-podi-flyer.jpg" alt="Pirandai Podi" draggable="false" />
@@ -622,9 +671,10 @@
                   <span class="ag-panel__label" aria-hidden="true">
                     <span class="ag-panel__bar"></span>
                     <span class="ag-panel__text">Pirandai Podi</span>
+                    <span class="ag-panel__cta">View Product &rarr;</span>
                   </span>
                 </a>
-                <a class="ag-panel" href="product.html?id=pro-01" aria-label="Protein Health Mix">
+                <a class="ag-panel" href="product.html?id=pro-01" aria-label="Protein Health Mix" onclick="try{sessionStorage.setItem('rp_current_product_id','pro-01');localStorage.setItem('rp_current_product_id','pro-01');}catch(e){}">
                   <span class="ag-panel__frame">
                     <span class="ag-panel__media">
                       <img src="assets/images/products/protein-health-mix-flyer.jpg" alt="Protein Health Mix" draggable="false" />
@@ -635,6 +685,7 @@
                   <span class="ag-panel__label" aria-hidden="true">
                     <span class="ag-panel__bar"></span>
                     <span class="ag-panel__text">Protein Health Mix</span>
+                    <span class="ag-panel__cta">View Product &rarr;</span>
                   </span>
                 </a>
               </div>
@@ -795,7 +846,9 @@
         <div class="section-header">
           <span class="sub-badge">📍 Visit Us In Person &bull; Offline Shop</span>
           <h2>RP Organics Store Location</h2>
-          <p>Visit our offline shop to view products, sample traditional cold-pressed herbal powders &amp; health mixes, and buy freshly packed batches in person.</p>
+          <p style="font-size: 1.15rem; font-weight: 700; color: #15803d; max-width: 680px; margin: 8px auto 0;">
+            Visit our store for buying products offline! Available on store timings: Monday &ndash; Saturday from 9:00 AM to 7:00 PM IST.
+          </p>
         </div>
         <div class="map-card-wrapper" style="max-width: 820px; margin: 0 auto; background: #ffffff; border: 2px solid #86efac; border-radius: 24px; box-shadow: 0 10px 35px rgba(21, 128, 61, 0.1); overflow: hidden;">
           <!-- Interactive Google Maps Frame -->
@@ -813,22 +866,40 @@
           </div>
 
           <!-- Offline Shop Address & Action Details -->
-          <div style="padding: 32px 28px; text-align: center; background: linear-gradient(180deg, #ffffff 0%, #f9fbf9 100%);">
-            <div style="display: inline-flex; align-items: center; gap: 8px; background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; font-size: 0.82rem; font-weight: 800; padding: 5px 14px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 12px;">
-              <span>🏪 Offline Shop Address &bull; Hosur</span>
+          <div style="padding: 32px 24px; text-align: center; background: linear-gradient(180deg, #ffffff 0%, #f9fbf9 100%);">
+            
+            <!-- High-Visibility Bigger Text Banner -->
+            <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 2.5px solid #16a34a; border-radius: 20px; padding: 24px 20px; margin-bottom: 24px; box-shadow: 0 8px 24px rgba(22, 163, 74, 0.16); text-align: center;">
+              <div style="display: inline-flex; align-items: center; gap: 8px; background: #15803d; color: #ffffff; font-size: 0.85rem; font-weight: 800; padding: 6px 16px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(21, 128, 61, 0.25);">
+                <span>🏪 Offline Store Purchase Available</span>
+              </div>
+
+              <h3 style="font-size: 1.65rem; color: #14532d; font-weight: 800; line-height: 1.35; margin-bottom: 10px;">
+                Visit the Store for Buying Products Offline!
+              </h3>
+
+              <p style="font-size: 1.12rem; color: #166534; font-weight: 600; line-height: 1.55; max-width: 660px; margin: 0 auto 16px;">
+                Walk into our physical shop to view, sample, and purchase 100% pure herbal podis (Poondu, Pirandai, Sundakkai, Vallarai), fresh protein health mix, and millet powders directly from our mill counter.
+              </p>
+
+              <!-- Prominent Large Timings Box -->
+              <div style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: #ffffff; border: 2px solid #86efac; color: #14532d; padding: 12px 24px; border-radius: 14px; font-weight: 800; font-size: 1.15rem; box-shadow: 0 4px 14px rgba(0,0,0,0.06); flex-wrap: wrap;">
+                <span>🕒 Store Operating Timings:</span>
+                <span style="color: #15803d; font-size: 1.25rem;">Monday &ndash; Saturday: 9:00 AM &ndash; 7:00 PM IST</span>
+              </div>
             </div>
 
-            <h3 style="font-size: 1.45rem; color: #14532d; font-weight: 800; margin-bottom: 8px;">
-              RP Organics
-            </h3>
+            <div style="display: inline-flex; align-items: center; gap: 8px; background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; font-size: 0.82rem; font-weight: 800; padding: 5px 14px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 8px;">
+              <span>📍 Physical Store Address</span>
+            </div>
 
-            <p style="font-size: 1.05rem; color: #1e293b; font-weight: 600; line-height: 1.5; margin-bottom: 8px;">
+            <h4 style="font-size: 1.35rem; color: #14532d; font-weight: 800; margin-bottom: 6px;">
+              RP Organics
+            </h4>
+
+            <p style="font-size: 1.05rem; color: #1e293b; font-weight: 600; line-height: 1.5; margin-bottom: 20px;">
               Nagesh Gowda, Vishnu Street, Podhigai Nagar Main St,<br />
               Hosur, Tamil Nadu 635126, India
-            </p>
-
-            <p style="font-size: 0.92rem; color: #475569; max-width: 580px; margin: 0 auto 20px; line-height: 1.5;">
-              <strong>View Products Offline:</strong> Visit our store counter to explore, smell, and purchase authentic Poondu Podi, Pirandai Podi, Sundakkai Podi, and Protein Health Mix straight from our mill.
             </p>
 
             <div style="display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap;">
@@ -841,10 +912,6 @@
               <a href="https://wa.me/919150300641?text=Hello%20RP%20Organics!%20I%20would%20like%20to%20visit%20your%20offline%20shop%20in%20Hosur." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp-order" style="padding: 12px 20px; font-size: 0.95rem; text-decoration: none;">
                 💬 WhatsApp Store
               </a>
-            </div>
-
-            <div style="margin-top: 22px; font-size: 0.84rem; color: #15803d; font-weight: 700; background: #f0fdf4; display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 20px; border: 1px solid #bbf7d0;">
-              ✨ Open Monday &ndash; Sunday &bull; 9:00 AM &ndash; 8:00 PM IST
             </div>
           </div>
         </div>
@@ -967,6 +1034,7 @@
           <p><strong>Phone:</strong> 9150300641</p>
           <p><strong>WhatsApp:</strong> 9150300641</p>
           <p><strong>Offline Shop:</strong> Nagesh Gowda, Vishnu St, Podhigai Nagar Main St, Hosur, TN 635126</p>
+          <p><strong>Store Timings:</strong> Mon &ndash; Sat: 9:00 AM &ndash; 7:00 PM IST</p>
           <p><strong>Email:</strong> benseethalrani@gmail.com</p>
           <p><strong>Website:</strong> www.rporganics.com</p>
           <p style="margin-top: 10px; font-size: 0.8rem; color: #a3b0a6;">Country of Origin: India</p>
@@ -1040,7 +1108,6 @@
   <!-- React Bits Components (Vanilla JS + WebGL2 Runtime) -->
   <script src="assets/js/specular-button.js"></script>
   <script src="assets/js/bounce-cards.js"></script>
-  <script src="assets/js/antigravity.js"></script>
   <script src="assets/js/gooey-nav.js"></script>
   <script src="assets/js/vendor/gsap.min.js"></script>
   <script src="assets/js/accordion-gallery.js"></script>

@@ -82,3 +82,11 @@
   align-items: center;
   gap: inherit;
 }
+
+@media (max-width: 640px) {
+  .specular-button--lg {
+    padding: 14px 24px;
+    font-size: 0.95rem;
+    min-height: 48px;
+  }
+}

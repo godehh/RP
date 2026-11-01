@@ -638,12 +638,6 @@
               </div>
               <div id="pincode-result" class="pincode-result-msg"></div>
             </div>
-              <div class="pincode-input-row" style="display: flex; gap: 10px;">
-                <input type="tel" inputmode="numeric" id="pincode-input" placeholder="Enter 6-digit Pincode (e.g. 600001)" maxlength="6" style="flex: 1; padding: 10px 14px; border: 1.5px solid var(--color-border); border-radius: var(--radius-sm); font-size: 0.92rem;" />
-                <button class="btn btn-outline btn-sm" onclick="RPProductPage.checkPincode()" style="font-weight: 700; padding: 0 18px;">Check</button>
-              </div>
-              <div id="pincode-result" class="pincode-result-msg"></div>
-            </div>
 
             <!-- Official FSSAI & Support Trust Badge Strip -->
             <div class="pdp-fssai-badge" style="background: #ffffff; border: 1.5px solid #22c55e; border-radius: 12px; padding: 16px 20px; display: flex; align-items: center; gap: 18px; margin: 20px 0; box-shadow: 0 4px 14px rgba(34, 197, 94, 0.1);">
@@ -832,6 +826,32 @@
       if (relatedGrid && comp && comp.renderProductCard) {
         const related = products.filter(p => p.id !== product.id).slice(0, 4);
         relatedGrid.innerHTML = related.map(p => comp.renderProductCard(p)).join('');
+      }
+
+      // Sticky Mobile Purchase Bar: Show when scrolled past main product CTA
+      const stickyBar = document.getElementById('sticky-pdp-bar');
+      if (stickyBar) {
+        const updateStickyBar = () => {
+          const ctaRow = document.querySelector('.product-cta-row');
+          if (ctaRow) {
+            const rect = ctaRow.getBoundingClientRect();
+            if (rect.bottom < 80 || window.scrollY > 380) {
+              stickyBar.classList.add('is-visible');
+              document.body.classList.add('has-sticky-bar');
+            } else {
+              stickyBar.classList.remove('is-visible');
+              document.body.classList.remove('has-sticky-bar');
+            }
+          } else if (window.scrollY > 300) {
+            stickyBar.classList.add('is-visible');
+            document.body.classList.add('has-sticky-bar');
+          } else {
+            stickyBar.classList.remove('is-visible');
+            document.body.classList.remove('has-sticky-bar');
+          }
+        };
+        window.addEventListener('scroll', updateStickyBar, { passive: true });
+        updateStickyBar();
       }
 
       // Initialize Desktop Zoom Magnifier

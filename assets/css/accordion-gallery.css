@@ -163,6 +163,25 @@
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 
+.ag-panel__cta {
+  display: none;
+  align-items: center;
+  gap: 4px;
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  margin-left: 6px;
+  white-space: nowrap;
+}
+
+.ag-panel.ag-panel--active .ag-panel__cta {
+  display: inline-flex;
+}
+
 .ag-panel__badge {
   position: absolute;
   top: 10px;
@@ -191,25 +210,65 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .accordion-gallery {
     flex-direction: column;
-    perspective: none;
+    perspective: none !important;
     height: auto !important;
-    gap: 8px;
+    gap: 10px;
+    touch-action: manipulation;
   }
   .ag-panel {
-    min-height: 80px;
-    height: 80px;
+    min-height: 72px;
+    height: 72px;
     transform: none !important;
+    transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
   }
   .ag-panel.ag-panel--active {
-    min-height: 330px;
-    height: 330px;
+    min-height: 340px;
+    height: 340px;
   }
   .accordion-gallery .ag-panel__media {
-    width: 100%;
-    height: 100%;
+    width: 100% !important;
+    height: 100% !important;
+    transform: translate(-50%, -50%) !important;
+  }
+  .accordion-gallery .ag-panel__media img {
+    object-fit: cover;
+  }
+  .accordion-gallery .ag-panel.ag-panel--active .ag-panel__media img {
+    object-fit: contain !important;
+  }
+  /* On mobile, labels and badges are always cleanly readable */
+  .ag-panel__label {
+    opacity: 1 !important;
+    left: 12px;
+    bottom: 12px;
+    padding: 5px 12px;
+  }
+  .ag-panel__bar {
+    opacity: 1 !important;
+  }
+  .ag-panel__text {
+    opacity: 1 !important;
+    font-size: 0.85rem;
+    max-width: 180px;
+  }
+  .ag-panel__badge {
+    opacity: 1 !important;
+    top: 10px;
+    right: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ag-panel.ag-panel--active {
+    min-height: 300px;
+    height: 300px;
+  }
+  .ag-panel {
+    min-height: 64px;
+    height: 64px;
   }
 }
 

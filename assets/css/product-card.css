@@ -44,8 +44,10 @@
 .product-card-media img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease, opacity 0.4s ease;
+  object-fit: contain;
+  padding: 8px;
+  box-sizing: border-box;
+  transition: transform 0.4s ease, opacity 0.3s ease;
 }
 
 .product-img-primary {
@@ -462,6 +464,7 @@
   border: 1.5px solid var(--color-border);
   border-radius: var(--radius-md);
   overflow: hidden;
+  background-color: #ffffff;
 }
 
 .qty-btn {
@@ -472,8 +475,17 @@
   justify-content: center;
   background-color: var(--color-surface-subtle);
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   color: var(--color-text-main);
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.qty-btn:active {
+  background-color: #e2e8f0;
 }
 
 .qty-input {
@@ -499,13 +511,14 @@
     gap: 12px;
   }
   .product-card-content {
-    padding: 12px;
+    padding: 12px 10px;
   }
   .product-card-title {
-    font-size: 0.86rem;
+    font-size: 0.88rem;
+    line-height: 1.35;
   }
   .product-price {
-    font-size: 0.98rem;
+    font-size: 1rem;
   }
   .btn-add-cart {
     padding: 6px 10px;
@@ -516,6 +529,27 @@
     opacity: 1; /* Always visible for touch screens */
     transform: none;
   }
+  .product-card-actions-row {
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+  }
+  .btn-whatsapp-order {
+    width: 100%;
+    min-height: 40px;
+    padding: 8px 10px;
+    font-size: 0.78rem;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+  }
+  .btn-add-order-list {
+    width: 100%;
+    min-height: 38px;
+    padding: 7px 10px;
+    font-size: 0.78rem;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+  }
   .quickview-body {
     grid-template-columns: 1fr;
     padding: 20px 16px;
@@ -523,9 +557,61 @@
   }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 580px) {
+  .product-card-content {
+    padding: 10px 8px 12px;
+  }
+  .product-card-title {
+    font-size: 0.84rem;
+    line-height: 1.35;
+    margin-bottom: 4px;
+  }
+  .product-card-price-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .product-price {
+    font-size: 0.98rem;
+  }
+  .product-fresh-pill {
+    align-self: flex-start;
+    font-size: 0.68rem;
+    padding: 1px 6px;
+  }
+  .product-card-actions-row {
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+  }
+  .btn-whatsapp-order {
+    width: 100%;
+    min-height: 40px;
+    padding: 7px 6px;
+    font-size: 0.74rem;
+    font-weight: 700;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    white-space: normal;
+    text-align: center;
+    line-height: 1.25;
+  }
+  .btn-add-order-list {
+    width: 100%;
+    min-height: 38px;
+    padding: 6px 6px;
+    font-size: 0.74rem;
+    font-weight: 700;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    white-space: normal;
+    text-align: center;
+  }
+}
+
+@media (max-width: 340px) {
   .products-grid {
-    grid-template-columns: 1fr; /* Single column on tiny Android screens (320px) to prevent cramped layouts */
+    grid-template-columns: 1fr; /* Single column on tiny screens (approx 320px) to prevent cramped layouts */
   }
 }
 

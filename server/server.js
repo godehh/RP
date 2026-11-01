@@ -50,6 +50,12 @@ function requireAdmin(req, res, next) {
 }
 
 // Middlewares
+app.use((req, res, next) => {
+  res.setHeader('bypass-tunnel-reminder', 'true');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', '*');
+  next();
+});
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
@@ -705,13 +711,23 @@ app.get(['/components-showcase', '/components-showcase.html'], (req, res) => {
 });
 
 app.use(express.static(path.join(__dirname, '..'), {
-  extensions: ['html', 'htm']
+  extensions: ['html', 'htm'],
+  setHeaders: (res, filePath) => {
+    if (/\.(html|htm|css|js)$/i.test(filePath)) {
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate, proxy-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
+    }
+  }
 }));
 
-// Fallback to index.html for undefined non-API paths (Express 5 compatible)
+// Fallback to index.html ONLY for navigation routes, NOT for broken asset URLs
 app.use((req, res) => {
   if (req.path.startsWith('/api/')) {
     return res.status(404).json({ success: false, message: 'API endpoint not found.' });
+  }
+  if (/\.(css|js|png|jpg|jpeg|svg|webp|ico|woff|woff2|ttf|eot|json|map)$/i.test(req.path)) {
+    return res.status(404).type('text/plain').send('Asset not found');
   }
   res.sendFile(path.join(__dirname, '..', 'index.html'));
 });

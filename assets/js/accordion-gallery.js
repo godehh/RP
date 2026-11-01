@@ -63,11 +63,22 @@
         }
 
         panel.addEventListener('click', (e) => {
-          if (i !== this.active) {
-            // If clicking another panel, expand it first instead of immediately navigating
-            e.preventDefault();
-            this.setActive(i);
+          const href = panel.getAttribute('href');
+          if (href) {
+            const match = href.match(/id=([^&#]+)/);
+            if (match && match[1]) {
+              try {
+                sessionStorage.setItem('rp_current_product_id', match[1]);
+                localStorage.setItem('rp_current_product_id', match[1]);
+              } catch (err) {}
+            }
+            // Navigate immediately if panel is already active, if on mobile, or if CTA clicked
+            if (this.active === i || e.target.closest('.ag-panel__cta') || e.target.closest('.ag-panel__badge') || window.innerWidth <= 768) {
+              window.location.href = href;
+              return;
+            }
           }
+          this.setActive(i);
         });
 
         panel.addEventListener('focus', () => this.setActive(i));
@@ -145,8 +156,9 @@
           panel.classList.toggle('ag-panel--active', isActive);
           panel.setAttribute('aria-current', isActive ? 'true' : 'false');
 
-          const rot = isActive ? 0 : i < this.active ? this.options.tilt : -this.options.tilt;
-          const rotProp = this.vertical ? { rotateX: -rot } : { rotateY: rot };
+          const isMobile = window.innerWidth <= 768;
+          const rot = (isActive || isMobile) ? 0 : i < this.active ? this.options.tilt : -this.options.tilt;
+          const rotProp = isMobile ? { rotateX: 0, rotateY: 0 } : this.vertical ? { rotateX: -rot } : { rotateY: rot };
 
           tl.to(
             panel,

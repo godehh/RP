@@ -595,33 +595,57 @@ window.RPComponents = {
     window.addEventListener('rp:wishlist-updated', updateWishlistBadges);
     window.addEventListener('vr:wishlist-updated', updateWishlistBadges);
 
-    // Mobile Hamburger Drawer
-    const hamburgerBtn = document.querySelector('.hamburger-btn');
+    // Mobile Hamburger Drawer & Categories Accordion
     const drawerOverlay = document.querySelector('.mobile-drawer-overlay');
     const drawer = document.querySelector('.mobile-nav-drawer');
     const drawerClose = document.querySelector('.mobile-drawer-close');
 
-    if (hamburgerBtn && drawerOverlay && drawer) {
-      const openDrawer = () => {
+    const openDrawer = () => {
+      if (drawerOverlay && drawer) {
         drawerOverlay.classList.add('active');
         drawer.classList.add('active');
+        drawer.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
-      };
-      const closeDrawer = () => {
+      }
+    };
+    const closeDrawer = () => {
+      if (drawerOverlay && drawer) {
         drawerOverlay.classList.remove('active');
         drawer.classList.remove('active');
+        drawer.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
-      };
+      }
+    };
 
-      hamburgerBtn.addEventListener('click', openDrawer);
-      if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
-      drawerOverlay.addEventListener('click', closeDrawer);
-
-      // Handle Android back button / escape key
-      window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeDrawer();
+    document.querySelectorAll('.hamburger-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openDrawer();
       });
-    }
+    });
+
+    if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
+    if (drawerOverlay) drawerOverlay.addEventListener('click', closeDrawer);
+
+    // Escape key listener for drawer
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDrawer();
+    });
+
+    // Mobile Categories Accordion Toggle inside Drawer
+    document.querySelectorAll('.mobile-categories-toggle').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const acc = btn.nextElementSibling || document.querySelector('.mobile-categories-accordion');
+        if (acc) {
+          const isOpen = acc.classList.toggle('open');
+          acc.style.display = isOpen ? 'flex' : 'none';
+          btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+          const chevron = btn.querySelector('.accordion-chevron') || btn.querySelector('span:last-child');
+          if (chevron) chevron.textContent = isOpen ? '−' : '+';
+        }
+      });
+    });
   },
 
   initCircularPreloader() {
