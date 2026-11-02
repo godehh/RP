@@ -304,6 +304,14 @@
     max-width: 100% !important;
     box-sizing: border-box !important;
     min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    overflow: visible !important;
+  }
+
+  .hero-slide-content-left {
+    align-items: flex-start !important;
   }
 
   .hero-product-title {
@@ -332,9 +340,10 @@
     max-width: 100% !important;
     margin: 0 auto;
     transform: none !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    overflow: visible !important;
   }
 }
 

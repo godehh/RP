@@ -839,46 +839,28 @@ window.CartDrawer = {
             <span class="drawer-subtotal-amount">${Store.formatPrice(subtotal)}</span>
           </div>
 
-          <div class="whatsapp-notice-box" style="margin: 10px 0; font-size: 0.82rem;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-            <div>
-              <strong>Order directly on WhatsApp.</strong> Send your selected items, and we’ll confirm availability, delivery charges, and payment details.
-            </div>
-          </div>
-          
           <div class="drawer-actions">
-            <button type="button" class="btn btn-whatsapp-large btn-full" style="height: 48px;" onclick="RPComponents.sendOrderListToWhatsApp()">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <button type="button" class="btn btn-whatsapp-large btn-full btn-drawer-whatsapp" onclick="RPComponents.sendOrderListToWhatsApp()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.072-1.848-.431-1.393-.576-2.316-1.996-2.385-2.088-.069-.093-.564-.75-.564-1.433 0-.682.358-1.017.486-1.155.127-.138.278-.173.371-.173.093 0 .185.001.266.005.086.004.202-.033.315.241.118.286.405.987.44 1.058.035.07.058.152.012.244-.047.092-.07.15-.14.23-.07.081-.148.182-.211.245-.07.07-.143.146-.062.285.081.139.362.597.776.966.533.475.981.623 1.12.693.139.07.22.058.301-.035.082-.093.348-.405.441-.544.093-.139.186-.116.313-.07.127.046.808.381.947.451.139.07.232.104.266.162.035.058.035.337-.109.742z"/>
               </svg>
               <span>Send Order on WhatsApp &rarr;</span>
             </button>
-            <div style="display: flex; gap: 8px; margin-top: 6px;">
-              <a href="cart.html" class="btn btn-outline btn-full btn-sm" style="text-align: center; text-decoration: none;">
-                View Order List
+            <div class="drawer-secondary-row">
+              <a href="cart.html" class="drawer-secondary-btn" title="View Order List page">
+                View Full List
               </a>
-              <button class="btn btn-outline btn-full btn-sm" onclick="CartDrawer.close()">
+              <button type="button" class="drawer-secondary-btn" onclick="RPComponents.copyOrderListMessage()" title="Copy order list message to clipboard">
+                📋 Copy Msg
+              </button>
+              <button type="button" class="drawer-secondary-btn" onclick="CartDrawer.close()" title="Close and keep browsing">
                 Keep Browsing
               </button>
             </div>
           </div>
 
-          <div class="whatsapp-fallback-box" style="margin-top: 10px;">
-            Unable to open WhatsApp? Message us at <strong>+91 9150300641</strong>.<br />
-            <button type="button" class="btn-copy-msg" onclick="RPComponents.copyOrderListMessage()">
-              📋 Copy Order Message
-            </button>
-          </div>
-
-          <div class="drawer-guarantee-strip">
-            <span class="drawer-guarantee-item">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-              FSSAI Lic: 22426431000125
-            </span>
-            <span class="drawer-guarantee-item">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              100% Natural &amp; Pure
-            </span>
+          <div class="drawer-micro-note">
+            <span>Direct WhatsApp order &bull; We confirm delivery &amp; payment &bull; 📞 9150300641</span>
           </div>
         </div>
       ` : ''}

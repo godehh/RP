@@ -52,17 +52,8 @@
     var pushDistance = options.pushDistance !== undefined ? options.pushDistance : (ds.pushDistance ? parseFloat(ds.pushDistance) : 160);
     var hoverScale = options.hoverScale !== undefined ? options.hoverScale : (ds.hoverScale ? parseFloat(ds.hoverScale) : 1.06);
 
-    var slots = cardElements.map(function(_, i) {
-      var offset = i - middle;
-      return {
-        x: offset * spread,
-        y: arc * Math.pow(offset / reach, 2),
-        rotate: rotation * PATTERN[i % PATTERN.length]
-      };
-    });
-
     var settings = {
-      slots: slots,
+      slots: [],
       cardSize: Math.max(10, cardSize),
       delay: Math.max(0, animationDelay),
       stagger: Math.max(0, animationStagger),
@@ -73,9 +64,69 @@
       clickable: typeof options.onCardClick === 'function' || ds.clickable === 'true'
     };
 
-    root.style.setProperty('--bounce-cards-size', settings.cardSize + 'px');
-    var radiusVal = options.radius !== undefined ? options.radius : (ds.radius ? parseFloat(ds.radius) : 26);
-    root.style.setProperty('--bounce-cards-radius', radiusVal + 'px');
+    function applyResponsive() {
+      var w = window.innerWidth || document.documentElement.clientWidth || 360;
+      var curCardSize, curSpread, curRotation, curPushDist, curRadius, curBorder;
+
+      if (w <= 360) {
+        curCardSize = 148;
+        curSpread = 50;
+        curRotation = 5.5;
+        curPushDist = 0; // Disable hover pushing off-screen on narrow mobile
+        curRadius = 14;
+        curBorder = 3;
+      } else if (w <= 420) {
+        // Covers typical Android viewports (375px, 390px, 400px, 412px)
+        curCardSize = 160;
+        curSpread = 56;
+        curRotation = 6.5;
+        curPushDist = 0; // Keep cards fully within screen bounds
+        curRadius = 16;
+        curBorder = 3.5;
+      } else if (w <= 480) {
+        curCardSize = 170;
+        curSpread = 62;
+        curRotation = 7;
+        curPushDist = 0;
+        curRadius = 18;
+        curBorder = 3.5;
+      } else if (w <= 768) {
+        curCardSize = 205;
+        curSpread = 74;
+        curRotation = 8;
+        curPushDist = 15;
+        curRadius = 20;
+        curBorder = 4;
+      } else {
+        curCardSize = options.cardSize !== undefined ? options.cardSize : (ds.cardSize ? parseFloat(ds.cardSize) : 410);
+        curSpread = options.spread !== undefined ? options.spread : (ds.spread ? parseFloat(ds.spread) : 95);
+        curRotation = options.rotation !== undefined ? options.rotation : (ds.rotation ? parseFloat(ds.rotation) : 9);
+        curPushDist = options.pushDistance !== undefined ? options.pushDistance : (ds.pushDistance ? parseFloat(ds.pushDistance) : 160);
+        curRadius = options.radius !== undefined ? options.radius : (ds.radius ? parseFloat(ds.radius) : 32);
+        curBorder = options.border !== undefined ? options.border : (ds.border ? parseFloat(ds.border) : 6);
+      }
+
+      settings.cardSize = curCardSize;
+      settings.spread = curSpread;
+      settings.rotation = curRotation;
+      settings.pushDistance = curPushDist;
+      settings.enableHover = w > 480 && enableHover;
+
+      settings.slots = cardElements.map(function(_, i) {
+        var offset = i - middle;
+        return {
+          x: offset * curSpread,
+          y: arc * Math.pow(offset / reach, 2),
+          rotate: curRotation * PATTERN[i % PATTERN.length]
+        };
+      });
+
+      root.style.setProperty('--bounce-cards-size', settings.cardSize + 'px');
+      root.style.setProperty('--bounce-cards-radius', curRadius + 'px');
+      root.style.setProperty('--bounce-cards-border', curBorder + 'px');
+    }
+
+    applyResponsive();
 
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var bodies = [];
@@ -196,6 +247,7 @@
     }
 
     function wake() {
+      applyResponsive();
       if (raf || !alive) return;
       last = performance.now();
       raf = requestAnimationFrame(frame);
@@ -346,6 +398,7 @@
 
     var instance = {
       wake: wake,
+      updateResponsive: applyResponsive,
       destroy: function() {
         alive = false;
         cancelAnimationFrame(raf);
@@ -358,6 +411,21 @@
     root._bounceCardsInstance = instance;
     return instance;
   }
+
+  // Global responsive resize listener to keep cards perfectly bounded
+  var resizeDebounceTimer = null;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeDebounceTimer);
+    resizeDebounceTimer = setTimeout(function() {
+      var containers = document.querySelectorAll('.bounce-cards, [data-bounce-cards]');
+      for (var i = 0; i < containers.length; i++) {
+        var inst = containers[i]._bounceCardsInstance;
+        if (inst && typeof inst.wake === 'function') {
+          inst.wake();
+        }
+      }
+    }, 120);
+  }, { passive: true });
 
   function autoInit() {
     var containers = document.querySelectorAll('.bounce-cards, [data-bounce-cards]');

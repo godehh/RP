@@ -531,24 +531,24 @@
   }
   .product-card-actions-row {
     flex-direction: column;
-    gap: 6px;
+    gap: 5px;
     width: 100%;
   }
   .btn-whatsapp-order {
     width: 100%;
-    min-height: 40px;
-    padding: 8px 10px;
-    font-size: 0.78rem;
+    min-height: 32px;
+    padding: 6px 8px;
+    font-size: 0.74rem;
     justify-content: center;
-    border-radius: var(--radius-sm);
+    border-radius: 7px;
   }
   .btn-add-order-list {
     width: 100%;
-    min-height: 38px;
-    padding: 7px 10px;
-    font-size: 0.78rem;
+    min-height: 30px;
+    padding: 5px 8px;
+    font-size: 0.72rem;
     justify-content: center;
-    border-radius: var(--radius-sm);
+    border-radius: 7px;
   }
   .quickview-body {
     grid-template-columns: 1fr;
@@ -581,29 +581,29 @@
   }
   .product-card-actions-row {
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
     width: 100%;
   }
   .btn-whatsapp-order {
     width: 100%;
-    min-height: 40px;
-    padding: 7px 6px;
-    font-size: 0.74rem;
+    min-height: 30px;
+    padding: 5px 6px;
+    font-size: 0.72rem;
     font-weight: 700;
     justify-content: center;
-    border-radius: var(--radius-sm);
+    border-radius: 6px;
     white-space: normal;
     text-align: center;
-    line-height: 1.25;
+    line-height: 1.2;
   }
   .btn-add-order-list {
     width: 100%;
-    min-height: 38px;
-    padding: 6px 6px;
-    font-size: 0.74rem;
+    min-height: 28px;
+    padding: 4px 6px;
+    font-size: 0.70rem;
     font-weight: 700;
     justify-content: center;
-    border-radius: var(--radius-sm);
+    border-radius: 6px;
     white-space: normal;
     text-align: center;
   }
@@ -782,19 +782,19 @@
   background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
   color: #ffffff !important;
   border: none;
-  padding: 8px 12px;
-  min-height: 40px;
-  border-radius: var(--radius-md);
-  font-size: 0.82rem;
+  padding: 6px 10px;
+  min-height: 34px;
+  border-radius: 8px;
+  font-size: 0.78rem;
   font-weight: 700;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 5px;
   cursor: pointer;
   transition: all var(--transition-fast);
   text-decoration: none !important;
-  box-shadow: 0 2px 8px rgba(18, 140, 126, 0.25);
+  box-shadow: 0 2px 6px rgba(18, 140, 126, 0.2);
   touch-action: manipulation;
   white-space: nowrap;
   flex: 1 1 auto;
@@ -805,27 +805,29 @@
 .btn-whatsapp-order:hover {
   background: linear-gradient(135deg, #20ba59 0%, #0d6e63 100%);
   color: #ffffff !important;
-  box-shadow: 0 4px 14px rgba(18, 140, 126, 0.4);
+  box-shadow: 0 4px 12px rgba(18, 140, 126, 0.35);
   transform: translateY(-1px);
 }
 
 .btn-whatsapp-order svg {
   flex-shrink: 0;
+  width: 14px;
+  height: 14px;
 }
 
 .btn-add-order-list {
   background-color: var(--color-surface-subtle);
   color: var(--color-primary);
-  border: 1.5px solid var(--color-border);
-  padding: 8px 12px;
-  min-height: 40px;
-  border-radius: var(--radius-md);
-  font-size: 0.8rem;
+  border: 1px solid var(--color-border);
+  padding: 6px 10px;
+  min-height: 34px;
+  border-radius: 8px;
+  font-size: 0.76rem;
   font-weight: 700;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 4px;
   cursor: pointer;
   transition: all var(--transition-fast);
   white-space: nowrap;
@@ -838,6 +840,12 @@
   background-color: var(--color-primary-soft);
   border-color: var(--color-primary);
   color: var(--color-primary-dark);
+}
+
+.btn-add-order-list svg {
+  flex-shrink: 0;
+  width: 13px;
+  height: 13px;
 }
 
 .btn-whatsapp-large {

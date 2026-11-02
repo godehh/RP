@@ -50,10 +50,10 @@
 
 @media (max-width: 768px) {
   .bounce-cards {
-    width: 340px !important;
-    max-width: 100% !important;
-    height: 290px !important;
-    --bounce-cards-size: 240px !important;
+    width: 100% !important;
+    max-width: 420px !important;
+    height: 270px !important;
+    --bounce-cards-size: 205px !important;
     --bounce-cards-radius: 20px !important;
     --bounce-cards-border: 4px !important;
   }
@@ -61,11 +61,22 @@
 
 @media (max-width: 480px) {
   .bounce-cards {
-    width: 320px !important;
-    max-width: 95% !important;
-    height: 250px !important;
-    --bounce-cards-size: 200px !important;
+    width: 100% !important;
+    max-width: 340px !important;
+    height: 225px !important;
+    --bounce-cards-size: 160px !important;
     --bounce-cards-radius: 16px !important;
+    --bounce-cards-border: 3.5px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .bounce-cards {
+    width: 100% !important;
+    max-width: 300px !important;
+    height: 205px !important;
+    --bounce-cards-size: 148px !important;
+    --bounce-cards-radius: 14px !important;
     --bounce-cards-border: 3px !important;
   }
 }
