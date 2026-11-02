@@ -98,6 +98,42 @@
         });
       });
 
+      // Touch swipe support to switch product panels
+      let agStartX = 0;
+      let agStartY = 0;
+      let agEndX = 0;
+      let agEndY = 0;
+      let agSwiping = false;
+
+      this.el.addEventListener('touchstart', (e) => {
+        if (!e.touches || !e.touches[0]) return;
+        agStartX = e.touches[0].clientX;
+        agStartY = e.touches[0].clientY;
+        agEndX = agStartX;
+        agEndY = agStartY;
+        agSwiping = true;
+      }, { passive: true });
+
+      this.el.addEventListener('touchmove', (e) => {
+        if (!agSwiping || !e.touches || !e.touches[0]) return;
+        agEndX = e.touches[0].clientX;
+        agEndY = e.touches[0].clientY;
+      }, { passive: true });
+
+      this.el.addEventListener('touchend', () => {
+        if (!agSwiping) return;
+        agSwiping = false;
+        const dx = agStartX - agEndX;
+        const dy = agStartY - agEndY;
+        if (Math.abs(dx) > 35 && Math.abs(dx) > Math.abs(dy)) {
+          if (dx > 0) {
+            this.setActive((this.active + 1) % this.count);
+          } else {
+            this.setActive((this.active - 1 + this.count) % this.count);
+          }
+        }
+      }, { passive: true });
+
       // Responsive measure observer
       this.measure();
       if (window.ResizeObserver) {

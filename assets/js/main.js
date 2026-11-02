@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
       wrap.addEventListener('mouseleave', startAutoplay);
     }
 
-    // Touch Swipe Support for Android & Mobile Devices
+    // Touch Swipe Support for Android & Mobile Devices across entire header page
     let touchStartX = 0;
     let touchStartY = 0;
     let touchEndX = 0;
@@ -121,12 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     touchTarget.addEventListener('touchstart', (e) => {
       if (!e.touches || e.touches.length === 0) return;
-      // If user touches the 3D cards, let BounceCards handle the interactive spring animation without switching slides
-      if (e.target && e.target.closest && e.target.closest('.bounce-cards')) {
-        isSwiping = false;
-        stopAutoplay();
-        return;
-      }
       touchStartX = e.touches[0].clientX;
       touchStartY = e.touches[0].clientY;
       touchEndX = touchStartX;
@@ -146,8 +140,8 @@ document.addEventListener('DOMContentLoaded', () => {
       isSwiping = false;
       const diffX = touchStartX - touchEndX;
       const diffY = touchStartY - touchEndY;
-      // Only trigger if horizontal swipe exceeds 38px and is more horizontal than vertical
-      if (Math.abs(diffX) > 38 && Math.abs(diffX) > Math.abs(diffY)) {
+      // Trigger slide change when horizontal swipe exceeds 32px and is primarily horizontal
+      if (Math.abs(diffX) > 32 && Math.abs(diffX) > Math.abs(diffY)) {
         if (diffX > 0) {
           nextSlide();
         } else {

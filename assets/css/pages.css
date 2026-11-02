@@ -2259,3 +2259,169 @@
   }
 }
 
+/* ─────────────────────────────────────────────────────────────
+   Product Swipe Navigation & Mobile Switcher
+   ───────────────────────────────────────────────────────────── */
+.product-swipe-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #ffffff;
+  border: 1.5px solid #bbf7d0;
+  border-radius: var(--radius-lg);
+  padding: 10px 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 14px rgba(21, 128, 61, 0.06);
+}
+
+.product-swipe-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-primary-dark);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  transition: all 0.2s ease;
+  max-width: 38%;
+  user-select: none;
+  cursor: pointer;
+}
+
+.product-swipe-nav-btn:hover {
+  background: #dcfce7;
+  transform: translateY(-1px);
+}
+
+.product-swipe-nav-btn .swipe-arrow {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.product-swipe-nav-btn .swipe-text {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.product-swipe-nav-btn .swipe-sub {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: #15803d;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.product-swipe-nav-btn .swipe-name {
+  font-size: 0.82rem;
+  color: #14532d;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.product-swipe-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.product-swipe-indicator .swipe-guide-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.product-swipe-indicator .swipe-guide {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #15803d;
+}
+
+.product-swipe-indicator .swipe-counter {
+  font-size: 0.72rem;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+/* Floating swipe indicator toast */
+.pdp-swipe-toast {
+  position: fixed;
+  top: 76px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-24px) scale(0.95);
+  background: rgba(20, 83, 45, 0.96);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
+  padding: 8px 22px;
+  border-radius: 9999px;
+  font-weight: 800;
+  font-size: 0.88rem;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+  border: 1.5px solid #86efac;
+  z-index: 99999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.pdp-swipe-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+
+/* Slide in animations for product change */
+.pdp-slide-in-right {
+  animation: pdpSlideInRight 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pdp-slide-in-left {
+  animation: pdpSlideInLeft 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes pdpSlideInRight {
+  from {
+    opacity: 0.4;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pdpSlideInLeft {
+  from {
+    opacity: 0.4;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .product-swipe-nav-bar {
+    padding: 8px 10px;
+    gap: 8px;
+  }
+  .product-swipe-nav-btn {
+    padding: 5px 8px;
+  }
+  .product-swipe-nav-btn .swipe-name {
+    max-width: 85px;
+  }
+}
+
