@@ -504,6 +504,134 @@
   text-decoration: underline;
 }
 
+/* ─────────────────────────────────────────────────────────────
+   Offline Store Purchase Available — Header Badges & Pill Buttons
+   ───────────────────────────────────────────────────────────── */
+.announcement-offline-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #86efac;
+  font-weight: 700;
+  font-size: 0.82rem;
+  text-decoration: none;
+  margin-left: 14px;
+  padding: 3px 12px;
+  background: rgba(22, 163, 74, 0.28);
+  border: 1px solid rgba(134, 239, 172, 0.45);
+  border-radius: 999px;
+  transition: all var(--transition-fast);
+}
+
+.announcement-offline-link:hover {
+  background: rgba(22, 163, 74, 0.55);
+  color: #ffffff;
+  border-color: #86efac;
+  transform: translateY(-1px);
+}
+
+.header-offline-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border: 1.5px solid #86efac;
+  color: #15803d;
+  padding: 6px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 800;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(21, 128, 61, 0.08);
+}
+
+.header-offline-pill:hover {
+  background: #15803d;
+  color: #ffffff !important;
+  border-color: #15803d;
+  box-shadow: 0 4px 12px rgba(21, 128, 61, 0.25);
+  transform: translateY(-1px);
+}
+
+.pulse-dot,
+.mobile-offline-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #22c55e;
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  animation: pulseGreenDot 2s infinite;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+.header-offline-pill:hover .pulse-dot {
+  background-color: #86efac;
+}
+
+@keyframes pulseGreenDot {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(34, 197, 94, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+/* Mobile Offline Store Purchase Available Banner Strip */
+.mobile-offline-bar {
+  display: none;
+  background: linear-gradient(90deg, #f0fdf4 0%, #ecfdf5 100%);
+  border-bottom: 1.5px solid #86efac;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.mobile-offline-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 14px;
+  text-decoration: none;
+  color: #15803d;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.25;
+  -webkit-tap-highlight-color: transparent;
+  gap: 8px;
+}
+
+.mobile-offline-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.mobile-offline-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 800;
+  color: #14532d;
+}
+
+.mobile-offline-cta {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #15803d;
+  background: #ffffff;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid #86efac;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
 /* Mobile Header & Hamburger (Mutually exclusive with desktop header) */
 .mobile-header-bar {
   display: none;
@@ -1100,10 +1228,15 @@
   /* Show mobile search row directly below main header row */
   .mobile-search-row {
     display: block !important;
-    padding: 8px 16px 10px !important;
+    padding: 8px 16px 8px !important;
     background-color: #ffffff !important;
     width: 100% !important;
     box-sizing: border-box !important;
+  }
+
+  /* Show mobile offline store notification strip */
+  .mobile-offline-bar {
+    display: block !important;
   }
 
   /* Mobile bottom sticky navigation bar */
@@ -1112,7 +1245,7 @@
   }
 
   body {
-    padding-top: 128px !important; /* Space for fixed mobile header */
+    padding-top: 160px !important; /* Space for fixed mobile header with offline store strip */
     padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)) !important; /* Space for mobile bottom bar */
   }
 
@@ -1129,7 +1262,7 @@
 
 @media (max-width: 480px) {
   body {
-    padding-top: 120px !important;
+    padding-top: 148px !important;
   }
   .mobile-header-bar {
     padding: 0 12px !important;
@@ -1140,11 +1273,15 @@
     max-width: 130px !important;
   }
   .mobile-search-row {
-    padding: 6px 12px 10px !important;
+    padding: 6px 12px 6px !important;
   }
   .mobile-search-input {
-    height: 40px !important;
+    height: 38px !important;
     font-size: 1rem !important; /* Preserves 16px to prevent iOS auto-zoom */
+  }
+  .mobile-offline-link {
+    padding: 5px 12px !important;
+    font-size: 0.74rem !important;
   }
 }
 

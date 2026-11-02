@@ -53,13 +53,16 @@
   width: 100%;
   background-color: #faf9f6;
   user-select: none;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .hero-carousel-track {
   display: flex;
   width: 100%;
-  transition: transform 0.8s ease-in-out;
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
   will-change: transform;
+  touch-action: pan-y;
 }
 
 .hero-carousel-slide {
@@ -262,13 +265,27 @@
 }
 
 @media (max-width: 768px) {
-  .hero-carousel-wrap,
-  .hero-carousel-track,
-  .hero-carousel-slide {
+  .hero-carousel-wrap {
     width: 100% !important;
-    max-width: 100% !important;
+    max-width: 100vw !important;
     overflow: hidden !important;
     box-sizing: border-box !important;
+  }
+
+  .hero-carousel-track {
+    display: flex !important;
+    width: 100% !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+  }
+
+  .hero-carousel-slide {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    flex-shrink: 0 !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
   }
 
   .hero-slide-panel {
@@ -430,19 +447,31 @@
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 10px;
+  gap: 12px;
   z-index: 5;
+  touch-action: manipulation;
 }
 
 .hero-dot {
+  position: relative;
   width: 12px;
   height: 12px;
   border-radius: var(--radius-full);
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.25);
   border: none;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.3s ease;
   padding: 0;
+  touch-action: manipulation;
+}
+
+.hero-dot::after {
+  content: '';
+  position: absolute;
+  top: -12px;
+  bottom: -12px;
+  left: -10px;
+  right: -10px;
 }
 
 .hero-dot.active {
@@ -2179,5 +2208,42 @@
 
 .pdp-badge-pill {
   animation: floatGentle 4s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Store Location Section & Smooth Scroll Target Styling
+   ───────────────────────────────────────────────────────────── */
+#store-location-section {
+  scroll-margin-top: 155px;
+  position: relative;
+}
+
+@media (max-width: 480px) {
+  #store-location-section {
+    scroll-margin-top: 145px;
+  }
+}
+
+.map-card-wrapper {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#store-location-section.highlight-pulse .map-card-wrapper {
+  animation: storeGlowPulse 2.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes storeGlowPulse {
+  0% {
+    transform: scale(0.98);
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.85);
+  }
+  30% {
+    transform: scale(1.02);
+    box-shadow: 0 0 0 16px rgba(22, 163, 74, 0);
+  }
+  60% {
+    transform: scale(1);
+    box-shadow: 0 14px 40px rgba(21, 128, 61, 0.25);
+  }
 }
 

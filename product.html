@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Organic Product Details | RP Organics</title>
-  <meta name="description" content="View 100% certified organic ingredient details, nutritional facts, authentic farm sourcing, and verified reviews." />
-  
+  <meta name="description"
+    content="View 100% certified organic ingredient details, nutritional facts, authentic farm sourcing, and verified reviews." />
+
   <link rel="icon" type="image/png" href="assets/images/rp-organics-logo.png" />
   <link rel="stylesheet" href="assets/css/main.css?v=20261101_v3" />
   <link rel="stylesheet" href="assets/css/header-footer.css?v=20261101_v3" />
@@ -15,6 +17,7 @@
   <link rel="stylesheet" href="assets/css/specular-button.css?v=20261101_v3" />
   <link rel="stylesheet" href="assets/css/gooey-nav.css?v=20261101_v3" />
 </head>
+
 <body>
 
   <!-- 1. Circular Preloader Spinner -->
@@ -22,18 +25,18 @@
     <div class="rp-spinner" role="status" aria-label="Loading RP Organics"></div>
   </div>
   <script>
-    (function() {
+    (function () {
       function dismissPreloader() {
         var p = document.getElementById('rp-preloader');
         if (p && !p.classList.contains('fade-out')) {
           p.classList.add('fade-out');
-          setTimeout(function() {
+          setTimeout(function () {
             if (p && p.parentNode) p.parentNode.removeChild(p);
           }, 420);
         }
       }
       window.addEventListener('load', dismissPreloader);
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('DOMContentLoaded', function () {
         setTimeout(dismissPreloader, 600);
       });
       setTimeout(dismissPreloader, 1500);
@@ -45,9 +48,17 @@
     <div class="container">
       <div class="announcement-left">
         <span class="announcement-promo">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+          </svg>
           Free Shipping on all orders above ₹999 across India!
         </span>
+        <a href="index.html#store-location-section" class="announcement-offline-link"
+          title="Visit our physical shop in Hosur for offline purchase">
+          <span class="pulse-dot"></span>
+          <span>🏪 Offline Store Purchase Available (Hosur) &rarr;</span>
+        </a>
       </div>
       <div class="announcement-right">
         <span class="announcement-item"><a href="tel:919150300641">📞 9150300641</a></span>
@@ -62,14 +73,19 @@
       <div class="header-inner">
         <a href="index.html" class="brand-logo" aria-label="RP Organics Home">
           <img src="assets/images/rp-organics-logo.png" alt="RP Organics logo" class="brand-logo-img" />
-          <div class="brand-logo-text"><span class="brand-title">RP Organics</span><span class="brand-tagline">Pure &amp; Natural</span></div>
+          <div class="brand-logo-text"><span class="brand-title">RP Organics</span><span class="brand-tagline">Pure
+              &amp; Natural</span></div>
         </a>
 
         <div class="header-search">
           <form action="search.html" method="GET" class="search-input-wrap" role="search">
-            <input type="text" name="q" class="search-input" placeholder="Search organic spices, millets, cold-pressed oils..." autocomplete="off" />
+            <input type="text" name="q" class="search-input"
+              placeholder="Search organic spices, millets, cold-pressed oils..." autocomplete="off" />
             <button type="submit" class="search-submit-btn" aria-label="Search">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
             </button>
           </form>
           <div class="search-results-dropdown"></div>
@@ -78,7 +94,11 @@
         <div class="header-actions">
           <a href="wishlist.html" class="header-action-btn" aria-label="Wishlist">
             <div class="header-action-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path
+                  d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                </path>
+              </svg>
               <span class="badge-count wishlist-count-badge" style="display: none;">0</span>
             </div>
             <div class="header-action-label">
@@ -89,7 +109,11 @@
 
           <a href="cart.html" class="header-action-btn trigger-cart-drawer" aria-label="Order List">
             <div class="header-action-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-2z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-2z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+              </svg>
               <span class="badge-count cart-count-badge" style="display: none;">0</span>
             </div>
             <div class="header-action-label">
@@ -105,7 +129,8 @@
     <nav class="main-nav-bar" aria-label="Primary Navigation">
       <div class="container main-nav-inner">
         <!-- GooeyNav Primary Navigation (React Bits) -->
-        <div class="gooey-nav gooey-nav--md gooey-nav--framed" data-theme="light" data-color="#15803d" data-colors="#16a34a,#86efac,#22c55e" aria-label="Desktop Navigation">
+        <div class="gooey-nav gooey-nav--md gooey-nav--framed" data-theme="light" data-color="#15803d"
+          data-colors="#16a34a,#86efac,#22c55e" aria-label="Desktop Navigation">
           <span class="gooey-nav__rim"></span>
           <div class="gooey-nav__stage">
             <canvas class="gooey-nav__canvas" aria-hidden="true"></canvas>
@@ -120,7 +145,10 @@
               <li class="gooey-nav__item has-mega" data-gooey-index="2">
                 <a href="shop.html" class="gooey-nav__link">
                   Categories
-                  <svg class="chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  <svg class="chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2.5">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
                 </a>
 
                 <!-- Mega Menu -->
@@ -154,14 +182,16 @@
                     <div>
                       <span class="badge badge-bestseller">⚡ 12g Veg Protein / 50g</span>
                       <h4>Protein Health Mix</h4>
-                      <p>38+ wholesome ingredients. Pure veg protein with natural calcium &amp; minerals. FSSAI certified.</p>
+                      <p>38+ wholesome ingredients. Pure veg protein with natural calcium &amp; minerals. FSSAI
+                        certified.</p>
                     </div>
                     <a href="product.html?id=pro-01" class="btn btn-primary btn-sm">Shop Health Mix &rarr;</a>
                   </div>
                 </div>
               </li>
               <li class="gooey-nav__item" data-gooey-index="3">
-                <a href="https://maps.app.goo.gl/3Ba8wCBjjAUvrJXu5?g_st=aw" target="_blank" rel="noopener noreferrer" class="gooey-nav__link" title="RP Organics store location on Google Maps">RP Organics store location</a>
+                <a href="index.html#store-location-section" class="gooey-nav__link"
+                  title="Visit our store in Hosur for offline purchase">Store Location</a>
               </li>
               <li class="gooey-nav__item" data-gooey-index="4">
                 <a href="contact.html" class="gooey-nav__link">Contact Us</a>
@@ -170,7 +200,13 @@
           </div>
         </div>
 
-        <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+          <a href="index.html#store-location-section" class="header-offline-pill"
+            title="Visit RP Organics store in Hosur for buying products offline">
+            <span class="pulse-dot"></span>
+            <span>🏪 Offline Store Purchase Available</span>
+            <span style="opacity: 0.75; font-size: 0.8rem;">(Hosur) &rarr;</span>
+          </a>
           <div class="fssai-global-badge">
             <span>FSSAI REGISTERED</span>
             <span class="lic">Lic: 22426431000125</span>
@@ -182,7 +218,8 @@
     <!-- Mobile Header Bar (Mutually exclusive with desktop header) -->
     <div class="mobile-header-bar">
       <button class="hamburger-btn" aria-label="Open Navigation Menu" type="button">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round">
           <line x1="3" y1="12" x2="21" y2="12"></line>
           <line x1="3" y1="6" x2="21" y2="6"></line>
           <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -215,7 +252,8 @@
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
           </span>
-          <input type="search" name="q" class="mobile-search-input" placeholder="Search spices, podis, health mix..." autocomplete="off" aria-label="Search products" />
+          <input type="search" name="q" class="mobile-search-input" placeholder="Search spices, podis, health mix..."
+            autocomplete="off" aria-label="Search products" />
           <button type="submit" class="mobile-search-btn" aria-label="Submit search">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <polyline points="9 18 15 12 9 6"></polyline>
@@ -224,6 +262,18 @@
         </div>
       </form>
     </div>
+
+    <!-- Row 3: Offline Store Purchase Notification Strip -->
+    <div class="mobile-offline-bar">
+      <a href="index.html#store-location-section" class="mobile-offline-link"
+        aria-label="Offline store purchase available at Hosur. Tap to view store location and timings.">
+        <span class="mobile-offline-badge">
+          <span class="mobile-offline-dot"></span>
+          <span class="mobile-offline-label">🏪 Offline Store Purchase Available</span>
+        </span>
+        <span class="mobile-offline-cta">Hosur &bull; View Map &rarr;</span>
+      </a>
+    </div>
   </header>
 
   <!-- Mobile Slide-In Navigation Drawer & Backdrop -->
@@ -231,8 +281,10 @@
   <aside class="mobile-nav-drawer" aria-label="Mobile Navigation Drawer" aria-hidden="true">
     <div class="mobile-drawer-header">
       <a href="index.html" class="brand-logo" aria-label="RP Organics Home">
-        <img src="assets/images/rp-organics-logo.png" alt="RP Organics logo" style="height: 38px; width: auto; object-fit: contain;" />
-        <span class="brand-title" style="font-size: 1.15rem; color: var(--color-primary); font-weight: 800;">RP Organics</span>
+        <img src="assets/images/rp-organics-logo.png" alt="RP Organics logo"
+          style="height: 38px; width: auto; object-fit: contain;" />
+        <span class="brand-title" style="font-size: 1.15rem; color: var(--color-primary); font-weight: 800;">RP
+          Organics</span>
       </a>
       <button class="mobile-drawer-close" aria-label="Close menu" type="button">&times;</button>
     </div>
@@ -241,37 +293,53 @@
       <nav class="mobile-nav-links" aria-label="Mobile Navigation Links">
         <a href="index.html" class="mobile-nav-link">
           <span>Home</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
         </a>
         <a href="shop.html" class="mobile-nav-link">
           <span>Shop All Products</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
         </a>
 
         <!-- Categories Accordion (Only expands upon tapping) -->
         <div class="mobile-drawer-accordion-wrap">
-          <button type="button" class="mobile-nav-link mobile-categories-toggle" aria-expanded="false" style="width: 100%; border: none; background: none; text-align: left; cursor: pointer;">
+          <button type="button" class="mobile-nav-link mobile-categories-toggle" aria-expanded="false"
+            style="width: 100%; border: none; background: none; text-align: left; cursor: pointer;">
             <span>Categories</span>
             <span class="accordion-chevron" aria-hidden="true">+</span>
           </button>
           <div class="mobile-categories-accordion" style="display: none;">
-            <a href="shop.html?category=spices" class="mobile-sub-link">🌱 Organic Spices &amp; Herbal Podis (From ₹60)</a>
+            <a href="shop.html?category=spices" class="mobile-sub-link">🌱 Organic Spices &amp; Herbal Podis (From
+              ₹60)</a>
             <a href="product.html?id=pro-01" class="mobile-sub-link">⚡ Protein Health Mix (12g Veg Protein)</a>
-            <a href="product.html?id=mil-powder-01" class="mobile-sub-link">🌾 100% Millet Mix (Instant Rice-Free Dosa)</a>
+            <a href="product.html?id=mil-powder-01" class="mobile-sub-link">🌾 100% Millet Mix (Instant Rice-Free
+              Dosa)</a>
           </div>
         </div>
 
-        <a href="https://maps.app.goo.gl/3Ba8wCBjjAUvrJXu5?g_st=aw" target="_blank" rel="noopener noreferrer" class="mobile-nav-link">
+        <a href="https://maps.app.goo.gl/3Ba8wCBjjAUvrJXu5?g_st=aw" target="_blank" rel="noopener noreferrer"
+          class="mobile-nav-link">
           <span>📍 RP Organics store location</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
         </a>
         <a href="about.html" class="mobile-nav-link">
           <span>About Us</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
         </a>
         <a href="contact.html" class="mobile-nav-link">
           <span>Contact &amp; Offline Store</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
         </a>
         <a href="wishlist.html" class="mobile-nav-link">
           <span>❤️ Saved Wishlist</span>
@@ -289,13 +357,24 @@
   <main class="container section-sm">
     <div id="product-detail-view">
       <!-- Premium Animated Skeleton Loader -->
-      <div class="pdp-skeleton-wrap" style="display: grid; grid-template-columns: 1fr 1.15fr; gap: 48px; padding: 20px 0;">
-        <div style="aspect-ratio: 1/1; border-radius: 20px; background: linear-gradient(90deg, #f8fafc 25%, #e2e8f0 50%, #f8fafc 75%); background-size: 200% 100%; animation: shimmerSweep 1.6s infinite; border: 1px solid #e2e8f0;"></div>
+      <div class="pdp-skeleton-wrap"
+        style="display: grid; grid-template-columns: 1fr 1.15fr; gap: 48px; padding: 20px 0;">
+        <div
+          style="aspect-ratio: 1/1; border-radius: 20px; background: linear-gradient(90deg, #f8fafc 25%, #e2e8f0 50%, #f8fafc 75%); background-size: 200% 100%; animation: shimmerSweep 1.6s infinite; border: 1px solid #e2e8f0;">
+        </div>
         <div style="display: flex; flex-direction: column; gap: 16px; padding-top: 10px;">
-          <div style="height: 24px; width: 35%; border-radius: 6px; background: linear-gradient(90deg, #f8fafc 25%, #e2e8f0 50%, #f8fafc 75%); background-size: 200% 100%; animation: shimmerSweep 1.6s infinite;"></div>
-          <div style="height: 40px; width: 85%; border-radius: 8px; background: linear-gradient(90deg, #f8fafc 25%, #e2e8f0 50%, #f8fafc 75%); background-size: 200% 100%; animation: shimmerSweep 1.6s infinite;"></div>
-          <div style="height: 56px; width: 100%; border-radius: 12px; background: linear-gradient(90deg, #f8fafc 25%, #e2e8f0 50%, #f8fafc 75%); background-size: 200% 100%; animation: shimmerSweep 1.6s infinite;"></div>
-          <div style="height: 70px; width: 100%; border-radius: 10px; background: linear-gradient(90deg, #f8fafc 25%, #e2e8f0 50%, #f8fafc 75%); background-size: 200% 100%; animation: shimmerSweep 1.6s infinite;"></div>
+          <div
+            style="height: 24px; width: 35%; border-radius: 6px; background: linear-gradient(90deg, #f8fafc 25%, #e2e8f0 50%, #f8fafc 75%); background-size: 200% 100%; animation: shimmerSweep 1.6s infinite;">
+          </div>
+          <div
+            style="height: 40px; width: 85%; border-radius: 8px; background: linear-gradient(90deg, #f8fafc 25%, #e2e8f0 50%, #f8fafc 75%); background-size: 200% 100%; animation: shimmerSweep 1.6s infinite;">
+          </div>
+          <div
+            style="height: 56px; width: 100%; border-radius: 12px; background: linear-gradient(90deg, #f8fafc 25%, #e2e8f0 50%, #f8fafc 75%); background-size: 200% 100%; animation: shimmerSweep 1.6s infinite;">
+          </div>
+          <div
+            style="height: 70px; width: 100%; border-radius: 10px; background: linear-gradient(90deg, #f8fafc 25%, #e2e8f0 50%, #f8fafc 75%); background-size: 200% 100%; animation: shimmerSweep 1.6s infinite;">
+          </div>
         </div>
       </div>
     </div>
@@ -305,41 +384,52 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container">
       <div class="footer-top">
-                <div class="footer-brand">
+        <div class="footer-brand">
           <div class="brand-logo" style="margin-bottom: 8px;">
             <img src="assets/images/rp-organics-logo.png" alt="RP Organics logo" class="footer-logo-img" />
           </div>
-          <p>Pure, traditional South Indian herbal podis, protein health mix, and unpolished millet powders. 100% natural goodness crafted for your family's daily vitality.</p>
+          <p>Pure, traditional South Indian herbal podis, protein health mix, and unpolished millet powders. 100%
+            natural goodness crafted for your family's daily vitality.</p>
 
           <!-- Mandatory Footer Details -->
-                    <!-- Mandatory Footer Details with Official FSSAI Logo -->
+          <!-- Mandatory Footer Details with Official FSSAI Logo -->
           <div class="footer-fssai-box">
             <strong style="display: block; font-size: 1rem; color: #ffffff;">RP Organics</strong>
             <p style="margin: 3px 0; color: #d1d9d3; font-size: 0.85rem;"><strong>Owner:</strong> Rani Pavunrasu</p>
-            <p style="margin: 3px 0; color: #86efac; font-size: 0.85rem;"><strong>All products are FSSAI registered.</strong></p>
-            <div style="background: #ffffff; border-radius: 8px; padding: 8px 12px; display: inline-flex; align-items: center; gap: 12px; margin: 8px 0; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
-              <img src="assets/images/fssai-logo.png" alt="FSSAI registered logo" width="56" height="56" style="width: 56px; height: 56px; object-fit: contain;" />
+            <p style="margin: 3px 0; color: #86efac; font-size: 0.85rem;"><strong>All products are FSSAI
+                registered.</strong></p>
+            <div
+              style="background: #ffffff; border-radius: 8px; padding: 8px 12px; display: inline-flex; align-items: center; gap: 12px; margin: 8px 0; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+              <img src="assets/images/fssai-logo.png" alt="FSSAI registered logo" width="56" height="56"
+                style="width: 56px; height: 56px; object-fit: contain;" />
               <div style="text-align: left;">
-                <span style="display: block; font-size: 0.78rem; font-weight: 800; color: #15803d; letter-spacing: 0.5px;">FSSAI REGISTERED</span>
-                <span style="display: block; font-size: 0.88rem; font-weight: 800; color: #111827;">Lic No: 22426431000125</span>
+                <span
+                  style="display: block; font-size: 0.78rem; font-weight: 800; color: #15803d; letter-spacing: 0.5px;">FSSAI
+                  REGISTERED</span>
+                <span style="display: block; font-size: 0.88rem; font-weight: 800; color: #111827;">Lic No:
+                  22426431000125</span>
               </div>
             </div>
-            <p style="margin: 3px 0; color: #d1d9d3; font-size: 0.85rem;"><strong>Contact:</strong> <a href="tel:9150300641" style="color: #ffffff; text-decoration: underline;">9150300641</a></p>
-            <p style="margin: 3px 0; color: #d1d9d3; font-size: 0.85rem;"><strong>Email:</strong> <a href="mailto:benseethalrani@gmail.com" style="color: #ffffff; text-decoration: underline;">benseethalrani@gmail.com</a></p>
+            <p style="margin: 3px 0; color: #d1d9d3; font-size: 0.85rem;"><strong>Contact:</strong> <a
+                href="tel:9150300641" style="color: #ffffff; text-decoration: underline;">9150300641</a></p>
+            <p style="margin: 3px 0; color: #d1d9d3; font-size: 0.85rem;"><strong>Email:</strong> <a
+                href="mailto:benseethalrani@gmail.com"
+                style="color: #ffffff; text-decoration: underline;">benseethalrani@gmail.com</a></p>
           </div>
-<div class="footer-social-links">
+          <div class="footer-social-links">
             <a href="https://instagram.com" class="footer-social-btn" aria-label="Instagram">IG</a>
             <a href="https://wa.me/919150300641" class="footer-social-btn" aria-label="WhatsApp">WA</a>
             <a href="https://facebook.com" class="footer-social-btn" aria-label="Facebook">FB</a>
           </div>
         </div>
 
-<div class="footer-col">
+        <div class="footer-col">
           <h4>Navigation</h4>
           <ul class="footer-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="shop.html">Shop All</a></li>
-            <li><a href="https://maps.app.goo.gl/3Ba8wCBjjAUvrJXu5?g_st=aw" target="_blank" rel="noopener noreferrer">RP Organics store location</a></li>
+            <li><a href="https://maps.app.goo.gl/3Ba8wCBjjAUvrJXu5?g_st=aw" target="_blank" rel="noopener noreferrer">RP
+                Organics store location</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>
         </div>
@@ -354,8 +444,10 @@
         </div>
         <div class="footer-col">
           <h4>Support</h4>
-          <p style="font-size: 0.88rem; color: #a3b0a6;"><a href="mailto:benseethalrani@gmail.com" style="color: #ffffff;">benseethalrani@gmail.com</a></p>
-          <p style="font-size: 0.88rem; color: #a3b0a6;"><a href="tel:9150300641" style="color: #ffffff;">9150300641</a></p>
+          <p style="font-size: 0.88rem; color: #a3b0a6;"><a href="mailto:benseethalrani@gmail.com"
+              style="color: #ffffff;">benseethalrani@gmail.com</a></p>
+          <p style="font-size: 0.88rem; color: #a3b0a6;"><a href="tel:9150300641" style="color: #ffffff;">9150300641</a>
+          </p>
           <p style="font-size: 0.8rem; color: #a3b0a6; margin-top: 8px;">FSSAI Lic No: 22426431000125</p>
         </div>
       </div>
@@ -373,24 +465,42 @@
   <!-- Mobile Bottom Sticky Navigation Bar -->
   <nav class="mobile-bottom-bar" aria-label="Mobile Bottom Navigation">
     <a href="index.html" class="bottom-bar-item">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      </svg>
       <span>Home</span>
     </a>
     <a href="shop.html" class="bottom-bar-item active">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="7" height="7"></rect>
+        <rect x="14" y="3" width="7" height="7"></rect>
+        <rect x="14" y="14" width="7" height="7"></rect>
+        <rect x="3" y="14" width="7" height="7"></rect>
+      </svg>
       <span>Shop</span>
     </a>
     <a href="search.html" class="bottom-bar-item">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
       <span>Search</span>
     </a>
     <a href="wishlist.html" class="bottom-bar-item">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path
+          d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+        </path>
+      </svg>
       <span class="badge-count wishlist-count-badge" style="display: none;">0</span>
       <span>Wishlist</span>
     </a>
     <a href="cart.html" class="bottom-bar-item trigger-cart-drawer">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-2z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-2z"></path>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <path d="M16 10a4 4 0 0 1-8 0"></path>
+      </svg>
       <span class="badge-count cart-count-badge" style="display: none;">0</span>
       <span>Order List</span>
     </a>
@@ -404,4 +514,5 @@
   <script src="assets/js/specular-button.js"></script>
   <script src="assets/js/gooey-nav.js"></script>
 </body>
+
 </html>

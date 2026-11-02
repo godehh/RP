@@ -344,7 +344,7 @@
 
     wake();
 
-    return {
+    var instance = {
       wake: wake,
       destroy: function() {
         alive = false;
@@ -355,6 +355,8 @@
         root.removeEventListener('click', onClick);
       }
     };
+    root._bounceCardsInstance = instance;
+    return instance;
   }
 
   function autoInit() {

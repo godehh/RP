@@ -51,33 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalSlides = slides.length;
     let autoplayInterval = null;
 
-    const goToSlide = (index) => {
-      currentIndex = (index + totalSlides) % totalSlides;
-      track.style.transform = `translateX(-${currentIndex * 100}%)`;
-
-      slides.forEach((slide, i) => {
-        slide.classList.toggle('active', i === currentIndex);
-      });
-
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === currentIndex);
-      });
-    };
-
-    const nextSlide = () => goToSlide(currentIndex + 1);
-    const prevSlide = () => goToSlide(currentIndex - 1);
-
-    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
-
-    dots.forEach((dot, idx) => {
-      dot.addEventListener('click', () => goToSlide(idx));
-    });
-
-    // Autoplay every 4 seconds, pause on hover, loop infinitely
     const startAutoplay = () => {
       stopAutoplay();
-      autoplayInterval = setInterval(nextSlide, 4000);
+      autoplayInterval = setInterval(() => {
+        goToSlide(currentIndex + 1);
+      }, 4500);
     };
 
     const stopAutoplay = () => {
@@ -87,27 +65,95 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
+    const goToSlide = (index, isManual = false) => {
+      currentIndex = (index + totalSlides) % totalSlides;
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+      slides.forEach((slide, i) => {
+        const isActive = i === currentIndex;
+        slide.classList.toggle('active', isActive);
+        if (isActive) {
+          const bc = slide.querySelector('.bounce-cards');
+          if (bc && bc._bounceCardsInstance && typeof bc._bounceCardsInstance.wake === 'function') {
+            bc._bounceCardsInstance.wake();
+          }
+        }
+      });
+
+      dots.forEach((dot, i) => {
+        const isActive = i === currentIndex;
+        dot.classList.toggle('active', isActive);
+        if (isActive) {
+          dot.setAttribute('aria-current', 'true');
+        } else {
+          dot.removeAttribute('aria-current');
+        }
+      });
+
+      if (isManual) {
+        startAutoplay();
+      }
+    };
+
+    const nextSlide = () => goToSlide(currentIndex + 1, true);
+    const prevSlide = () => goToSlide(currentIndex - 1, true);
+
+    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+
+    dots.forEach((dot, idx) => {
+      dot.addEventListener('click', () => goToSlide(idx, true));
+    });
+
     if (wrap) {
       wrap.addEventListener('mouseenter', stopAutoplay);
       wrap.addEventListener('mouseleave', startAutoplay);
     }
 
-    // Touch Swipe Support for Mobile
+    // Touch Swipe Support for Android & Mobile Devices
     let touchStartX = 0;
+    let touchStartY = 0;
     let touchEndX = 0;
+    let touchEndY = 0;
+    let isSwiping = false;
 
-    track.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].clientX;
+    const touchTarget = wrap || track;
+
+    touchTarget.addEventListener('touchstart', (e) => {
+      if (!e.touches || e.touches.length === 0) return;
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      touchEndX = touchStartX;
+      touchEndY = touchStartY;
+      isSwiping = true;
       stopAutoplay();
     }, { passive: true });
 
-    track.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].clientX;
-      const diff = touchStartX - touchEndX;
-      if (Math.abs(diff) > 40) {
-        if (diff > 0) nextSlide();
-        else prevSlide();
+    touchTarget.addEventListener('touchmove', (e) => {
+      if (!isSwiping || !e.touches || e.touches.length === 0) return;
+      touchEndX = e.touches[0].clientX;
+      touchEndY = e.touches[0].clientY;
+    }, { passive: true });
+
+    touchTarget.addEventListener('touchend', () => {
+      if (!isSwiping) return;
+      isSwiping = false;
+      const diffX = touchStartX - touchEndX;
+      const diffY = touchStartY - touchEndY;
+      // Only trigger if horizontal swipe exceeds 38px and is more horizontal than vertical
+      if (Math.abs(diffX) > 38 && Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX > 0) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+      } else {
+        startAutoplay();
       }
+    }, { passive: true });
+
+    touchTarget.addEventListener('touchcancel', () => {
+      isSwiping = false;
       startAutoplay();
     }, { passive: true });
 
@@ -281,9 +327,57 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  // 5. OFFLINE STORE REDIRECT & SMOOTH SCROLL CONTROLLER
+  const initStoreLocationRedirect = () => {
+    const scrollToStore = (animate = true) => {
+      const target = document.getElementById('store-location-section');
+      if (!target) return;
+
+      // Close mobile drawer if open
+      const drawer = document.querySelector('.mobile-nav-drawer');
+      const overlay = document.querySelector('.mobile-drawer-overlay');
+      if (drawer && drawer.classList.contains('open')) {
+        drawer.classList.remove('open');
+        if (overlay) overlay.classList.remove('show');
+        document.body.style.overflow = '';
+      }
+
+      // Smooth scroll into view
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      if (animate) {
+        target.classList.remove('highlight-pulse');
+        void target.offsetWidth; // Reflow to restart animation
+        target.classList.add('highlight-pulse');
+        setTimeout(() => target.classList.remove('highlight-pulse'), 3000);
+      }
+    };
+
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('a[href*="#store-location-section"]');
+      if (!link) return;
+
+      const path = window.location.pathname;
+      const isHome = path.endsWith('/') || path.endsWith('index.html') || path === '';
+
+      if (isHome) {
+        e.preventDefault();
+        scrollToStore(true);
+        try {
+          history.pushState(null, '', '#store-location-section');
+        } catch (err) {}
+      }
+    });
+
+    if (window.location.hash === '#store-location-section') {
+      setTimeout(() => scrollToStore(true), 450);
+    }
+  };
+
   // Initialize all controllers
   initHeroSlideCarousel();
   initHeroBannerSlideIn();
   populateHomeSections();
   initNewsletterForms();
+  initStoreLocationRedirect();
 });
