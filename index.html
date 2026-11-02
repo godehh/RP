@@ -9,6 +9,14 @@
     content="Shop RP Organics traditional Poondu Podi, Pirandai Podi, Sundakkai Podi, Vallarai Podi, Protein Health Mix (12g Veg Protein per 50g), and Millet Powder. All products are FSSAI registered (Lic No: 22426431000125)." />
 
   <link rel="icon" type="image/png" href="assets/images/rp-organics-logo.png" />
+  <!-- Google Fonts: Preconnect & Non-Blocking Async Load -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" media="print" onload="this.media='all'" />
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" />
+  </noscript>
+
   <!-- CSS Stylesheets -->
   <link rel="stylesheet" href="assets/css/main.css?v=20261101_v4" />
   <link rel="stylesheet" href="assets/css/header-footer.css?v=20261101_v4" />
@@ -29,20 +37,36 @@
   </div>
   <script>
     (function () {
+      // Guarantee visitor lands at top header hero on load (never auto-redirect to store location)
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+      if (window.location.hash === '#store-location-section' || window.location.hash === '#store-location') {
+        try {
+          history.replaceState(null, '', window.location.pathname + window.location.search);
+        } catch (e) {}
+      }
+      window.scrollTo(0, 0);
+
       function dismissPreloader() {
         var p = document.getElementById('rp-preloader');
         if (p && !p.classList.contains('fade-out')) {
           p.classList.add('fade-out');
           setTimeout(function () {
             if (p && p.parentNode) p.parentNode.removeChild(p);
-          }, 420);
+          }, 300);
         }
       }
-      window.addEventListener('load', dismissPreloader);
-      document.addEventListener('DOMContentLoaded', function () {
-        setTimeout(dismissPreloader, 600);
-      });
-      setTimeout(dismissPreloader, 1500);
+
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        setTimeout(dismissPreloader, 50);
+      } else {
+        window.addEventListener('load', dismissPreloader);
+        document.addEventListener('DOMContentLoaded', function () {
+          setTimeout(dismissPreloader, 50);
+        });
+      }
+      setTimeout(dismissPreloader, 400);
     })();
   </script>
 
@@ -57,7 +81,7 @@
           </svg>
           Free Shipping on all orders above ₹999 across India!
         </span>
-        <a href="#store-location-section" class="announcement-offline-link" title="Visit our physical shop in Hosur for offline purchase">
+        <a href="#store-location" class="announcement-offline-link" title="Visit our physical shop in Hosur for offline purchase">
           <span class="pulse-dot"></span>
           <span>🏪 Offline Store Purchase Available (Hosur) &rarr;</span>
         </a>
@@ -201,7 +225,7 @@
                 </div>
               </li>
               <li class="gooey-nav__item" data-gooey-index="3">
-                <a href="#store-location-section" class="gooey-nav__link" title="Visit our store in Hosur for offline purchase">Store Location</a>
+                <a href="#store-location" class="gooey-nav__link" title="Visit our store in Hosur for offline purchase">Store Location</a>
               </li>
               <li class="gooey-nav__item" data-gooey-index="4">
                 <a href="contact.html" class="gooey-nav__link">Contact Us</a>
@@ -211,7 +235,7 @@
         </div>
 
         <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-          <a href="#store-location-section" class="header-offline-pill" title="Visit RP Organics store in Hosur for buying products offline">
+          <a href="#store-location" class="header-offline-pill" title="Visit RP Organics store in Hosur for buying products offline">
             <span class="pulse-dot"></span>
             <span>🏪 Offline Store Purchase Available</span>
             <span style="opacity: 0.75; font-size: 0.8rem;">(Hosur) &rarr;</span>
@@ -272,7 +296,7 @@
 
     <!-- Row 3: Offline Store Purchase Notification Strip -->
     <div class="mobile-offline-bar">
-      <a href="#store-location-section" class="mobile-offline-link" aria-label="Offline store purchase available at Hosur. Tap to view store location and timings.">
+      <a href="#store-location" class="mobile-offline-link" aria-label="Offline store purchase available at Hosur. Tap to view store location and timings.">
         <span class="mobile-offline-badge">
           <span class="mobile-offline-dot"></span>
           <span class="mobile-offline-label">🏪 Offline Store Purchase Available</span>
@@ -317,7 +341,7 @@
           </div>
         </div>
 
-        <a href="#store-location-section" class="mobile-nav-link" style="background: #f0fdf4; border-left: 3.5px solid #16a34a; font-weight: 700; color: #15803d;">
+        <a href="#store-location" class="mobile-nav-link" style="background: #f0fdf4; border-left: 3.5px solid #16a34a; font-weight: 700; color: #15803d;">
           <span>🏪 Offline Store Purchase Available</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </a>
@@ -861,7 +885,7 @@
     </section>
 
     <!-- 10. RP ORGANICS STORE LOCATION -->
-    <section class="section" aria-label="RP Organics Store Location" id="store-location-section">
+    <section class="section" aria-label="RP Organics Store Location" id="store-location">
       <div class="container">
         <div class="section-header">
           <span class="sub-badge">📍 Visit Us In Person &bull; Offline Shop</span>

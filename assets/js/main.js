@@ -19,15 +19,15 @@ function initCircularPreloader() {
       if (preloader && preloader.parentNode) {
         preloader.parentNode.removeChild(preloader);
       }
-    }, 420); // 0.4s CSS transition + 20ms buffer
+    }, 300);
   };
 
-  if (document.readyState === 'complete') {
-    setTimeout(dismissPreloader, 100);
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(dismissPreloader, 50);
   } else {
     window.addEventListener('load', dismissPreloader);
-    // Safety fallback: dismiss after 2.5s if external network assets lag
-    setTimeout(dismissPreloader, 2500);
+    document.addEventListener('DOMContentLoaded', () => setTimeout(dismissPreloader, 100));
+    setTimeout(dismissPreloader, 600);
   }
 }
 
@@ -333,10 +333,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  // 5. OFFLINE STORE REDIRECT & SMOOTH SCROLL CONTROLLER
+  // 5. OFFLINE STORE SCROLL CONTROLLER (Only on deliberate customer click)
   const initStoreLocationRedirect = () => {
     const scrollToStore = (animate = true) => {
-      const target = document.getElementById('store-location-section');
+      const target = document.getElementById('store-location') || document.getElementById('store-location-section');
       if (!target) return;
 
       // Close mobile drawer if open
@@ -359,8 +359,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
+    // Customer explicit tap / click handler
     document.addEventListener('click', (e) => {
-      const link = e.target.closest('a[href*="#store-location-section"]');
+      const link = e.target.closest('a[href*="#store-location"]');
       if (!link) return;
 
       const path = window.location.pathname;
@@ -369,15 +370,23 @@ document.addEventListener('DOMContentLoaded', () => {
       if (isHome) {
         e.preventDefault();
         scrollToStore(true);
-        try {
-          history.pushState(null, '', '#store-location-section');
-        } catch (err) {}
+        // Do NOT push hash to history so reloads/visits stay cleanly at the hero header
       }
     });
 
-    if (window.location.hash === '#store-location-section') {
-      setTimeout(() => scrollToStore(true), 450);
+    // When visiting the website, NEVER automatically scroll or redirect away from the hero header!
+    // Clean any lingering hash so refreshing or revisiting never jumps down.
+    if (window.location.hash === '#store-location-section' || window.location.hash === '#store-location') {
+      try {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      } catch (err) {}
     }
+
+    // Ensure the viewport is at the top (scrollY = 0) so the hero cards animation plays in full view
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   };
 
   // Initialize all controllers

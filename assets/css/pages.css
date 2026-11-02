@@ -2222,12 +2222,14 @@
 /* ─────────────────────────────────────────────────────────────
    Store Location Section & Smooth Scroll Target Styling
    ───────────────────────────────────────────────────────────── */
+#store-location,
 #store-location-section {
   scroll-margin-top: 155px;
   position: relative;
 }
 
 @media (max-width: 480px) {
+  #store-location,
   #store-location-section {
     scroll-margin-top: 145px;
   }
@@ -2237,6 +2239,7 @@
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+#store-location.highlight-pulse .map-card-wrapper,
 #store-location-section.highlight-pulse .map-card-wrapper {
   animation: storeGlowPulse 2.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
