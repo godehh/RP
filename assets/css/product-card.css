@@ -1066,4 +1066,99 @@
   }
 }
 
+/* ─────────────────────────────────────────────────────────────
+   Product Card Image Swipe Dots & Navigation Arrows
+   ───────────────────────────────────────────────────────────── */
+.product-card-media {
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.card-swipe-dots {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  z-index: 3;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.76);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  padding: 3px 8px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.card-swipe-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: #94a3b8;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-block;
+}
+
+.card-swipe-dot.active {
+  width: 15px;
+  background: var(--color-primary, #15803d);
+}
+
+.card-img-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(4px);
+  border: 1px solid #bbf7d0;
+  color: #166534;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease;
+  user-select: none;
+  padding: 0 0 2px 0;
+}
+
+.card-img-arrow.prev {
+  left: 6px;
+}
+
+.card-img-arrow.next {
+  right: 6px;
+}
+
+.product-card:hover .card-img-arrow {
+  opacity: 1;
+}
+
+.card-img-arrow:hover {
+  background: #ffffff;
+  color: var(--color-primary);
+  transform: translateY(-50%) scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .card-img-arrow {
+    opacity: 0.85;
+    width: 26px;
+    height: 26px;
+    font-size: 1.15rem;
+  }
+}
+
+
 

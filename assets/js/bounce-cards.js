@@ -409,16 +409,6 @@
       var dy = touch ? Math.abs(touch.clientY - touchInfo.startY) : 0;
       var elapsed = performance.now() - touchInfo.startTime;
       var isTap = (!touchInfo.moved || (dx < 16 && dy < 16)) && elapsed < 450;
-      var isSwipe = dx > 32 && dx > dy;
-
-      if (isSwipe) {
-        // User performed a swipe gesture across the header to switch slides/pages
-        activeTouchCardIndex = -1;
-        state.hovered = -1;
-        wake();
-        touchInfo = null;
-        return;
-      }
 
       if (isTap) {
         var targetCard = touchInfo.targetCard || ((touch && e.target && e.target.closest) ? e.target.closest('.bounce-cards__card') : null);

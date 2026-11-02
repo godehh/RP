@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
       wrap.addEventListener('mouseleave', startAutoplay);
     }
 
-    // Touch Swipe Support for Android & Mobile Devices across entire header page
+    // Touch Swipe Support for Android & Mobile Devices
     let touchStartX = 0;
     let touchStartY = 0;
     let touchEndX = 0;
@@ -140,8 +140,8 @@ document.addEventListener('DOMContentLoaded', () => {
       isSwiping = false;
       const diffX = touchStartX - touchEndX;
       const diffY = touchStartY - touchEndY;
-      // Trigger slide change when horizontal swipe exceeds 32px and is primarily horizontal
-      if (Math.abs(diffX) > 32 && Math.abs(diffX) > Math.abs(diffY)) {
+      // Only trigger if horizontal swipe exceeds 38px and is more horizontal than vertical
+      if (Math.abs(diffX) > 38 && Math.abs(diffX) > Math.abs(diffY)) {
         if (diffX > 0) {
           nextSlide();
         } else {

@@ -123,15 +123,19 @@
       this.el.addEventListener('touchend', () => {
         if (!agSwiping) return;
         agSwiping = false;
-        const dx = agStartX - agEndX;
-        const dy = agStartY - agEndY;
-        if (Math.abs(dx) > 35 && Math.abs(dx) > Math.abs(dy)) {
-          if (dx > 0) {
+        const diffX = agStartX - agEndX;
+        const diffY = agStartY - agEndY;
+        if (Math.abs(diffX) > 30 && Math.abs(diffX) > Math.abs(diffY)) {
+          if (diffX > 0) {
             this.setActive((this.active + 1) % this.count);
           } else {
             this.setActive((this.active - 1 + this.count) % this.count);
           }
         }
+      }, { passive: true });
+
+      this.el.addEventListener('touchcancel', () => {
+        agSwiping = false;
       }, { passive: true });
 
       // Responsive measure observer

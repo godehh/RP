@@ -20,21 +20,72 @@
 
   // Global methods accessible from inline event handlers
   window.RPProductPage = {
-    switchImage(src, thumbEl) {
-      const mainImg = document.getElementById('detail-main-img');
-      if (!mainImg) return;
-      
-      // Smooth fade transition
-      mainImg.style.opacity = '0.3';
-      mainImg.style.transform = 'scale(0.97)';
-      setTimeout(() => {
-        mainImg.src = src;
-        mainImg.style.opacity = '1';
-        mainImg.style.transform = 'scale(1)';
-      }, 150);
+    currentImageIndex: 0,
+    galleryImages: [],
 
-      document.querySelectorAll('.product-thumb-item').forEach(t => t.classList.remove('active'));
-      if (thumbEl) thumbEl.classList.add('active');
+    switchImageByIndex(idx) {
+      if (!this.galleryImages || this.galleryImages.length === 0) return;
+      this.currentImageIndex = (idx + this.galleryImages.length) % this.galleryImages.length;
+      const src = this.galleryImages[this.currentImageIndex];
+      
+      const mainImg = document.getElementById('detail-main-img');
+      if (mainImg) {
+        mainImg.style.opacity = '0.25';
+        mainImg.style.transform = 'scale(0.96)';
+        setTimeout(() => {
+          mainImg.src = src;
+          mainImg.style.opacity = '1';
+          mainImg.style.transform = 'scale(1)';
+        }, 110);
+      }
+
+      // Update thumbnail active states
+      const thumbs = document.querySelectorAll('.product-thumb-item');
+      thumbs.forEach((t, i) => {
+        const isActive = i === this.currentImageIndex;
+        t.classList.toggle('active', isActive);
+        if (isActive && t.scrollIntoView) {
+          t.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      });
+
+      // Update counter badge
+      const counter = document.getElementById('pdp-img-counter');
+      if (counter) {
+        counter.textContent = `${this.currentImageIndex + 1} / ${this.galleryImages.length}`;
+      }
+
+      // Update mobile dots
+      const dots = document.querySelectorAll('.pdp-mobile-dot');
+      dots.forEach((d, i) => d.classList.toggle('active', i === this.currentImageIndex));
+    },
+
+    nextImage() {
+      this.switchImageByIndex(this.currentImageIndex + 1);
+    },
+
+    prevImage() {
+      this.switchImageByIndex(this.currentImageIndex - 1);
+    },
+
+    switchImage(src, thumbEl) {
+      const idx = this.galleryImages ? this.galleryImages.indexOf(src) : -1;
+      if (idx >= 0) {
+        this.switchImageByIndex(idx);
+      } else {
+        const mainImg = document.getElementById('detail-main-img');
+        if (mainImg) {
+          mainImg.style.opacity = '0.25';
+          mainImg.style.transform = 'scale(0.96)';
+          setTimeout(() => {
+            mainImg.src = src;
+            mainImg.style.opacity = '1';
+            mainImg.style.transform = 'scale(1)';
+          }, 110);
+        }
+        document.querySelectorAll('.product-thumb-item').forEach(t => t.classList.remove('active'));
+        if (thumbEl) thumbEl.classList.add('active');
+      }
     },
 
     selectVariant(variantName, btnEl) {
@@ -337,14 +388,12 @@
 
     render(allProducts);
 
-    function render(products, overrideId = null) {
-      let requestedId = overrideId;
-      if (!requestedId) {
-        try {
-          const urlParams = new URLSearchParams(window.location.search);
-          requestedId = urlParams.get('id') || urlParams.get('product') || urlParams.get('slug');
-        } catch (e) {}
-      }
+    function render(products) {
+      let requestedId = null;
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        requestedId = urlParams.get('id') || urlParams.get('product') || urlParams.get('slug');
+      } catch (e) {}
 
       // Fallback 1: check window.location.hash (e.g. #spc-poondu or #id=spc-poondu)
       if (!requestedId && window.location.hash) {
@@ -417,6 +466,9 @@
         ? product.gallery
         : (product.images && product.images.length > 0 ? product.images : [product.primaryImage]);
 
+      RPProductPage.galleryImages = galleryImages;
+      RPProductPage.currentImageIndex = 0;
+
       // Protein Claim Banner (Strictly isolated to pro-01 Protein Health Mix)
       let proteinClaimHeroHtml = '';
       if (product.specialClaim && product.id === 'pro-01') {
@@ -455,40 +507,7 @@
         }).join('');
       }
 
-      // Compute Prev and Next product for swipe navigation across all products
-      const currentIndex = products.findIndex(p => p.id === product.id);
-      const prevProduct = products[(currentIndex - 1 + products.length) % products.length];
-      const nextProduct = products[(currentIndex + 1) % products.length];
-
       productContainer.innerHTML = `
-        <!-- Swipeable Product Switcher Bar (Mobile & Desktop) -->
-        <div class="product-swipe-nav-bar" role="navigation" aria-label="Browse All Products">
-          <a href="product.html?id=${prevProduct.id}" class="product-swipe-nav-btn prev" title="Previous: ${prevProduct.name}" onclick="event.preventDefault(); window.RPProductPage && window.RPProductPage.goToProduct('${prevProduct.id}', 'prev');">
-            <span class="swipe-arrow">&larr;</span>
-            <span class="swipe-text">
-              <span class="swipe-sub">Prev</span>
-              <strong class="swipe-name">${prevProduct.name}</strong>
-            </span>
-          </a>
-
-          <div class="product-swipe-indicator">
-            <div class="swipe-guide-row">
-              <span style="font-size: 0.9rem;">👈</span>
-              <span class="swipe-guide">Swipe to browse</span>
-              <span style="font-size: 0.9rem;">👉</span>
-            </div>
-            <span class="swipe-counter">${currentIndex + 1} of ${products.length} Products</span>
-          </div>
-
-          <a href="product.html?id=${nextProduct.id}" class="product-swipe-nav-btn next" title="Next: ${nextProduct.name}" onclick="event.preventDefault(); window.RPProductPage && window.RPProductPage.goToProduct('${nextProduct.id}', 'next');">
-            <span class="swipe-text" style="text-align: right;">
-              <span class="swipe-sub">Next</span>
-              <strong class="swipe-name">${nextProduct.name}</strong>
-            </span>
-            <span class="swipe-arrow">&rarr;</span>
-          </a>
-        </div>
-
         <!-- Breadcrumbs Navigation -->
         <nav class="breadcrumbs" aria-label="Breadcrumb" style="margin-bottom: 24px; animation: pdpFadeInUp 0.4s ease;">
           <a href="index.html">Home</a>
@@ -503,22 +522,49 @@
         <div class="product-detail-layout">
           <!-- Left Column: Premium Gallery & Zoom -->
           <div class="product-gallery-wrap">
-            <div class="product-main-view" id="main-view-zoom-box">
+            <div class="product-main-view" id="main-view-zoom-box" style="position: relative; touch-action: pan-y;">
               <span class="pdp-badge-pill" style="position: absolute; top: 16px; left: 16px; z-index: 4; background: #ffffff; color: #15803d; font-size: 0.78rem; font-weight: 800; padding: 6px 12px; border-radius: 9999px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 1px solid #86efac; display: flex; align-items: center; gap: 6px;">
                 <span class="live-pulse-dot"></span> 100% Farm Sourced
               </span>
+
+              <!-- Image Counter Badge -->
+              <div class="pdp-img-counter-badge" id="pdp-img-counter">
+                1 / ${galleryImages.length}
+              </div>
+
+              <!-- Prev / Next Arrow Buttons -->
+              ${galleryImages.length > 1 ? `
+                <button type="button" class="pdp-img-arrow prev" aria-label="Previous photo" onclick="event.stopPropagation(); RPProductPage.prevImage();">&lsaquo;</button>
+                <button type="button" class="pdp-img-arrow next" aria-label="Next photo" onclick="event.stopPropagation(); RPProductPage.nextImage();">&rsaquo;</button>
+              ` : ''}
 
               <img id="detail-main-img" 
                    src="${galleryImages[0]}" 
                    alt="${product.title}" 
                    onerror="this.onerror=null; this.src='assets/images/product-placeholder.png';" />
+
+              <!-- Subtle Mobile Swipe Prompt Pill -->
+              ${galleryImages.length > 1 ? `
+                <div class="pdp-swipe-hint-pill">
+                  <span>⟷ Swipe to view photos</span>
+                </div>
+              ` : ''}
             </div>
+
+            <!-- Mobile Dots Indicator -->
+            ${galleryImages.length > 1 ? `
+              <div class="pdp-mobile-dots" aria-hidden="true">
+                ${galleryImages.map((_, idx) => `
+                  <span class="pdp-mobile-dot ${idx === 0 ? 'active' : ''}" onclick="RPProductPage.switchImageByIndex(${idx})"></span>
+                `).join('')}
+              </div>
+            ` : ''}
 
             <!-- Thumbnail Carousel -->
             <div class="product-thumbnails-list" aria-label="Product Image Views">
               ${galleryImages.map((imgUrl, idx) => `
                 <div class="product-thumb-item ${idx === 0 ? 'active' : ''}" 
-                     onclick="RPProductPage.switchImage('${imgUrl}', this)"
+                     onclick="RPProductPage.switchImageByIndex(${idx})"
                      title="View ${idx + 1}">
                   <img src="${imgUrl}" alt="${product.title} view ${idx + 1}" onerror="this.onerror=null; this.src='assets/images/product-placeholder.png';" />
                 </div>
@@ -892,101 +938,59 @@
       // Initialize Desktop Zoom Magnifier
       initZoomMagnifier();
 
+      // Initialize Touch Swipe on Product Images
+      initPdpImageSwipe();
+
       // Initialize SpecularButton on dynamically generated PDP buttons
       if (window.SpecularButton && window.SpecularButton.autoInit) {
         window.SpecularButton.autoInit();
       }
-
-      // Touch Swipe Gesture: Swipe left -> Next Product, Swipe right -> Prev Product
-      let pdpTouchStartX = 0;
-      let pdpTouchStartY = 0;
-      let pdpTouchEndX = 0;
-      let pdpTouchEndY = 0;
-      let pdpIsSwiping = false;
-
-      const swipeTarget = document.querySelector('.product-detail-layout') || productContainer;
-
-      swipeTarget.addEventListener('touchstart', (e) => {
-        if (!e.touches || !e.touches[0]) return;
-        // Do not intercept interactive elements like quantity buttons, inputs, reviews, or WhatsApp order CTA
-        if (e.target.closest('input, textarea, select, button, .btn, .specular-button, .product-thumb-item, .product-swipe-nav-btn')) {
-          pdpIsSwiping = false;
-          return;
-        }
-        pdpTouchStartX = e.touches[0].clientX;
-        pdpTouchStartY = e.touches[0].clientY;
-        pdpTouchEndX = pdpTouchStartX;
-        pdpTouchEndY = pdpTouchStartY;
-        pdpIsSwiping = true;
-      }, { passive: true });
-
-      swipeTarget.addEventListener('touchmove', (e) => {
-        if (!pdpIsSwiping || !e.touches || !e.touches[0]) return;
-        pdpTouchEndX = e.touches[0].clientX;
-        pdpTouchEndY = e.touches[0].clientY;
-      }, { passive: true });
-
-      swipeTarget.addEventListener('touchend', () => {
-        if (!pdpIsSwiping) return;
-        pdpIsSwiping = false;
-        const diffX = pdpTouchStartX - pdpTouchEndX;
-        const diffY = pdpTouchStartY - pdpTouchEndY;
-        // Threshold: 36px horizontal travel, primarily horizontal
-        if (Math.abs(diffX) > 36 && Math.abs(diffX) > Math.abs(diffY)) {
-          if (diffX > 0) {
-            // Swiped left -> Go to Next Product
-            goToProduct(nextProduct.id, 'next');
-          } else {
-            // Swiped right -> Go to Previous Product
-            goToProduct(prevProduct.id, 'prev');
-          }
-        }
-      }, { passive: true });
-
-      swipeTarget.addEventListener('touchcancel', () => {
-        pdpIsSwiping = false;
-      }, { passive: true });
-
-      function goToProduct(targetId, direction = 'next') {
-        const targetP = products.find(p => p.id === targetId);
-        const name = targetP ? (targetP.name || targetP.title) : 'Product';
-        showSwipeToast(direction === 'next' ? `Next Product: ${name} →` : `← Previous Product: ${name}`);
-
-        try {
-          history.pushState(null, '', `product.html?id=${targetId}`);
-        } catch (e) {}
-
-        const animClass = direction === 'next' ? 'pdp-slide-in-right' : 'pdp-slide-in-left';
-        productContainer.classList.remove('pdp-slide-in-right', 'pdp-slide-in-left');
-        void productContainer.offsetWidth;
-        productContainer.classList.add(animClass);
-
-        render(products, targetId);
-        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-
-        setTimeout(() => {
-          productContainer.classList.remove(animClass);
-        }, 400);
-      }
-
-      window.RPProductPage = window.RPProductPage || {};
-      window.RPProductPage.goToProduct = goToProduct;
     }
   }
 
-  function showSwipeToast(msg) {
-    let toast = document.getElementById('pdp-swipe-toast');
-    if (!toast) {
-      toast = document.createElement('div');
-      toast.id = 'pdp-swipe-toast';
-      document.body.appendChild(toast);
-    }
-    toast.textContent = msg;
-    toast.className = 'pdp-swipe-toast show';
-    clearTimeout(toast._timer);
-    toast._timer = setTimeout(() => {
-      toast.className = 'pdp-swipe-toast';
-    }, 1600);
+  function initPdpImageSwipe() {
+    const mainBox = document.getElementById('main-view-zoom-box');
+    if (!mainBox) return;
+
+    let startX = 0;
+    let startY = 0;
+    let isSwiping = false;
+
+    mainBox.addEventListener('touchstart', (e) => {
+      if (!e.touches || !e.touches[0]) return;
+      if (e.target.closest('.pdp-img-arrow, .pdp-mobile-dot')) return;
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      isSwiping = true;
+    }, { passive: true });
+
+    mainBox.addEventListener('touchmove', (e) => {
+      if (!isSwiping || !e.touches || !e.touches[0]) return;
+    }, { passive: true });
+
+    mainBox.addEventListener('touchend', (e) => {
+      if (!isSwiping) return;
+      isSwiping = false;
+      const touch = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0] : null;
+      if (!touch) return;
+
+      const diffX = startX - touch.clientX;
+      const diffY = startY - touch.clientY;
+
+      if (Math.abs(diffX) > 26 && Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX > 0) {
+          // Swipe left -> Next image
+          RPProductPage.nextImage();
+        } else {
+          // Swipe right -> Prev image
+          RPProductPage.prevImage();
+        }
+      }
+    }, { passive: true });
+
+    mainBox.addEventListener('touchcancel', () => {
+      isSwiping = false;
+    }, { passive: true });
   }
 
   async function loadApprovedReviews(productId) {

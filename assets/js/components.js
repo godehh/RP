@@ -27,6 +27,12 @@ window.RPComponents = {
     const primaryImg = product.primaryImage || 'assets/images/product-placeholder.png';
     const hoverImg = product.hoverImage || (product.images && product.images[1]) || '';
 
+    // Gallery images for swipe navigation
+    const gallery = (product.gallery && product.gallery.length > 0)
+      ? product.gallery
+      : (product.images && product.images.length > 0 ? product.images : [primaryImg]);
+    const galleryJson = JSON.stringify(gallery).replace(/"/g, '&quot;');
+
     // Stars generation
     const fullStars = Math.floor(product.rating || 5);
     let starsHtml = '';
@@ -67,8 +73,8 @@ window.RPComponents = {
     }
 
     return `
-      <div class="product-card" data-product-id="${product.id}" onclick="try{sessionStorage.setItem('rp_current_product_id', '${product.id}');}catch(e){}; if(!event.target.closest('button, a')) window.location.href='product.html?id=${product.id}'">
-        <div class="product-card-media">
+      <div class="product-card" data-product-id="${product.id}" onclick="if(this._suppressClickUntil && Date.now() < this._suppressClickUntil){event.preventDefault();event.stopPropagation();return;} try{sessionStorage.setItem('rp_current_product_id', '${product.id}');}catch(e){}; if(!event.target.closest('button, a, .card-swipe-dots, .card-img-arrow')) window.location.href='product.html?id=${product.id}'">
+        <div class="product-card-media" data-gallery="${galleryJson}" data-img-index="0">
           <div class="product-badges">
             ${badgeHtml}
             ${currentDiscount ? `<span class="discount-badge">${currentDiscount}</span>` : ''}
@@ -105,7 +111,13 @@ window.RPComponents = {
             </button>
           </div>
 
-          <a href="product.html?id=${product.id}" onclick="try{sessionStorage.setItem('rp_current_product_id', '${product.id}');}catch(e){}" class="product-media-link" aria-label="${product.title}">
+          <!-- Card Gallery Swipe Navigation Arrows -->
+          ${gallery.length > 1 ? `
+            <button type="button" class="card-img-arrow prev" aria-label="Previous photo" onclick="event.preventDefault(); event.stopPropagation(); RPComponents.cycleCardImage(this, -1);">&lsaquo;</button>
+            <button type="button" class="card-img-arrow next" aria-label="Next photo" onclick="event.preventDefault(); event.stopPropagation(); RPComponents.cycleCardImage(this, 1);">&rsaquo;</button>
+          ` : ''}
+
+          <a href="product.html?id=${product.id}" onclick="if(this.closest('.product-card') && this.closest('.product-card')._suppressClickUntil && Date.now() < this.closest('.product-card')._suppressClickUntil){event.preventDefault();event.stopPropagation();return false;} try{sessionStorage.setItem('rp_current_product_id', '${product.id}');}catch(e){}" class="product-media-link" aria-label="${product.title}">
             <img class="product-img-primary" 
                  src="${primaryImg}" 
                  alt="${product.title}" 
@@ -123,6 +135,13 @@ window.RPComponents = {
                  onerror="this.onerror=null; this.src='assets/images/product-placeholder.png';" />
             ` : ''}
           </a>
+
+          <!-- Dots Indicator for Swiping Product Images -->
+          ${gallery.length > 1 ? `
+            <div class="card-swipe-dots" aria-hidden="true">
+              ${gallery.map((_, i) => `<span class="card-swipe-dot ${i === 0 ? 'active' : ''}" onclick="event.preventDefault(); event.stopPropagation(); RPComponents.setCardImage(this, ${i});"></span>`).join('')}
+            </div>
+          ` : ''}
         </div>
 
         <div class="product-card-content">
@@ -178,6 +197,147 @@ window.RPComponents = {
         </div>
       </div>
     `;
+  },
+
+  /**
+   * Cycle product card images on swipe or arrow click
+   */
+  cycleCardImage(targetEl, delta) {
+    const mediaEl = targetEl.classList && targetEl.classList.contains('product-card-media')
+      ? targetEl
+      : targetEl.closest('.product-card-media');
+    if (!mediaEl) return;
+
+    let gallery = [];
+    try {
+      gallery = JSON.parse(mediaEl.getAttribute('data-gallery') || '[]');
+    } catch (e) {
+      gallery = [];
+    }
+
+    if (!gallery || gallery.length <= 1) return;
+
+    const currentIndex = parseInt(mediaEl.getAttribute('data-img-index') || '0', 10);
+    const nextIndex = (currentIndex + delta + gallery.length) % gallery.length;
+    mediaEl.setAttribute('data-img-index', nextIndex);
+
+    // Suppress outer card click navigation to allow swiping freely
+    const card = mediaEl.closest('.product-card');
+    if (card) {
+      card._suppressClickUntil = Date.now() + 600;
+    }
+
+    const primaryImg = mediaEl.querySelector('.product-img-primary');
+    if (primaryImg) {
+      primaryImg.style.opacity = '0.25';
+      primaryImg.style.transform = 'scale(0.96)';
+      setTimeout(() => {
+        primaryImg.src = gallery[nextIndex];
+        primaryImg.style.opacity = '1';
+        primaryImg.style.transform = 'scale(1)';
+      }, 90);
+    }
+
+    // Hide hover image so swiped image stays in view
+    const hoverImg = mediaEl.querySelector('.product-img-hover');
+    if (hoverImg) {
+      hoverImg.style.display = 'none';
+    }
+
+    // Update dot indicators
+    const dots = mediaEl.querySelectorAll('.card-swipe-dot');
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === nextIndex);
+    });
+  },
+
+  setCardImage(dotEl, targetIndex) {
+    const mediaEl = dotEl.closest('.product-card-media');
+    if (!mediaEl) return;
+    const currentIndex = parseInt(mediaEl.getAttribute('data-img-index') || '0', 10);
+    const delta = targetIndex - currentIndex;
+    if (delta !== 0) {
+      this.cycleCardImage(mediaEl, delta);
+    }
+  },
+
+  bindCardMediaSwipe(mediaEl) {
+    if (!mediaEl || mediaEl._swipeBound) return;
+    mediaEl._swipeBound = true;
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let isSwiping = false;
+
+    mediaEl.addEventListener('touchstart', (e) => {
+      if (!e.touches || !e.touches[0]) return;
+      if (e.target.closest('.product-card-hover-actions, .card-action-btn, .product-badges, .card-img-arrow, .card-swipe-dots')) {
+        return;
+      }
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      isSwiping = false;
+    }, { passive: true });
+
+    mediaEl.addEventListener('touchmove', (e) => {
+      if (!e.touches || !e.touches[0]) return;
+      const dx = e.touches[0].clientX - touchStartX;
+      const dy = e.touches[0].clientY - touchStartY;
+      if (Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy)) {
+        isSwiping = true;
+      }
+    }, { passive: true });
+
+    mediaEl.addEventListener('touchend', (e) => {
+      if (!isSwiping) return;
+      isSwiping = false;
+      const touch = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0] : null;
+      if (!touch) return;
+      const diffX = touchStartX - touch.clientX;
+      const diffY = touchStartY - touch.clientY;
+      if (Math.abs(diffX) > 22 && Math.abs(diffX) > Math.abs(diffY)) {
+        const card = mediaEl.closest('.product-card');
+        if (card) {
+          card._suppressClickUntil = Date.now() + 600;
+        }
+        if (diffX > 0) {
+          RPComponents.cycleCardImage(mediaEl, 1);
+        } else {
+          RPComponents.cycleCardImage(mediaEl, -1);
+        }
+      }
+    }, { passive: true });
+  },
+
+  /**
+   * Initialize touch and pointer swipe handlers for all product cards across all pages
+   */
+  initProductCardSwipe() {
+    // Bind all currently present product cards
+    document.querySelectorAll('.product-card-media').forEach(mediaEl => {
+      RPComponents.bindCardMediaSwipe(mediaEl);
+    });
+
+    if (this._cardSwipeInitialized) return;
+    this._cardSwipeInitialized = true;
+
+    // Observe future dynamically added product cards (shop filters, related products)
+    if (window.MutationObserver) {
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach(m => {
+          m.addedNodes.forEach(node => {
+            if (node.nodeType === 1) {
+              if (node.classList && node.classList.contains('product-card-media')) {
+                RPComponents.bindCardMediaSwipe(node);
+              } else if (node.querySelectorAll) {
+                node.querySelectorAll('.product-card-media').forEach(mEl => RPComponents.bindCardMediaSwipe(mEl));
+              }
+            }
+          });
+        });
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+    }
   },
 
   handleWishlistToggle(productId, btn) {
@@ -936,6 +1096,12 @@ document.addEventListener('DOMContentLoaded', () => {
   RPComponents.initCircularPreloader();
   RPComponents.initHeader();
   RPComponents.initSearch();
+  RPComponents.initProductCardSwipe();
   CartDrawer.init();
   initGlobalNewsletter();
 });
+
+// Also initialize immediately if DOM ready
+if (document.readyState !== 'loading') {
+  RPComponents.initProductCardSwipe();
+}
