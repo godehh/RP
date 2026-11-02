@@ -121,6 +121,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     touchTarget.addEventListener('touchstart', (e) => {
       if (!e.touches || e.touches.length === 0) return;
+      // If user touches the 3D cards, let BounceCards handle the interactive spring animation without switching slides
+      if (e.target && e.target.closest && e.target.closest('.bounce-cards')) {
+        isSwiping = false;
+        stopAutoplay();
+        return;
+      }
       touchStartX = e.touches[0].clientX;
       touchStartY = e.touches[0].clientY;
       touchEndX = touchStartX;

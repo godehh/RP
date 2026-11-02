@@ -365,6 +365,16 @@
   font-weight: 800 !important;
   border-radius: 10px !important;
   box-shadow: 0 3px 10px rgba(37, 211, 102, 0.28) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+}
+
+.btn-drawer-whatsapp svg {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
 }
 
 .drawer-secondary-row {

@@ -27,7 +27,35 @@
 }
 
 .bounce-cards__card[data-active] {
-  box-shadow: var(--bounce-cards-shadow-active, 0 2px 4px rgba(0, 0, 0, 0.14), 0 22px 44px -10px rgba(0, 0, 0, 0.42));
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16), 0 20px 48px -6px rgba(0, 0, 0, 0.45) !important;
+  border-color: #ffffff !important;
+}
+
+/* Elegant "View Product" hint pill on active foreground card */
+.bounce-cards__card::after {
+  content: 'View Product \2192';
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  background: rgba(21, 128, 61, 0.94);
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  z-index: 10;
+}
+
+.bounce-cards__card[data-active]::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 .bounce-cards__card--clickable {

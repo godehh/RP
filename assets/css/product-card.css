@@ -537,15 +537,20 @@
   .btn-whatsapp-order {
     width: 100%;
     min-height: 32px;
-    padding: 6px 8px;
+    padding: 6px 6px;
     font-size: 0.74rem;
     justify-content: center;
     border-radius: 7px;
+    gap: 6px;
+  }
+  .btn-whatsapp-order svg {
+    width: 16px;
+    height: 16px;
   }
   .btn-add-order-list {
     width: 100%;
     min-height: 30px;
-    padding: 5px 8px;
+    padding: 5px 6px;
     font-size: 0.72rem;
     justify-content: center;
     border-radius: 7px;
@@ -586,26 +591,57 @@
   }
   .btn-whatsapp-order {
     width: 100%;
-    min-height: 30px;
-    padding: 5px 6px;
-    font-size: 0.72rem;
+    min-height: 31px;
+    padding: 5px 4px;
+    font-size: 0.69rem;
     font-weight: 700;
+    letter-spacing: -0.015em;
     justify-content: center;
-    border-radius: 6px;
-    white-space: normal;
+    border-radius: 7px;
+    white-space: nowrap;
     text-align: center;
-    line-height: 1.2;
+    line-height: 1;
+    gap: 4px;
+  }
+  .btn-whatsapp-order svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
   }
   .btn-add-order-list {
     width: 100%;
-    min-height: 28px;
-    padding: 4px 6px;
-    font-size: 0.70rem;
+    min-height: 29px;
+    padding: 4px 4px;
+    font-size: 0.69rem;
     font-weight: 700;
     justify-content: center;
-    border-radius: 6px;
-    white-space: normal;
+    border-radius: 7px;
+    white-space: nowrap;
     text-align: center;
+    line-height: 1;
+    gap: 4px;
+  }
+  .btn-add-order-list svg {
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 380px) {
+  .btn-whatsapp-order {
+    font-size: 0.67rem;
+    letter-spacing: -0.02em;
+    padding: 5px 3px;
+    gap: 3.5px;
+  }
+  .btn-whatsapp-order svg {
+    width: 14.5px;
+    height: 14.5px;
+  }
+  .btn-add-order-list {
+    font-size: 0.67rem;
+    padding: 4px 3px;
   }
 }
 
@@ -790,7 +826,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 6px;
   cursor: pointer;
   transition: all var(--transition-fast);
   text-decoration: none !important;
@@ -811,8 +847,8 @@
 
 .btn-whatsapp-order svg {
   flex-shrink: 0;
-  width: 14px;
-  height: 14px;
+  width: 17px;
+  height: 17px;
 }
 
 .btn-add-order-list {
@@ -923,4 +959,111 @@
   background: #f1f5f9;
   border-color: #94a3b8;
 }
+
+/* ==========================================================================
+   Responsive WhatsApp & Action Buttons (Mobile Viewport Optimization)
+   Placed at the bottom to guarantee top priority over desktop base rules
+   ========================================================================== */
+@media (max-width: 768px) {
+  .product-card-actions-row {
+    flex-direction: column !important;
+    gap: 5px !important;
+    width: 100% !important;
+  }
+  .btn-whatsapp-order {
+    width: 100% !important;
+    min-height: 32px !important;
+    padding: 6px 8px !important;
+    font-size: 0.74rem !important;
+    justify-content: center !important;
+    border-radius: 7px !important;
+    gap: 6px !important;
+    white-space: nowrap !important;
+  }
+  .btn-whatsapp-order svg {
+    width: 16px !important;
+    height: 16px !important;
+    flex-shrink: 0 !important;
+  }
+  .btn-add-order-list {
+    width: 100% !important;
+    min-height: 30px !important;
+    padding: 5px 8px !important;
+    font-size: 0.72rem !important;
+    justify-content: center !important;
+    border-radius: 7px !important;
+    white-space: nowrap !important;
+  }
+  .btn-add-order-list svg {
+    width: 13px !important;
+    height: 13px !important;
+    flex-shrink: 0 !important;
+  }
+}
+
+@media (max-width: 580px) {
+  .product-card-content {
+    padding: 10px 8px 12px !important;
+  }
+  .product-card-actions-row {
+    flex-direction: column !important;
+    gap: 4px !important;
+    width: 100% !important;
+  }
+  .btn-whatsapp-order {
+    width: 100% !important;
+    min-height: 32px !important;
+    padding: 5px 4px !important;
+    font-size: 0.70rem !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.015em !important;
+    justify-content: center !important;
+    border-radius: 7px !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+    line-height: 1 !important;
+    gap: 4px !important;
+  }
+  .btn-whatsapp-order svg {
+    width: 15px !important;
+    height: 15px !important;
+    flex-shrink: 0 !important;
+  }
+  .btn-add-order-list {
+    width: 100% !important;
+    min-height: 30px !important;
+    padding: 4px 4px !important;
+    font-size: 0.70rem !important;
+    font-weight: 700 !important;
+    justify-content: center !important;
+    border-radius: 7px !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+    line-height: 1 !important;
+    gap: 4px !important;
+  }
+  .btn-add-order-list svg {
+    width: 13px !important;
+    height: 13px !important;
+    flex-shrink: 0 !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .btn-whatsapp-order {
+    font-size: 0.67rem !important;
+    letter-spacing: -0.02em !important;
+    padding: 5px 2px !important;
+    gap: 3px !important;
+  }
+  .btn-whatsapp-order svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+  .btn-add-order-list {
+    font-size: 0.67rem !important;
+    padding: 4px 2px !important;
+  }
+}
+
 

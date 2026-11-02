@@ -72,11 +72,13 @@
                 localStorage.setItem('rp_current_product_id', match[1]);
               } catch (err) {}
             }
-            // Navigate immediately if panel is already active, if on mobile, or if CTA clicked
-            if (this.active === i || e.target.closest('.ag-panel__cta') || e.target.closest('.ag-panel__badge') || window.innerWidth <= 768) {
+            // Navigate if panel is already active, or if user tapped the CTA / badge
+            if (this.active === i || e.target.closest('.ag-panel__cta') || e.target.closest('.ag-panel__badge')) {
               window.location.href = href;
               return;
             }
+            // Prevent instant navigation so panel expands with smooth animation on first tap
+            e.preventDefault();
           }
           this.setActive(i);
         });

@@ -72,7 +72,7 @@
         curCardSize = 148;
         curSpread = 50;
         curRotation = 5.5;
-        curPushDist = 0; // Disable hover pushing off-screen on narrow mobile
+        curPushDist = 14;
         curRadius = 14;
         curBorder = 3;
       } else if (w <= 420) {
@@ -80,21 +80,21 @@
         curCardSize = 160;
         curSpread = 56;
         curRotation = 6.5;
-        curPushDist = 0; // Keep cards fully within screen bounds
+        curPushDist = 16;
         curRadius = 16;
         curBorder = 3.5;
       } else if (w <= 480) {
         curCardSize = 170;
         curSpread = 62;
         curRotation = 7;
-        curPushDist = 0;
+        curPushDist = 18;
         curRadius = 18;
         curBorder = 3.5;
       } else if (w <= 768) {
         curCardSize = 205;
         curSpread = 74;
         curRotation = 8;
-        curPushDist = 15;
+        curPushDist = 24;
         curRadius = 20;
         curBorder = 4;
       } else {
@@ -110,7 +110,7 @@
       settings.spread = curSpread;
       settings.rotation = curRotation;
       settings.pushDistance = curPushDist;
-      settings.enableHover = w > 480 && enableHover;
+      settings.enableHover = enableHover !== false;
 
       settings.slots = cardElements.map(function(_, i) {
         var offset = i - middle;
@@ -183,7 +183,7 @@
 
         if (hovered >= 0 && appeared) {
           if (i === hovered) {
-            targetY = slot.y - s.cardSize * 0.04;
+            targetY = slot.y - s.cardSize * 0.07;
             targetRotate = 0;
             targetScale = s.hoverScale;
           } else {
@@ -232,7 +232,7 @@
         state.layer = hovered;
         cardElements.forEach(function(el, i) {
           if (!el) return;
-          el.style.zIndex = i === hovered ? String(s.slots.length + 1) : String(i + 1);
+          el.style.zIndex = i === hovered ? String(s.slots.length + 5) : String(i + 1);
           if (i === hovered) {
             el.setAttribute('data-active', '');
           } else {
@@ -344,38 +344,108 @@
       }
     }
 
-    // Attach direct listeners on each card element for instant navigation
+    // Desktop mouse click handling (fine pointers)
     cardElements.forEach(function(el, i) {
       el.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        navigateToCard(el, i);
+        // Only trigger immediate navigation on desktop mouse clicks (not touchscreen taps)
+        var isMouse = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        if (isMouse) {
+          e.preventDefault();
+          e.stopPropagation();
+          navigateToCard(el, i);
+        }
       });
     });
 
-    var touchStartPos = null;
+    // Touch interaction for mobile devices (Smooth scrub + tap to highlight + second tap to open)
+    var touchInfo = null;
+    var activeTouchCardIndex = -1;
+
     root.addEventListener('touchstart', function(e) {
-      if (e.touches && e.touches[0]) {
-        touchStartPos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      if (!e.touches || !e.touches[0]) return;
+      var touch = e.touches[0];
+      var targetCard = (e.target && e.target.closest) ? e.target.closest('.bounce-cards__card') : null;
+      var cardIdx = targetCard ? cardElements.indexOf(targetCard) : pick(touch);
+
+      touchInfo = {
+        startX: touch.clientX,
+        startY: touch.clientY,
+        startTime: performance.now(),
+        moved: false,
+        initialIndex: cardIdx,
+        targetCard: targetCard
+      };
+
+      if (cardIdx >= 0) {
+        state.hovered = cardIdx;
+        wake();
+      }
+    }, { passive: true });
+
+    root.addEventListener('touchmove', function(e) {
+      if (!touchInfo || !e.touches || !e.touches[0]) return;
+      var touch = e.touches[0];
+      var dx = touch.clientX - touchInfo.startX;
+      var dy = touch.clientY - touchInfo.startY;
+
+      if (Math.abs(dx) > 10 || Math.abs(dy) > 10) {
+        touchInfo.moved = true;
+      }
+
+      // If dragging horizontally across cards, interactively scrub cards!
+      if (Math.abs(dx) > Math.abs(dy)) {
+        var hoverIdx = pick(touch);
+        if (hoverIdx >= 0 && hoverIdx !== state.hovered) {
+          state.hovered = hoverIdx;
+          wake();
+        }
       }
     }, { passive: true });
 
     root.addEventListener('touchend', function(e) {
-      if (!touchStartPos || !e.changedTouches || !e.changedTouches[0]) return;
-      var dx = Math.abs(e.changedTouches[0].clientX - touchStartPos.x);
-      var dy = Math.abs(e.changedTouches[0].clientY - touchStartPos.y);
-      if (dx < 14 && dy < 14) {
-        var targetCard = e.target.closest ? e.target.closest('.bounce-cards__card') : null;
-        var index = targetCard ? cardElements.indexOf(targetCard) : pick({
-          clientX: e.changedTouches[0].clientX,
-          clientY: e.changedTouches[0].clientY
-        });
-        var cardToNav = targetCard || (index >= 0 ? cardElements[index] : null);
-        if (cardToNav) {
-          navigateToCard(cardToNav, index);
+      if (!touchInfo) return;
+      var touch = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0] : null;
+      var dx = touch ? Math.abs(touch.clientX - touchInfo.startX) : 0;
+      var dy = touch ? Math.abs(touch.clientY - touchInfo.startY) : 0;
+      var elapsed = performance.now() - touchInfo.startTime;
+      var isTap = (!touchInfo.moved || (dx < 16 && dy < 16)) && elapsed < 450;
+
+      if (isTap) {
+        var targetCard = touchInfo.targetCard || ((touch && e.target && e.target.closest) ? e.target.closest('.bounce-cards__card') : null);
+        var tappedIdx = targetCard ? cardElements.indexOf(targetCard) : (touch ? pick(touch) : -1);
+
+        if (tappedIdx >= 0) {
+          // If this card is ALREADY active from a previous tap/selection, navigate to its product!
+          if (activeTouchCardIndex === tappedIdx) {
+            navigateToCard(cardElements[tappedIdx], tappedIdx);
+            activeTouchCardIndex = -1;
+          } else {
+            // First tap: Pop this card front-and-center with bouncy spring animation!
+            activeTouchCardIndex = tappedIdx;
+            state.hovered = tappedIdx;
+            wake();
+          }
+        } else {
+          // Tapped empty space: reset cards to resting fan
+          activeTouchCardIndex = -1;
+          state.hovered = -1;
+          wake();
+        }
+      } else {
+        // Drag/scrub gesture finished: keep the selected card active
+        if (state.hovered >= 0) {
+          activeTouchCardIndex = state.hovered;
         }
       }
-      touchStartPos = null;
+
+      touchInfo = null;
+    }, { passive: true });
+
+    root.addEventListener('touchcancel', function() {
+      touchInfo = null;
+      activeTouchCardIndex = -1;
+      state.hovered = -1;
+      wake();
     }, { passive: true });
 
     root.addEventListener('pointermove', onMove);
